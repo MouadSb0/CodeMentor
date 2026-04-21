@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mastering Next.js 14 &amp; | CodeMentor</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#003064",
+                        "primary-dim": "#005865",
+                        "inverse-surface": "#0b0f10",
+                        "secondary-container": "#d8e3fb",
+                        "inverse-primary": "#3adffa",
+                        "surface-container": "#e5e9eb",
+                        "on-primary": "#daf8ff",
+                        "on-background": "#2c2f31",
+                        "on-tertiary": "#eff2ff",
+                        "primary-container": "#3adffa",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "on-surface": "#2c2f31",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-primary-fixed-variant": "#005561",
+                        "on-secondary": "#eff2ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "error": "#b31b25",
+                        "background": "#f5f7f9",
+                        "on-error": "#ffefee",
+                        "surface-variant": "#d9dde0",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "tertiary-fixed": "#84b1ff",
+                        "surface-container-highest": "#d9dde0",
+                        "surface-container-low": "#eef1f3",
+                        "surface-dim": "#d0d5d8",
+                        "on-tertiary-fixed": "#001737",
+                        "outline-variant": "#abadaf",
+                        "on-secondary-fixed": "#354053",
+                        "on-secondary-container": "#475266",
+                        "secondary-dim": "#455064",
+                        "on-primary-container": "#004b56",
+                        "error-dim": "#9f0519",
+                        "secondary": "#515c70",
+                        "tertiary-container": "#84b1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#fb5151",
+                        "surface-bright": "#f5f7f9",
+                        "outline": "#747779",
+                        "tertiary-dim": "#004e9d",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "on-error-container": "#570008",
+                        "primary": "#006573",
+                        "on-primary-fixed": "#00363e",
+                        "surface-tint": "#006573",
+                        "tertiary": "#005ab3",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "primary-fixed": "#3adffa",
+                        "on-surface-variant": "#595c5e",
+                        "surface-container-high": "#dfe3e6",
+                        "surface": "#f5f7f9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .bg-gradient-kinetic {
+            background: linear-gradient(135deg, #006573 0%, #3adffa 100%);
+        }
+
+        .tonal-shift {
+            background-color: #eef1f3;
+        }
+    </style>
+</head>
+
+<body class="bg-[#D0E3E6] text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+    <!-- TopAppBar -->
+    <header class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+        <div class="flex justify-between items-center px-2 w-full mx-auto">
+            <div class="flex items-center w-[20%]">
+                <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]" src="{{ asset('img/logo.png') }}"
+                            alt=""></a></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('/dashboard') }}">Dashboard</a>
+                <div class="relative group py-4">
+                    <button class="text-primary font-bold transition-colors">
+                        Learn
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('/courses') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                        <a href="{{ url('/codeLab') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                        <a href="{{ url('/quizzes') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                    </div>
+                </div>
+                <div class="relative group py-4">
+                    <button
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Careers
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('/assesement') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                        <a href="{{ url('/career') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                        <a href="{{ url('/certifications') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                    </div>
+                </div>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('/community') }}">Community</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('/contact') }}">Contact</a>
+
+            </nav>
+            <div class="flex items-center gap-4">
+                <div
+                    class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm w-80" placeholder="Search courses..."
+                        type="text" />
+                </div>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors">
+                    <span class="material-symbols-outlined text-on-surface-variant"
+                        data-icon="notifications">notifications</span>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                    <a href="{{ url('/profile') }}">
+                        <img alt="User profile avatar"
+                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-screen-2xl mx-auto px-8 pt-12">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center space-x-2 text-label-md text-on-surface-variant mb-8 tracking-wide">
+            <span class="hover:text-primary cursor-pointer">Academy</span>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <span class="hover:text-primary cursor-pointer">Web Development</span>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <span class="text-on-surface font-semibold">Mastering Next.js 14</span>
+        </nav>
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-start">
+            <div class="lg:col-span-8">
+                <h1 class="text-5xl lg:text-7xl font-bold text-on-surface leading-[1.1] mb-6 tracking-tight">
+                    Mastering <span class="text-primary italic">Next.js 14</span> &amp; Kinetic UI
+                </h1>
+                <div class="flex flex-wrap items-center gap-6 mb-8">
+                    <div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full">
+                        <span class="material-symbols-outlined text-yellow-500 mr-2"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="font-bold text-on-surface">4.9</span>
+                        <span class="text-on-surface-variant ml-1 text-sm">(1,240 reviews)</span>
+                    </div>
+                    <div class="flex items-center text-on-surface-variant text-sm font-medium">
+                        <span class="material-symbols-outlined mr-2 text-primary">schedule</span>
+                        12 Hours
+                    </div>
+                    <div class="flex items-center text-on-surface-variant text-sm font-medium">
+                        <span class="material-symbols-outlined mr-2 text-primary">layers</span>
+                        45 Lessons
+                    </div>
+                    <div class="flex items-center text-on-surface-variant text-sm font-medium">
+                        <span class="material-symbols-outlined mr-2 text-primary">equalizer</span>
+                        Intermediate Level
+                    </div>
+                </div>
+                <p class="text-xl text-on-surface-variant leading-relaxed max-w-3xl mb-10">
+                    Deep dive into the latest Next.js 14 features including the App Router, Server Actions, and partial
+                    pre-rendering. Build high-performance editorial interfaces using the Kinetic UI design system.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <button
+                        class="bg-gradient-kinetic text-on-primary px-8 py-4 rounded-xl text-lg font-bold hover:scale-[0.98] transition-transform shadow-xl shadow-primary/20">
+                        Enroll Now - $49.99
+                    </button>
+                    <button
+                        class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-xl text-lg font-bold hover:bg-surface-container-high transition-colors">
+                        Watch Preview
+                    </button>
+                </div>
+            </div>
+            <div class="lg:col-span-4 sticky top-28">
+                <div class="bg-surface-container-lowest rounded-2xl p-2 shadow-2xl shadow-on-surface/5">
+                    <div class="relative aspect-video rounded-xl overflow-hidden mb-4 group">
+                        <img alt="Cinematic close-up of a modern coding environment with glowing neon lights and Next.js logo on a high-end monitor"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            data-alt="high-end sleek workspace with dark aesthetic, coding interface on curved screen, soft teal ambient lighting and bokeh background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX173Mn9ZT8yZNJ9-dWv-gdtTe8tqeMDCo0Qz_iGlfN21RS2uxCwLsG9sJc9lvlBzX-55zNTR-iQJrpmqR0Z33DeF0kzMSZo1KUWj8TAkk2lGtIISiFrqHSqqKSEgzeG43suJrfJj_Z3imjNpSV3A1h6Wo8qXvKXIDorfHVA7bBC9FIJg7v1jTvf7wfF1Mr_AJaA7MZBLezVto5VYVn5Is1fDz6ZfUSPLN_era3EHvnrQ7omnM7JYONxoSq_h0LePh-PHaI1lnBCdG" />
+                        <div class="absolute inset-0 bg-on-surface/40 flex items-center justify-center">
+                            <div
+                                class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-primary shadow-xl scale-100 hover:scale-110 transition-transform cursor-pointer">
+                                <span class="material-symbols-outlined text-4xl"
+                                    style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-headline text-lg font-bold mb-4">Course Highlights</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-xl">verified</span>
+                                <span class="text-sm text-on-surface-variant">Lifetime access to all modules</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-xl">description</span>
+                                <span class="text-sm text-on-surface-variant">25+ Downloadable resources</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-xl">workspace_premium</span>
+                                <span class="text-sm text-on-surface-variant">Verified Certificate of Completion</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Main Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-8">
+                <!-- Tabs -->
+                <div class="flex space-x-12 border-b border-outline-variant/15 mb-12">
+                    <button
+                        class="pb-4 text-primary border-b-2 border-primary font-bold tracking-tight">Overview</button>
+                    <button
+                        class="pb-4 text-on-surface-variant font-medium hover:text-on-surface transition-colors">Curriculum</button>
+                    <button
+                        class="pb-4 text-on-surface-variant font-medium hover:text-on-surface transition-colors">Instructor</button>
+                    <button
+                        class="pb-4 text-on-surface-variant font-medium hover:text-on-surface transition-colors">Reviews</button>
+                </div>
+                <!-- Curriculum Section -->
+                <section class="mb-20">
+                    <h2 class="text-3xl font-bold mb-8 flex items-center">
+                        Course Curriculum
+                        <span
+                            class="ml-4 text-sm font-medium bg-surface-container-low px-3 py-1 rounded-full text-on-surface-variant">4
+                            Modules</span>
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- Module 1 -->
+                        <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+                            <div
+                                class="p-6 flex items-center justify-between cursor-pointer hover:bg-surface-container-low/50 transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary font-bold">
+                                        01</div>
+                                    <h3 class="font-bold text-lg">App Router Fundamentals</h3>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-on-surface-variant">8 Lessons • 1h 45m</span>
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-2 space-y-3">
+                                <div
+                                    class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <span
+                                            class="material-symbols-outlined text-on-surface-variant text-xl">play_circle</span>
+                                        <span class="text-sm font-medium">Understanding File-based Routing</span>
+                                    </div>
+                                    <span class="text-xs text-on-surface-variant font-mono">12:45</span>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <span
+                                            class="material-symbols-outlined text-on-surface-variant text-xl">play_circle</span>
+                                        <span class="text-sm font-medium">Layouts &amp; Templates: The Core
+                                            Pattern</span>
+                                    </div>
+                                    <span class="text-xs text-on-surface-variant font-mono">18:20</span>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <span
+                                            class="material-symbols-outlined text-on-surface-variant text-xl">quiz</span>
+                                        <span class="text-sm font-medium">Knowledge Check: Routing Logic</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-primary">QUIZ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Module 2 -->
+                        <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+                            <div
+                                class="p-6 flex items-center justify-between cursor-pointer hover:bg-surface-container-low/50 transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary font-bold">
+                                        02</div>
+                                    <h3 class="font-bold text-lg">Server Actions &amp; Data Fetching</h3>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-on-surface-variant">12 Lessons • 3h 10m</span>
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Module 3 -->
+                        <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+                            <div
+                                class="p-6 flex items-center justify-between cursor-pointer hover:bg-surface-container-low/50 transition-colors">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary font-bold">
+                                        03</div>
+                                    <h3 class="font-bold text-lg">Mastering Kinetic UI Components</h3>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-on-surface-variant">15 Lessons • 4h 20m</span>
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Instructor Section -->
+                <section class="mb-20">
+                    <h2 class="text-3xl font-bold mb-10">Meet Your Mentor</h2>
+                    <div class="bg-surface-container-low rounded-2xl p-8 flex flex-col md:flex-row gap-8 items-start">
+                        <img alt="Marcus Devrak"
+                            class="w-32 h-32 rounded-2xl object-cover shrink-0 grayscale hover:grayscale-0 transition-all duration-500"
+                            data-alt=" Marcus Devrak"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuABZFxIAV6uNDPd6oeLEoxSSm1ieeZ_9XYbdhQACR9WIcI3nB2C4xBsg7fBg_0A2i6cbuUl7JHPqaf2HISB5EyI-ZO3aIOhfoM8XFPI9vyQ4Io7iTu5hLFPgCkua4BRRVXDSNhX8Eg1_t88ji1SqFQzUhBY9h7ZQPLZWF4kMcJ3PNiVqp6-vbYxjwdj1dCvi4uPesHqzL5k7Rynib3Fp-4Sa6seeN7XGBlRXO_efyUk5YotbN7T4CdYp3lxwoBM8yHZ8Lg22v4OB0hZ" />
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Marcus Devrak</h3>
+                            <p class="text-primary font-bold mb-4 uppercase tracking-widest text-xs">Lead Frontend
+                                Architect</p>
+                            <p class="text-on-surface-variant leading-relaxed mb-6">
+                                With over 15 years of experience in modern web architecture, Marcus has helped scale
+                                production Next.js applications for Fortune 500 companies. He is the creator of the
+                                Kinetic UI framework and a passionate advocate for surgical design precision.
+                            </p>
+                            <div class="flex gap-6">
+                                <div class="text-center">
+                                    <div class="text-xl font-bold">45k+</div>
+                                    <div class="text-xs text-on-surface-variant uppercase tracking-tighter">Students
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold">12</div>
+                                    <div class="text-xs text-on-surface-variant uppercase tracking-tighter">Courses
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold">4.95</div>
+                                    <div class="text-xs text-on-surface-variant uppercase tracking-tighter">Rating</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Sidebar Content Area -->
+            <aside class="lg:col-span-4 space-y-10">
+                <!-- What you'll learn -->
+                <div class="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/10">
+                    <h3 class="text-xl font-bold mb-6">What you'll learn</h3>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-sm text-on-surface-variant leading-tight">Master the App Router and Shared
+                                Layouts for enterprise apps.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-sm text-on-surface-variant leading-tight">Implement Server Actions for
+                                seamless form handling.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-sm text-on-surface-variant leading-tight">Build editorial-grade UI using
+                                Kinetic Design Tokens.</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="material-symbols-outlined text-primary"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <span class="text-sm text-on-surface-variant leading-tight">Optimize Core Web Vitals with
+                                Partial Pre-rendering.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Prerequisites -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 px-2">Course Requirements</h3>
+                    <div class="bg-surface p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">code</span>
+                            <span class="text-sm">Solid understanding of React Hooks</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">javascript</span>
+                            <span class="text-sm">Modern ES6+ JavaScript proficiency</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+                            <span class="text-sm">Familiarity with Node.js and NPM</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Related Courses -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 px-2">Related Pathways</h3>
+                    <div class="space-y-6">
+                        <div class="group cursor-pointer">
+                            <div class="flex gap-4 items-center">
+                                <img alt="Advanced Tailwind Architectures" class="w-16 h-16 rounded-xl object-cover"
+                                    data-alt="Advanced Tailwind Architectures"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaZ0G2e_p8_kfACxRndBtrKt4Krvz-nlgf_lA-sehr1DbGx3VvCdXlmN-kNbinVgdX7KEexJivceMJ2-o0WjWcONtdQ5gaXLqjxuYOQRGZoPQOdiVxi3wc-5RxH2zj8Sg33tcQDublzTDBooErt2Q_idcG9zlzDjGKKRgE1hIsnDw-9EFlgNYdk52CoJ0Q_x4iT5Y5qGVTJYfgwDGgeGDZjfzYjNcJwNH7X-do1Yd8M10g0L7KVOmT7ChO04FSROgTXPMM73G5wTeC" />
+                                <div>
+                                    <h4 class="font-bold text-sm group-hover:text-primary transition-colors">Advanced
+                                        Tailwind Architectures</h4>
+                                    <p class="text-xs text-on-surface-variant mt-1">4.8 ★ • 5 Hours</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div class="flex gap-4 items-center">
+                                <img alt="Editorial UI Design Systems" class="w-16 h-16 rounded-xl object-cover"
+                                    data-alt="Editorial UI Design Systems"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjmu1SfAE2duztKwn5DO3V5QWhX3WHR8I3DUES1iuUg19J4vdRdPY2mYz64Xh981eT6P3ZS4yY0R5l-IQzoaKRiDuXZrs30ubCZwMiaYSWLmLNwGyPtrMnOcawshLXKBvVIwaBTNr6sLmx9gDAgp0taO_H77kyPQj4aKExldPesC7pSOIl5lqddZLolnCt6ZsHRb4mn3Sro-SPwWB0R5rw44DxykbCgVSh5c9jS0ai3-8LH_VYRWhBYwy8PhtUzj8-jxiOfQhgBjrg" />
+                                <div>
+                                    <h4 class="font-bold text-sm group-hover:text-primary transition-colors">Editorial
+                                        UI Design Systems</h4>
+                                    <p class="text-xs text-on-surface-variant mt-1">4.9 ★ • 8 Hours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full py-12 mt-20 border-t border-[#abadaf]/15 bg-[#0D1B2A] dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="font-['Space_Grotesk'] font-bold text-[#30D4ED] dark:text-white uppercase">
+                <span class="text-[#D0E3E6]">Code</span>Mentor
+            </div>
+            <div class="flex flex-wrap justify-center gap-8 text-xs font-['Inter'] tracking-normal text-slate-500">
+                <a class="text-[#D0E3E6] hover:text-[#30D4ED] underline underline-offset-4 transition-opacity"
+                    href="#">Terms of
+                    Service</a>
+                <a class="text-[#D0E3E6] hover:text-[#30D4ED] underline underline-offset-4 transition-opacity"
+                    href="#">Privacy
+                    Policy</a>
+                <a class="text-[#D0E3E6] hover:text-[#30D4ED] underline underline-offset-4 transition-opacity"
+                    href="#">Help Center</a>
+                <a class="text-[#D0E3E6] hover:text-[#30D4ED] underline underline-offset-4 transition-opacity"
+                    href="#">Support</a>
+            </div>
+            <p class="text-xs text-[#D0E3E6] font-['Inter']">© 2024 DEVRAK Academy. The Kinetic Editorial System.</p>
+        </div>
+    </footer>
+    <div class="fixed bottom-12 right-12 hidden lg:flex flex-col gap-4">
+        <button
+            class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined transition-transform group-hover:rotate-12"
+                data-icon="chat_bubble">chat_bubble</span>
+        </button>
+        <button
+            class="w-14 h-14 rounded-full bg-surface-container-lowest text-on-surface shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+        </button>
+    </div>
+</body>
+
+</html>

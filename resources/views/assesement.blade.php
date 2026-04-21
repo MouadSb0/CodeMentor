@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CodeMentor Academy | Code Assessment</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;family=JetBrains+Mono&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-background": "#2c2f31",
+                        "primary-dim": "#005865",
+                        "outline": "#747779",
+                        "on-tertiary-container": "#003064",
+                        "on-secondary": "#eff2ff",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "surface-container": "#e5e9eb",
+                        "on-primary-fixed-variant": "#005561",
+                        "primary-container": "#3adffa",
+                        "surface-dim": "#d0d5d8",
+                        "on-primary": "#daf8ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface": "#f5f7f9",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "outline-variant": "#abadaf",
+                        "on-tertiary-fixed": "#001737",
+                        "surface-bright": "#f5f7f9",
+                        "on-surface": "#2c2f31",
+                        "secondary-fixed": "#d8e3fb",
+                        "secondary": "#515c70",
+                        "on-primary-fixed": "#00363e",
+                        "on-tertiary": "#eff2ff",
+                        "surface-container-low": "#eef1f3",
+                        "tertiary-dim": "#004e9d",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "on-primary-container": "#004b56",
+                        "background": "#f5f7f9",
+                        "on-error": "#ffefee",
+                        "surface-variant": "#d9dde0",
+                        "surface-container-high": "#dfe3e6",
+                        "inverse-primary": "#3adffa",
+                        "error-container": "#fb5151",
+                        "secondary-dim": "#455064",
+                        "on-error-container": "#570008",
+                        "on-secondary-fixed": "#354053",
+                        "on-secondary-container": "#475266",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "error-dim": "#9f0519",
+                        "tertiary-fixed": "#84b1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#84b1ff",
+                        "tertiary": "#005ab3",
+                        "error": "#b31b25",
+                        "on-surface-variant": "#595c5e",
+                        "inverse-surface": "#0b0f10",
+                        "surface-container-highest": "#d9dde0",
+                        "primary-fixed": "#3adffa",
+                        "primary": "#006573",
+                        "secondary-container": "#d8e3fb",
+                        "surface-tint": "#006573"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .code-editor {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #abadaf33;
+            border-radius: 10px;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-[#D0E3E6] text-on-surface min-h-screen">
+    <!-- TopAppBar Component -->
+    <header class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+        <div class="flex justify-between items-center px-2 w-full mx-auto">
+            <div class="flex items-center w-[20%]">
+                <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]" src="{{ asset('img/logo.png') }}"
+                            alt=""></a></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('dashboard') }}">Dashboard</a>
+                <div class="relative group py-4">
+                    <button
+                        class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold">
+                        Learn
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('courses') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                        <a href="{{ url('codeLab') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                        <a href="{{ url('quiz') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                    </div>
+                </div>
+                <div class="relative group py-4">
+                    <button class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors">
+                        Careers
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('assesement') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                        <a href="{{ url('carrer') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                        <a href="{{ url('certifications') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                    </div>
+                </div>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('community') }}">Community</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('contact') }}">Contact</a>
+
+            </nav>
+            <div class="flex items-center gap-4">
+                <div
+                    class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm w-80" placeholder="Search courses..."
+                        type="text" />
+                </div>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors">
+                    <span class="material-symbols-outlined text-on-surface-variant"
+                        data-icon="notifications">notifications</span>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                    <a href="{{ url('profile') }}">
+                        <img alt="User profile avatar"
+                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main
+        class="max-w-screen-2xl mx-auto px-6 py-8 pb-24 lg:pb-8 flex flex-col lg:flex-row gap-8 min-h-[calc(100vh-80px)]">
+        <!-- Left Column: Challenge Description & Bento Stats -->
+        <div class="w-full lg:w-1/3 flex flex-col gap-6">
+            <!-- Assessment Header Card -->
+            <div
+                class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-primary-container/10 rounded-full -mr-16 -mt-16 blur-3xl">
+                </div>
+                <div class="relative z-10">
+                    <div
+                        class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                        <span class="material-symbols-outlined text-[14px]">bolt</span>
+                        Advanced React
+                    </div>
+                    <h2 class="text-3xl font-bold font-headline leading-tight mb-2">Implement a custom hook</h2>
+                    <p class="text-on-surface-variant body-md mb-6">Create a <code
+                            class="bg-surface-container px-1.5 py-0.5 rounded text-primary font-mono text-sm">useLocalStorage</code>
+                        hook that synchronizes state with the browser's storage.</p>
+                    <div class="flex gap-4 items-center p-4 bg-surface-container-low rounded-lg">
+                        <div class="flex -space-x-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-primary-container border-2 border-surface-container-lowest flex items-center justify-center text-[10px] font-bold">
+                                JS</div>
+                            <div
+                                class="w-8 h-8 rounded-full bg-tertiary-container border-2 border-surface-container-lowest flex items-center justify-center text-[10px] font-bold">
+                                RX</div>
+                        </div>
+                        <span class="text-xs font-medium text-on-surface-variant">Recommended for Mid-Level Devs</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Bento Checklist -->
+            <div class="flex flex-col gap-4">
+                <h3 class="text-sm font-bold uppercase tracking-widest text-outline px-1">Validation Checklist</h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <!-- Test Case Passed -->
+                    <div
+                        class="group bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 transition-all duration-300 hover:bg-primary-container/5">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600">
+                            <span class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold">Initial Value Logic</p>
+                            <p class="text-xs text-on-surface-variant">Defaults to provided initial value</p>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-green-600">PASS</div>
+                    </div>
+                    <!-- Test Case Pending -->
+                    <div
+                        class="group bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 border border-transparent hover:border-primary-container/20">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline">
+                            <span class="material-symbols-outlined">radio_button_unchecked</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold">Setter Persistence</p>
+                            <p class="text-xs text-on-surface-variant">Updates localStorage on state change</p>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-outline">WAITING</div>
+                    </div>
+                    <!-- Test Case Failed -->
+                    <div
+                        class="group bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 transition-all duration-300">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-error-container/10 flex items-center justify-center text-error">
+                            <span class="material-symbols-outlined">cancel</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold">SSR Compatibility</p>
+                            <p class="text-xs text-on-surface-variant">Checks for window presence</p>
+                        </div>
+                        <div class="text-xs font-mono font-bold text-error">FAIL</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Kinetic Tips Card -->
+            <div class="bg-primary p-6 rounded-xl text-on-primary mt-auto hidden lg:block">
+                <span class="material-symbols-outlined mb-2">lightbulb</span>
+                <p class="text-sm font-medium leading-relaxed">Tip: Remember that localStorage only stores strings. Use
+                    <code class="text-primary-container">JSON.stringify</code> and <code
+                        class="text-primary-container">JSON.parse</code> for complex objects.
+                </p>
+            </div>
+        </div>
+        <!-- Right Column: Code Editor Area -->
+        <div class="flex-1 flex flex-col gap-4">
+            <div
+                class="bg-surface-container-lowest rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] flex flex-col flex-1 overflow-hidden border border-outline-variant/15">
+                <!-- Editor Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-surface-container-low">
+                    <div class="flex items-center gap-4">
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 rounded-full bg-error-container"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <span class="text-xs font-mono font-bold text-on-surface-variant flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px]">javascript</span>
+                            useLocalStorage.js
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="p-2 hover:bg-surface-container rounded-lg transition-colors text-on-surface-variant">
+                            <span class="material-symbols-outlined">settings</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Main Code Canvas -->
+                <div class="flex-1 p-6 overflow-auto bg-[#fafbfc] dark:bg-slate-950 font-mono text-sm leading-relaxed">
+                    <pre class="text-[#2c2f31]/80 dark:text-slate-300"><span class="text-purple-600">import</span> { useState, useEffect } <span class="text-purple-600">from</span> <span class="text-green-600">'react'</span>;
+
+<span class="text-purple-600">export function</span> <span class="text-blue-600">useLocalStorage</span>(key, initialValue) {
+  <span class="text-slate-400">// TODO: 1. Initialize state with value from localStorage </span>
+  <span class="text-slate-400">// or the initialValue provided.</span>
+  <span class="text-purple-600">const</span> [storedValue, setStoredValue] = <span class="text-blue-600">useState</span>(() =&gt; {
+    <span class="text-purple-600">try</span> {
+      <span class="text-purple-600">const</span> item = window.localStorage.<span class="text-blue-600">getItem</span>(key);
+      <span class="text-purple-600">return</span> item ? JSON.<span class="text-blue-600">parse</span>(item) : initialValue;
+    } <span class="text-purple-600">catch</span> (error) {
+      console.<span class="text-blue-600">log</span>(error);
+      <span class="text-purple-600">return</span> initialValue;
+    }
+  });
+
+  <span class="text-slate-400">// TODO: 2. Implement the setter function that updates</span>
+  <span class="text-slate-400">// both state and localStorage.</span>
+  <span class="text-purple-600">const</span> <span class="text-blue-600">setValue</span> = (value) =&gt; {
+    <span class="text-slate-400">// Your code here...</span>
+    <span class="bg-primary-container/20 border-l-2 border-primary-container px-2 py-0.5 animate-pulse">|</span>
+  };
+
+  <span class="text-purple-600">return</span> [storedValue, setValue];
+}</pre>
+                </div>
+                <!-- Editor Footer / Actions -->
+                <div
+                    class="px-6 py-4 flex items-center justify-between bg-surface-container-low border-t border-outline-variant/10">
+                    <div class="flex items-center gap-4">
+                        <span class="flex items-center gap-1 text-xs text-on-surface-variant font-medium">
+                            <span class="material-symbols-outlined text-[14px]">cloud_done</span>
+                            Saved
+                        </span>
+                        <span class="text-xs text-on-surface-variant font-medium">Line 14, Col 24</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button
+                            class="px-6 py-2.5 rounded-xl font-bold bg-surface-container-high text-on-surface-variant hover:bg-surface-dim transition-all active:scale-95">
+                            Reset Task
+                        </button>
+                        <button
+                            class="px-8 py-2.5 rounded-xl font-bold bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined"
+                                style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            Run Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Validation Output Console -->
+            <div
+                class="bg-[#1e1e1e] text-slate-300 rounded-xl p-4 font-mono text-xs overflow-hidden h-40 border-l-4 border-error">
+                <div class="flex items-center gap-2 mb-2 text-error">
+                    <span class="material-symbols-outlined text-sm">terminal</span>
+                    <span class="font-bold">Execution Error: SSR_WINDOW_NOT_FOUND</span>
+                </div>
+                <div class="opacity-80">
+                    <p>&gt; Testing logic for Server Side Rendering...</p>
+                    <p class="text-error">&gt; ReferenceError: window is not defined</p>
+                    <p class="ml-4 text-slate-500">at useLocalStorage (useLocalStorage.js:6:18)</p>
+                    <p class="ml-4 text-slate-500">at Object.&lt;anonymous&gt; (test-runner.js:42:12)</p>
+                    <p class="mt-2 text-primary-container">&gt; Hint: Wrap your localStorage calls in a type check for
+                        'window' or use useEffect for side effects.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe md:hidden bg-[#ffffff]/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-[#abadaf]/15 shadow-[0px_-4px_20px_rgba(44,47,49,0.04)] rounded-t-2xl">
+        <a class="flex flex-col items-center justify-center text-[#2c2f31]/50 dark:text-slate-500 active:scale-90 transition-transform"
+            href="{{ url('courses') }}">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-['Inter'] text-[10px] font-medium tracking-wide">Learn</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-[#006573] dark:bg-[#22d3ee] text-white dark:text-slate-950 rounded-xl px-4 py-1.5 active:scale-90 transition-transform"
+            href="{{ url('assesement') }}">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">timer</span>
+            <span class="font-['Inter'] text-[10px] font-medium tracking-wide">Test</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#2c2f31]/50 dark:text-slate-500 active:scale-90 transition-transform"
+            href="#">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="font-['Inter'] text-[10px] font-medium tracking-wide">Stats</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-[#2c2f31]/50 dark:text-slate-500 active:scale-90 transition-transform"
+            href="{{ url('profile') }}">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-['Inter'] text-[10px] font-medium tracking-wide">Profile</span>
+        </a>
+    </nav>
+    <div class="fixed bottom-12 right-12 hidden lg:flex flex-col gap-4">
+        <button
+            class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined transition-transform group-hover:rotate-12"
+                data-icon="chat_bubble">chat_bubble</span>
+        </button>
+        <button
+            class="w-14 h-14 rounded-full bg-surface-container-lowest text-on-surface shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+        </button>
+    </div>
+
+</body>
+
+</html>

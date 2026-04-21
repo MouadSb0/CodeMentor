@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>StudyLink | CodeMentor</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d8e3fb",
+                        "surface-tint": "#006573",
+                        "on-primary-fixed": "#00363e",
+                        "surface-bright": "#f5f7f9",
+                        "primary-dim": "#005865",
+                        "outline": "#747779",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "on-tertiary-container": "#003064",
+                        "primary-fixed": "#3adffa",
+                        "tertiary-dim": "#004e9d",
+                        "surface-dim": "#d0d5d8",
+                        "secondary-container": "#d8e3fb",
+                        "surface-variant": "#d9dde0",
+                        "tertiary-fixed": "#84b1ff",
+                        "surface-container-high": "#dfe3e6",
+                        "surface-container-low": "#eef1f3",
+                        "secondary-dim": "#455064",
+                        "on-tertiary": "#eff2ff",
+                        "inverse-primary": "#3adffa",
+                        "surface": "#f5f7f9",
+                        "secondary": "#515c70",
+                        "on-primary-container": "#004b56",
+                        "error": "#b31b25",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "on-secondary-fixed": "#354053",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#475266",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "tertiary-container": "#84b1ff",
+                        "primary": "#006573",
+                        "on-error": "#ffefee",
+                        "on-surface-variant": "#595c5e",
+                        "on-primary-fixed-variant": "#005561",
+                        "on-error-container": "#570008",
+                        "on-surface": "#2c2f31",
+                        "inverse-surface": "#0b0f10",
+                        "error-container": "#fb5151",
+                        "surface-container": "#e5e9eb",
+                        "on-tertiary-fixed": "#001737",
+                        "inverse-on-surface": "#9a9d9f",
+                        "outline-variant": "#abadaf",
+                        "on-background": "#2c2f31",
+                        "on-secondary": "#eff2ff",
+                        "on-primary": "#daf8ff",
+                        "background": "#f5f7f9",
+                        "error-dim": "#9f0519",
+                        "tertiary": "#005ab3",
+                        "surface-container-highest": "#d9dde0",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "primary-container": "#3adffa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #abadaf33;
+            border-radius: 10px;
+        }
+
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #006573 0%, #3adffa 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-[#D0E3E6] text-on-surface overflow-hidden h-screen flex flex-col">
+    <!-- TopAppBar (Shared Component) -->
+    <header class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+        <div class="flex justify-between items-center px-2 w-full mx-auto">
+            <div class="flex items-center w-[20%]">
+                <span class="w-[75%]"><img class="w-[100%]" src="{{ asset('img/logo.png') }}" alt=""></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors"
+                    href="{{ url('dashboard') }}">Dashboard</a>
+                <div class="relative group py-4">
+                    <button
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Learn
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('courses') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                        <a href="{{ url('codeLab') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                        <a href="{{ url('quiz') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                    </div>
+                </div>
+                <div class="relative group py-4">
+                    <button
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Careers
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('assesement') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                        <a href="{{ url('carrer') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                        <a href="{{ url('certifications') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                    </div>
+                </div>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+                    href="{{ url('community') }}">Community</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+                    href="{{ url('contact') }}">Contact</a>
+
+            </nav>
+            <div class="flex items-center gap-4">
+                <div
+                    class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm w-80" placeholder="Search courses..."
+                        type="text" />
+                </div>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors">
+                    <span class="material-symbols-outlined text-on-surface-variant"
+                        data-icon="notifications">notifications</span>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                    <a href="{{ url('profile') }}">
+                        <img alt="User profile avatar"
+                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Channel/Chat Sidebar -->
+        <main class="flex-1 flex overflow-hidden">
+            <!-- Channel List -->
+            <section class="w-72 bg-[#D0E3E6] flex flex-col border-r border-outline-variant/10">
+                <div class="p-6">
+                    <h2 class="headline text-lg font-bold text-on-surface mb-6">Channels</h2>
+                    <div class="space-y-1">
+                        <button
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-lowest text-primary font-semibold transition-all">
+                            <span class="flex items-center gap-2">
+                                <span class="text-outline-variant font-medium">#</span>
+                                <span>general</span>
+                            </span>
+                            <span class="bg-primary text-on-primary text-[10px] px-1.5 py-0.5 rounded-full">2</span>
+                        </button>
+                        <button
+                            class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+                            <span class="text-outline-variant font-medium">#</span>
+                            <span>physics-group</span>
+                        </button>
+                        <button
+                            class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+                            <span class="text-outline-variant font-medium">#</span>
+                            <span>react-help</span>
+                        </button>
+                        <button
+                            class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all">
+                            <span class="text-outline-variant font-medium">#</span>
+                            <span>career-advice</span>
+                        </button>
+                    </div>
+                    <h2 class="headline text-lg font-bold text-on-surface mt-8 mb-4">Direct Messages</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 px-2">
+                            <div class="relative">
+                                <img alt="Sarah" class="w-8 h-8 rounded-full"
+                                    data-alt="Portrait of a smiling woman with glasses in a professional setting"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKC-nKlIYdTgIFXjfwEGw7aakyiloln1VM0fjwXVOeRsnrQ96BIQun_jxvbsD8Hd8UPj3fmEo0C_Itl3KnCGvX7HavIzZyo_xXcZKOF4qXmxpb8_jDLNYv43lVwbbwB-P1giJshFc7kdjZT4g5UPzegsAOmLz1Qex2GhjE4RU0ljad2p6lXj4k4ZBhZVI5DAevjht51XRJNDlqP_afqETxb6IlbcHlB8GuS9AQt3gbW8CtqWZGft2hlqCiq4snM1yWYm1D6OqlA04N" />
+                                <span
+                                    class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-surface-container-low rounded-full"></span>
+                            </div>
+                            <span class="text-sm font-medium">Sarah Miller</span>
+                        </div>
+                        <div class="flex items-center gap-3 px-2">
+                            <div class="relative">
+                                <img alt="David" class="w-8 h-8 rounded-full"
+                                    data-alt="Close-up of a man with a beard looking thoughtful in an office background"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB0kuIws7pB4urdMxUCxyha3Dx5JyMlx-_O6_D2oVXwYp64LmL6fhTXKxqUShROZwhc-iYnZ5NhX24k6xV9E7-jxc6Yxb9H2PM-YTGHS8FiUlYS9RtVdUIuZ9a-zK7AznmYIsMAK6cjNKGYZRi53IDNiGBT29EV84k3vpHkaLIlIywyoKV9lEBy9ku-r9yUooEGj7Gus_dLcnhX99AiOlfFpyYU0u2PjvgT8D2fmVAW8zqeY4CMF5xoEtMORrA8_Z0KzY5My5b85TC" />
+                                <span
+                                    class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-outline-variant border-2 border-surface-container-low rounded-full"></span>
+                            </div>
+                            <span class="text-sm font-medium opacity-70">David Chen</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Main Chat Area -->
+            <section class="flex-1 bg-surface-container-lowest flex flex-col relative">
+                <!-- Chat Header -->
+                <header class="h-16 flex items-center justify-between px-6 border-b border-outline-variant/10">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl font-light text-outline-variant">#</span>
+                        <h2 class="headline text-xl font-bold">general</h2>
+                        <span class="w-1 h-1 bg-outline-variant rounded-full mx-2"></span>
+                        <span class="text-xs text-on-surface-variant">The main hub for Devrak community talk.</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors"
+                            data-icon="search">search</span>
+                        <span
+                            class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors"
+                            data-icon="person_add">person_add</span>
+                        <span
+                            class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors"
+                            data-icon="info">info</span>
+                    </div>
+                </header>
+                <!-- Message History -->
+                <div class="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+                    <!-- Day Divider -->
+                    <div class="relative flex items-center py-4">
+                        <div class="flex-grow border-t border-outline-variant/10"></div>
+                        <span
+                            class="flex-shrink mx-4 text-xs font-bold text-outline uppercase tracking-widest">Today</span>
+                        <div class="flex-grow border-t border-outline-variant/10"></div>
+                    </div>
+                    <!-- Message Received -->
+                    <div class="flex gap-4 group">
+                        <img alt="Marcus" class="w-10 h-10 rounded-xl mt-1"
+                            data-alt="Professional headshot of a man with short hair against a neutral gray background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFR9Y-4QHq-eBlIMXtOAgZLNX9dwthrQHd4eR21OAZPuxt3J36kptQAMwls9oktyLqX4Mg7PdX8Wo4ol1PLOBAMvNKrwfO-qIDEWbnCCQqkW6XUkvF8ve0KzubSEknORaJLJrCPbQGPbTLU1GrPXOOQlBf7Sd4KyjHVQAeq84eKXuteZR6X6_ZKjxg5FCbkBOV-XZaVK_rbx9RglBW_TdCTPcj8TGVA4v7CDsPl_7Yh_jo2YwBwnwEzt7yNnbhVdhIOtTB3KS7i6OB" />
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-on-surface">Marcus Thorne</span>
+                                <span class="text-[10px] text-outline-variant font-medium uppercase">10:42 AM</span>
+                            </div>
+                            <div
+                                class="bg-surface-container-low px-4 py-3 rounded-2xl rounded-tl-none max-w-xl text-on-surface leading-relaxed shadow-sm">
+                                Hey everyone! Has anyone had a chance to check out the new Lab architecture
+                                documentation? I'm curious about the kinetic layering approach we're implementing for
+                                the mobile client.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Message Received -->
+                    <div class="flex gap-4 group">
+                        <img alt="Elena" class="w-10 h-10 rounded-xl mt-1"
+                            data-alt="Portrait of a professional woman with a warm smile in a modern office"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnoNnFcJAMt-zROoRUMV2UwdpIETeXd15mJF55Luyzfyi1kwiLbi08ADIB2EnrS_jM7gy7Af8ENB0NGhhcDXinjaxWDaycJ2-GOJC9jrC7uB3PzG6v7ZZTQqir0YwJVwbPxLonWbcfVKC9ahhOg3Oij2owQCLmjSAbeCnQTaDE00zlxvNGn8K8bNODDbPn1zSgJyBgtD1JEo-O8Q3FomrxbHcpcZ5u7SqeKgwGWcAxqhMdOfHwgQ4_-THgsImDQm6Z5H_Vx8i-xR6-" />
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-on-surface">Elena Rodriguez</span>
+                                <span class="text-[10px] text-outline-variant font-medium uppercase">10:45 AM</span>
+                            </div>
+                            <div
+                                class="bg-surface-container-low px-4 py-3 rounded-2xl rounded-tl-none max-w-xl text-on-surface leading-relaxed shadow-sm">
+                                I was looking at it this morning. The way the state management interacts with the motion
+                                tokens is brilliant. It feels much more fluid.
+                                <div
+                                    class="mt-3 bg-surface-container-lowest p-3 rounded-lg flex items-center gap-3 border border-outline-variant/10">
+                                    <span class="material-symbols-outlined text-primary"
+                                        data-icon="description">description</span>
+                                    <div class="flex-1 overflow-hidden">
+                                        <div class="text-xs font-bold truncate">kinetic-architecture-v2.pdf</div>
+                                        <div class="text-[10px] text-outline-variant">2.4 MB • PDF Document</div>
+                                    </div>
+                                    <span
+                                        class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-primary"
+                                        data-icon="download">download</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Message Sent -->
+                    <div class="flex gap-4 flex-row-reverse group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-700 font-bold mt-1">
+                            ME</div>
+                        <div class="flex flex-col items-end">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] text-outline-variant font-medium uppercase">10:48 AM</span>
+                                <span class="font-bold text-on-surface">You</span>
+                            </div>
+                            <div
+                                class="kinetic-gradient text-on-primary px-4 py-3 rounded-2xl rounded-tr-none max-w-xl leading-relaxed shadow-md">
+                                Thanks for sharing that Elena! I'm actually working on the React implementation for the
+                                sidebar hover states right now. I'll post a snippet shortly for review.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Message Received -->
+                    <div class="flex gap-4 group">
+                        <img alt="Marcus" class="w-10 h-10 rounded-xl mt-1"
+                            data-alt="Professional headshot of a man with short hair against a neutral gray background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmKRnGDRe-w3ldZX_a5wS9VDdNai6DFdga7ksvQ95C_Dusg3gjEtWGnxAmwSJM4svw1UhG3IudARca7htHu-ye7O7Brd1HmkzMh6KMRNFESRnVhAEWPmKUbSj5XJORUcwgTOlvnqhSHerSW8nPFL2D3CQpAZWTbG1i5mIXqVKa3LYiMgBK7rgA8KMBKBz5nh59DlF7xEZX8UniSU4qb53PAF3A4GCBU6XBl04INos5XsQ8T__4qZ6vjItmJAWCIAmLkuMCDFklF9yl" />
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-on-surface">Marcus Thorne</span>
+                                <span class="text-[10px] text-outline-variant font-medium uppercase">10:52 AM</span>
+                            </div>
+                            <div
+                                class="bg-surface-container-low px-4 py-3 rounded-2xl rounded-tl-none max-w-xl text-on-surface leading-relaxed shadow-sm">
+                                Awesome! Looking forward to it. 🚀
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Chat Input -->
+                <div class="p-6 bg-surface-container-lowest">
+                    <div
+                        class="bg-surface-container-low rounded-2xl p-2 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+                        <textarea
+                            class="w-full bg-transparent border-none focus:ring-0 text-sm p-3 resize-none h-12 custom-scrollbar placeholder-outline-variant"
+                            placeholder="Message #general..."></textarea>
+                        <div class="flex items-center justify-between px-2 pb-1">
+                            <div class="flex items-center gap-1">
+                                <button
+                                    class="p-2 text-outline-variant hover:text-primary transition-colors rounded-lg">
+                                    <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                                </button>
+                                <button
+                                    class="p-2 text-outline-variant hover:text-primary transition-colors rounded-lg">
+                                    <span class="material-symbols-outlined"
+                                        data-icon="sentiment_satisfied">sentiment_satisfied</span>
+                                </button>
+                                <button
+                                    class="p-2 text-outline-variant hover:text-primary transition-colors rounded-lg">
+                                    <span class="material-symbols-outlined"
+                                        data-icon="alternate_email">alternate_email</span>
+                                </button>
+                                <button
+                                    class="p-2 text-outline-variant hover:text-primary transition-colors rounded-lg">
+                                    <span class="material-symbols-outlined" data-icon="format_bold">format_bold</span>
+                                </button>
+                            </div>
+                            <button
+                                class="bg-primary text-on-primary p-2 rounded-xl flex items-center justify-center shadow-lg hover:brightness-110 transition-all">
+                                <span class="material-symbols-outlined" data-icon="send" data-weight="fill"
+                                    style="font-variation-settings: 'FILL' 1;">send</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-outline-variant mt-3 text-center uppercase tracking-widest font-bold">
+                        Press Shift + Enter for new line</p>
+                </div>
+            </section>
+            <!-- Right Sidebar: Group Details -->
+            <section
+                class="hidden xl:flex w-80 bg-[#D0E3E6] flex-col border-l border-outline-variant/10 overflow-y-auto custom-scrollbar">
+                <div class="p-8">
+                    <h2 class="headline text-lg font-bold text-on-surface mb-6">Group Info</h2>
+                    <div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm mb-8">
+                        <div
+                            class="w-16 h-16 kinetic-gradient rounded-2xl flex items-center justify-center text-white mb-4 mx-auto shadow-inner">
+                            <span class="material-symbols-outlined text-3xl" data-icon="hub">hub</span>
+                        </div>
+                        <h3 class="text-center font-bold text-on-surface text-lg">DEVRAK Global</h3>
+                        <p class="text-center text-sm text-outline-variant mt-2 leading-relaxed">The flagship community
+                            for developers pushing the boundaries of kinetic UI.</p>
+                        <div class="flex justify-between mt-6 pt-6 border-t border-outline-variant/10 text-center">
+                            <div>
+                                <div class="text-lg font-bold text-primary">1.2k</div>
+                                <div class="text-[10px] text-outline-variant uppercase font-bold">Members</div>
+                            </div>
+                            <div class="w-px bg-outline-variant/10"></div>
+                            <div>
+                                <div class="text-lg font-bold text-primary">45</div>
+                                <div class="text-[10px] text-outline-variant uppercase font-bold">Online</div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="headline text-sm font-bold text-on-surface mb-4 uppercase tracking-widest">Active Members
+                        — 45</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <img alt="Marcus" class="w-9 h-9 rounded-xl" data-alt="Portrait of Marcus Thorne"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNA5mLFgm9HNP0AP7dTbp1lmVte01DyekbxuWphEFNdQiLBEMYfaodt3VJmkD_u7RMXQ842zJIL0QHGxMNamCfBSbJd9z31AomKvgsyOCoUABESukOXEeWx2RmFJ6OXjEKcjOM2obyCMZRdtbI0aoFNIhhoLswgRFOdjhFj78KxYe8-GfTfUj8bMeC6Ek5M-L34TgM10yO1N9HJGS7cXylm6mG9H4IwfqN2k5AfMqDu8ZUCMn6Vrl4e_1M-tQ9VYkQ5ED9l3jJg6C7" />
+                                    <span
+                                        class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-surface rounded-full"></span>
+                                </div>
+                                <div>
+                                    <div
+                                        class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">
+                                        Marcus Thorne</div>
+                                    <div class="text-[10px] text-outline-variant">Core Contributor</div>
+                                </div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-outline-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                data-icon="more_horiz">more_horiz</span>
+                        </div>
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <img alt="Elena" class="w-9 h-9 rounded-xl" data-alt="Portrait of Elena Rodriguez"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzwui-ScSviVcGRNbf5Go5qy-KxmsaJzRMO1lz4TW1kPh3x4x2GzSYMTRo7vK-xt_zLJbX0i0sRceavBLtj3BP-7UIZxK58_s1IuihivX66SUrnSiX4mH6hReU_TIrJrrqUxEgxQsG2IiaukJbSdzcokI_OpP6mMLOPlyzmKpzHNHOpU6RkbgavdWkTe7i8WmcwEuGjvBZsLRwZ_mc1LzMtPfVDjS1fbz03Zd0_beL08plnIOvdLjspqf81tf9xjfk6-ZEOy5_fOLG" />
+                                    <span
+                                        class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-surface rounded-full"></span>
+                                </div>
+                                <div>
+                                    <div
+                                        class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">
+                                        Elena Rodriguez</div>
+                                    <div class="text-[10px] text-outline-variant">Designer</div>
+                                </div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-outline-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                data-icon="more_horiz">more_horiz</span>
+                        </div>
+                        <div class="flex items-center justify-between group cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <img alt="Sarah" class="w-9 h-9 rounded-xl" data-alt="Portrait of Sarah Miller"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuArP0T9YRJD9HRpLFvS7ex9aqfVjxXWLW1qpkK7FaEslrkf9uYaYBrq1BuyfcrOvd3O04ttVmeLUilv0c3iCV0lwk_RNOVSo5uwfea_MWSZSdQJuwgm_egnoCiRAY7XDGV-zlRd91qOzUk8-aaEEAvVqaO7qXtV5S7deWP3rdN80G5TvhBAfnN89lQp0T8pz2PpHfkt1IFWWsjRsMElsOaKX2CpyXgSJYIMM7KIrjoEmWAGq0DYpyDsRZeFeiWl6PhgFhaM4VC86JKP" />
+                                    <span
+                                        class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-surface rounded-full"></span>
+                                </div>
+                                <div>
+                                    <div
+                                        class="text-sm font-bold text-on-surface group-hover:text-primary transition-colors">
+                                        Sarah Miller</div>
+                                    <div class="text-[10px] text-outline-variant">Product Manager</div>
+                                </div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-outline-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                data-icon="more_horiz">more_horiz</span>
+                        </div>
+                        <div class="flex items-center justify-between group cursor-pointer opacity-50 grayscale">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <img alt="David" class="w-9 h-9 rounded-xl" data-alt="Portrait of David Chen"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0WkGALOozOUKqF0nIjVz29GBYCsOmtxTRZRY04uMJFG-7MD0CzkySocmeOAihXQNT9ZxRMJG1Qr8lnKO93MNFo5ApGI-HKYPbZ0P8q8amJ9THi6GP2cX0ewNO0yX3MzCcIptVgIc7ScCLKky1AR-OPadORwPGIdwVtLmBXvCNk4J9cfoOowpBZlNoDn35ZDT4bupL1nSqIdLFHL-p8zwKmT032lLtwuWOwJKyRV_6PkifVh3zD4wK_ISSxVieRbFckrocBQlANQ9a" />
+                                    <span
+                                        class="absolute -bottom-1 -right-1 w-3 h-3 bg-outline-variant border-2 border-surface rounded-full"></span>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-on-surface">David Chen</div>
+                                    <div class="text-[10px] text-outline-variant">Backend Dev</div>
+                                </div>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-outline-variant text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                data-icon="more_horiz">more_horiz</span>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full mt-8 py-3 rounded-xl border border-outline-variant/20 text-on-surface-variant font-bold text-sm hover:bg-surface-container-low transition-colors">
+                        View All Members
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Mobile Nav Bar (Shared Component) -->
+    <nav
+        class="md:hidden flex items-center justify-around h-16 bg-surface-container-lowest border-t border-outline-variant/10 px-4">
+        <button class="flex flex-col items-center gap-1 text-outline-variant">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="text-[10px] font-bold uppercase">Home</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-primary">
+            <span class="material-symbols-outlined" data-icon="chat_bubble" data-weight="fill"
+                style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+            <span class="text-[10px] font-bold uppercase">Chat</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-outline-variant">
+            <span class="material-symbols-outlined" data-icon="group">group</span>
+            <span class="text-[10px] font-bold uppercase">Groups</span>
+        </button>
+        <button class="flex flex-col items-center gap-1 text-outline-variant">
+            <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+            <span class="text-[10px] font-bold uppercase">Alerts</span>
+        </button>
+    </nav>
+
+    <div class="fixed bottom-12 right-12 hidden lg:flex flex-col gap-4">
+        <button
+            class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined transition-transform group-hover:rotate-12"
+                data-icon="chat_bubble">chat_bubble</span>
+        </button>
+        <button
+            class="w-14 h-14 rounded-full bg-surface-container-lowest text-on-surface shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+        </button>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title> Group .. | Exercices</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#003874",
+                        "on-secondary-fixed": "#354053",
+                        "surface-tint": "#006573",
+                        "on-primary-fixed-variant": "#005561",
+                        "on-error-container": "#570008",
+                        "on-primary-container": "#004b56",
+                        "secondary-fixed": "#d8e3fb",
+                        "background": "#f5f7f9",
+                        "surface-container-low": "#eef1f3",
+                        "tertiary-dim": "#004e9d",
+                        "on-secondary-container": "#475266",
+                        "on-background": "#2c2f31",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d8e3fb",
+                        "on-tertiary": "#eff2ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary": "#515c70",
+                        "on-primary-fixed": "#00363e",
+                        "on-tertiary-fixed": "#001737",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "primary-fixed": "#3adffa",
+                        "outline": "#747779",
+                        "error": "#b31b25",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "secondary-dim": "#455064",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "on-tertiary-container": "#003064",
+                        "primary": "#006573",
+                        "inverse-primary": "#3adffa",
+                        "on-surface-variant": "#595c5e",
+                        "primary-dim": "#005865",
+                        "on-error": "#ffefee",
+                        "surface-container": "#e5e9eb",
+                        "outline-variant": "#abadaf",
+                        "error-dim": "#9f0519",
+                        "surface-container-highest": "#d9dde0",
+                        "tertiary-fixed": "#84b1ff",
+                        "on-secondary": "#eff2ff",
+                        "tertiary": "#005ab3",
+                        "surface": "#f5f7f9",
+                        "on-primary": "#daf8ff",
+                        "error-container": "#fb5151",
+                        "tertiary-container": "#84b1ff",
+                        "inverse-surface": "#0b0f10",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "surface-variant": "#d9dde0",
+                        "surface-bright": "#f5f7f9",
+                        "primary-container": "#3adffa",
+                        "on-surface": "#2c2f31",
+                        "surface-container-high": "#dfe3e6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#D0E3E6] text-on-background min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <header class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+        <div class="flex justify-between items-center px-2 w-full mx-auto">
+            <div class="flex items-center w-[20%]">
+                <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]" src="{{ asset('img/logo.png') }}"
+                            alt=""></a></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('/dashboard') }}">Dashboard</a>
+                <div class="relative group py-4">
+                    <button
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Learn
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('/courses') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                        <a href="{{ url('/codeLab') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                        <a href="{{ url('/quizzes') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                    </div>
+                </div>
+                <div class="relative group py-4">
+                    <button
+                        class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Careers
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div
+                        class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="{{ url('/assesement') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                        <a href="{{ url('/career') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                        <a href="{{ url('/certifications') }}"
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                    </div>
+                </div>
+                <a class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors"
+                    href="{{ url('/community') }}">Community</a>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
+                    href="{{ url('/contact') }}">Contact</a>
+
+            </nav>
+            <div class="flex items-center gap-4">
+                <div
+                    class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm w-80" placeholder="Search courses..."
+                        type="text" />
+                </div>
+                <button
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors">
+                    <span class="material-symbols-outlined text-on-surface-variant"
+                        data-icon="notifications">notifications</span>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                    <a href="{{ url('/profile') }}">
+                        <img alt="User profile avatar"
+                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="flex flex-1 max-w-[1440px] mx-auto w-full relative">
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Hero Header Section -->
+            <section class="mb-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold text-primary tracking-[0.2em] uppercase mb-2 block">Current
+                            Module: Quantum Entanglement</span>
+                        <h1 class="text-5xl font-bold text-on-surface tracking-tighter leading-[1.1] mb-4">Advanced
+                            <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Physics</span>
+                        </h1>
+                        <p class="text-on-surface-variant text-lg leading-relaxed max-w-xl">
+                            A deep dive into particle mechanics, wave-particle duality, and the mathematical foundations
+                            of modern physics.
+                        </p>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="bg-surface-container-low px-4 py-2 rounded-xl flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="text-sm font-semibold text-on-surface">12 Online Now</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Kinetic Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Recent Discussions Feed -->
+                <div class="md:col-span-8 space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-on-surface">Recent Discussions</h3>
+                        <button class="text-sm font-bold text-primary hover:underline">View All</button>
+                    </div>
+                    <div class="space-y-4">
+                        <!-- Post 1 -->
+                        <div class="bg-surface-container-lowest p-6 rounded-xl transition-shadow hover:shadow-sm">
+                            <div class="flex items-start space-x-4">
+                                <img alt="Member" class="w-12 h-12 rounded-lg object-cover"
+                                    data-alt="Portrait of a young woman with a vibrant smile in professional attire against a clean neutral background"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmgRtdYcpw1PAbE91llxHoI8r43wF0wiu_UWjtHoxa1h3TNVyx6LyZcyNP0riXW0fGW11XYpIYoAubArMAEJUvfGklrAi9Lrr6TY7Ek5fVr3t8PJ3DpDDizYcnYfdGIe6QN7ucCDrlqgvDxNkbNWgUMfG2axO2sbrxOvR8sfmTmH-AdS-VKwDh_4Hl3h4vSlc-ZTk-KI-gdttpLtLL4nvADAxxltEzMXUS8f6JeS49rKuaPMOJJwwrucsa3Tj_PwjIWKkb1LqejA2T" />
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-bold text-on-surface">Elena Rodriguez</span>
+                                        <span class="text-xs text-on-surface-variant">2h ago</span>
+                                    </div>
+                                    <h4 class="text-lg font-semibold text-primary mb-2">Question about Bell's Theorem
+                                        complexity?</h4>
+                                    <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">
+                                        I've been going through the lecture notes on Bell's inequality, but I'm
+                                        struggling with the statistical distribution part...
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <button
+                                            class="flex items-center space-x-1 text-xs text-on-surface-variant hover:text-primary">
+                                            <span class="material-symbols-outlined text-sm">forum</span>
+                                            <span>24 Replies</span>
+                                        </button>
+                                        <button
+                                            class="flex items-center space-x-1 text-xs text-on-surface-variant hover:text-primary">
+                                            <span class="material-symbols-outlined text-sm">thumb_up</span>
+                                            <span>12 Likes</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Post 2 -->
+                        <div class="bg-surface-container-lowest p-6 rounded-xl transition-shadow hover:shadow-sm">
+                            <div class="flex items-start space-x-4">
+                                <img alt="Member" class="w-12 h-12 rounded-lg object-cover"
+                                    data-alt="Portrait of a focused young man with dark hair in a casual sweater looking thoughtfully towards the camera"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC7sL1Q7ERbAnmGiXGGUdqeFUWIYDOnjwyzZa-r_T-t6XezXV2kXQQIIHjOfKbAsybV1XGUWW7J64IoiybLTHbb6vcCd3qTsFUbR5dE1esIgdjKd9IWMlV9AFWyCEtBMsr6Ne788pZPAfnzQXzlNmnJSM2Wd9I0GJV0xTWx7vlc4M18OodXTQ3kaoJe_Ax5PCQbJ3Wqg59uKUTy39WRqlloDvNOuINt586MSBzu17H3hz_XTiZvEkME3KFGVwUYoHJUCbAXRSe6W6r" />
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-bold text-on-surface">Marcus Chen</span>
+                                        <span class="text-xs text-on-surface-variant">5h ago</span>
+                                    </div>
+                                    <h4 class="text-lg font-semibold text-primary mb-2">Announcement: Final Review
+                                        Session</h4>
+                                    <p class="text-on-surface-variant text-sm mb-4 line-clamp-2">
+                                        Hey everyone! I'm hosting a quick review session tomorrow at 6 PM to cover the
+                                        Schrodinger equation derivations. Join the lab!
+                                    </p>
+                                    <div class="flex items-center space-x-2">
+                                        <span
+                                            class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase tracking-tighter">Event</span>
+                                        <span class="text-xs text-on-surface-variant">Starts in 18 hours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sidebar Components -->
+                <div class="md:col-span-4 space-y-8">
+                    <!-- Active Members Section -->
+                    <div class="bg-surface-container-low p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-on-surface mb-6">Active Members</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <img alt="Member" class="w-8 h-8 rounded-full"
+                                            data-alt="Close up of a smiling man with short hair and a modern beard, outdoor natural lighting"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkBPAWjy-jH_TQ-Wz3TCsagTF3k30j1DdGZsDtl1oYTgiFKglXgu9WbAZ46YJSgu5gxA5GogZYvsgtOvshd1pas4M_Igd8GV_1L5BYgkCWv82jveYOq26rOSdcDj0u0_mMECLq0ur_HytY8pltOHixDgRn4L6UKgsBea4c7cwWcB38aBqlLvjTECMApAQslx78UD54OA4XgIrFPJ0qh-OlSxbzPKCqiGIkzGnc3IYh7Pi79OedqjPiVj4AVW2u1xAnaKAfwH3D3DjP" />
+                                        <span
+                                            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary border-2 border-surface-container-low rounded-full"></span>
+                                    </div>
+                                    <span class="text-sm font-medium">David Miller</span>
+                                </div>
+                                <span class="text-[10px] text-primary font-bold">ONLINE</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="relative">
+                                        <img alt="Member" class="w-8 h-8 rounded-full"
+                                            data-alt="A portrait of a young woman with long dark hair, smiling warmly in soft diffused daylight"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgpmCj_JWH6XTjFvYFYq8wfDfed6JpiRulz0oVNs9nUQqHC5bCL-jrKUYrJWppHyH4idnH8zN7PNhV8g7Rsa6uxnnP6ufilUQm0K0erGczUhqRB5JwJGsSgX6T_jHZIYXuRWLa7yZnoLV7vXjJ3L6A0ha8XSTNEnosU2ezw9wU5LyleT4qmAsojI0tVcvBn9Zr1Rlt4nyRFbZbaL9nHs3-IHtssFj5DsYlSwvEHMRJyGXEe9pJlMqTGTeajcubxaEpYyJhqfdfAG4n" />
+                                        <span
+                                            class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary border-2 border-surface-container-low rounded-full"></span>
+                                    </div>
+                                    <span class="text-sm font-medium">Sarah Jenkins</span>
+                                </div>
+                                <span class="text-[10px] text-primary font-bold">ONLINE</span>
+                            </div>
+                            <div class="flex items-center justify-between opacity-50">
+                                <div class="flex items-center space-x-3">
+                                    <img alt="Member" class="w-8 h-8 rounded-full grayscale"
+                                        data-alt="Professional headshot of a middle-aged man with glasses and a friendly demeanor in an office environment"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_6SZ4dGBZ-Mk_BEm_tmYn71JHhj5jQY6i1pPH9f7EgQ68_Q1oR88W3wKl2rPYi0vorahQUTEvCkIfg0h7uSGrReUzvgRazeDVxrICGWVySdQFa6pR2s3_WXVZitplyYuXpocHrKSA8Pjyo8Xu7FZIVaB6YhGZ8eFJBkdcMCvyv1btl6cP6mXGn0yNOHLA3IsBJkKq9UY3z9wtrK8fN0iRA47fXKigmfhhaKhgEr6_iLRJzTIaO3F-elMCriWoRoiuyk-SUuew4Jsu" />
+                                    <span class="text-sm font-medium">Dr. Peterson</span>
+                                </div>
+                                <span class="text-[10px] text-on-surface-variant font-bold">AWAY</span>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full mt-6 py-2 text-xs font-bold text-on-surface-variant bg-surface-container-lowest rounded-lg hover:bg-white transition-colors text-white bg-gradient-to-r from-primary to-primary-container">See
+                            All Members</button>
+                    </div>
+                    <!-- Resources Section -->
+                    <div class="bg-surface-container-lowest p-6 rounded-xl border-outline-variant/10 border">
+                        <h3 class="text-lg font-bold text-on-surface mb-6">Study Resources</h3>
+                        <div class="space-y-4">
+                            <a class="flex items-center p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+                                href="#">
+                                <div
+                                    class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center mr-3">
+                                    <span class="material-symbols-outlined text-secondary">description</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold group-hover:text-primary transition-colors">
+                                        Quantum_Notes_V2.pdf</div>
+                                    <div class="text-[10px] text-on-surface-variant">Shared by Elena • 2.4 MB</div>
+                                </div>
+                            </a>
+                            <a class="flex items-center p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+                                href="#">
+                                <div
+                                    class="w-10 h-10 bg-primary-container/30 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="material-symbols-outlined text-primary">link</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold group-hover:text-primary transition-colors">Simulated
+                                        Particle Lab</div>
+                                    <div class="text-[10px] text-on-surface-variant">External link • MIT Labs</div>
+                                </div>
+                            </a>
+                            <a class="flex items-center p-3 rounded-lg hover:bg-surface-container-low transition-colors group"
+                                href="#">
+                                <div
+                                    class="w-10 h-10 bg-tertiary-container/30 rounded-lg flex items-center justify-center mr-3">
+                                    <span class="material-symbols-outlined text-tertiary">code</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="text-sm font-bold group-hover:text-primary transition-colors">
+                                        Wavefunction_Solver.py</div>
+                                    <div class="text-[10px] text-on-surface-variant">Python Script • 4 KB</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Floating Action Button - Mobile Only -->
+    <div class="fixed bottom-6 right-6 md:hidden">
+        <button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center">
+            <span class="material-symbols-outlined">add</span>
+        </button>
+    </div>
+
+    <div class="fixed bottom-12 right-12 hidden lg:flex flex-col gap-4">
+        <button
+            class="w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined transition-transform group-hover:rotate-12"
+                data-icon="chat_bubble">chat_bubble</span>
+        </button>
+        <button
+            class="w-14 h-14 rounded-full bg-surface-container-lowest text-on-surface shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+        </button>
+    </div>
+</body>
+
+</html>
