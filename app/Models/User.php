@@ -24,6 +24,13 @@ class User extends Authenticatable
         'phone_number',
         'github_account',
         'password',
+        'role',
+        'points',
+        'last_bonus_at',
+        'institution',
+        'specialization',
+        'bio',
+        'photo',
     ];
 
     /**

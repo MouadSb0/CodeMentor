@@ -108,102 +108,168 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface">
-    <!-- SideNavBar Shell -->
-    <aside class="fixed left-0 top-0 h-full w-72 flex flex-col bg-[#eef1f3] dark:bg-slate-900 px-6 py-8 z-50">
-        <div class="mb-10 px-4">
-            <h1 class="text-2xl font-bold font-headline text-[#2c2f31] dark:text-white tracking-tight">DEVRAK</h1>
-            <p class="text-xs font-label text-on-surface-variant/60 uppercase tracking-widest mt-1">Educational Platform
-            </p>
-        </div>
-        <nav class="flex-grow space-y-2">
-            <a class="flex items-center gap-4 px-4 py-3 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:bg-[#f5f7f9] dark:hover:bg-slate-800 transition-all rounded-xl scale-95 active:scale-90"
-                href="#">
-                <span class="material-symbols-outlined">menu_book</span>
-                <span class="font-headline font-semibold">Courses</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:bg-[#f5f7f9] dark:hover:bg-slate-800 transition-all rounded-xl scale-95 active:scale-90"
-                href="#">
-                <span class="material-symbols-outlined">group</span>
-                <span class="font-headline font-semibold">Students</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-[#006573] dark:text-[#3adffa] font-bold border-r-4 border-[#006573] bg-[#f5f7f9] dark:bg-slate-800 rounded-xl scale-95"
-                href="{{ url('/admin/dashboard') }}">
-                <span class="material-symbols-outlined">analytics</span>
-                <span class="font-headline font-semibold">Analytics</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:bg-[#f5f7f9] dark:hover:bg-slate-800 transition-all rounded-xl scale-95 active:scale-90"
-                href="#">
-                <span class="material-symbols-outlined">settings_suggest</span>
-                <span class="font-headline font-semibold">System Health</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:bg-[#f5f7f9] dark:hover:bg-slate-800 transition-all rounded-xl scale-95 active:scale-90"
-                href="#">
-                <span class="material-symbols-outlined">manage_accounts</span>
-                <span class="font-headline font-semibold">User Management</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-3 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:bg-[#f5f7f9] dark:hover:bg-slate-800 transition-all rounded-xl scale-95 active:scale-90"
-                href="#">
-                <span class="material-symbols-outlined">assessment</span>
-                <span class="font-headline font-semibold">Reports</span>
-            </a>
-        </nav>
-        <div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-2">
-            <button
-                class="w-full py-4 px-4 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold mb-6 hover:opacity-90 transition-opacity">
-                Upgrade Plan
-            </button>
-            <a class="flex items-center gap-4 px-4 py-2 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:text-[#006573] transition-colors"
-                href="#">
-                <span class="material-symbols-outlined">settings</span>
-                <span class="font-headline">Settings</span>
-            </a>
-            <a class="flex items-center gap-4 px-4 py-2 text-[#2c2f31]/70 dark:text-slate-400 font-medium hover:text-error transition-colors"
-                href="{{ url('/logout') }}">
-                <span class="material-symbols-outlined">logout</span>
-                <span class="font-headline">Logout</span>
-            </a>
-        </div>
-    </aside>
+<body class="bg-[#D0E3E6] text-on-surface">
     <!-- Main Content Canvas -->
-    <main class="ml-72 min-h-screen">
-        <!-- TopAppBar -->
+    <main class=" min-h-screen">
         <header
-            class="w-full h-20 sticky top-0 z-40 bg-[#f5f7f9]/80 backdrop-blur-xl flex justify-between items-center px-12 shadow-[0px_4px_20px_rgba(44,47,49,0.04)]">
-            <div class="flex items-center gap-8 flex-1">
-                <div class="relative w-full max-w-md">
-                    <span
-                        class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                    <input
-                        class="w-full bg-surface-container-lowest border-none rounded-xl py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-primary-container transition-all text-sm"
-                        placeholder="Search platform analytics..." type="text" />
+            class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+            <div class="flex justify-between items-center px-2 w-full mx-auto">
+                <div class="flex items-center w-[20%]">
+                    <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]"
+                                src="{{ asset('img/logo.png') }}" alt=""></a></span>
                 </div>
-            </div>
-            <div class="flex items-center gap-6">
-                <button
-                    class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl font-headline font-semibold text-sm hover:opacity-90 transition-all">
-                    <span>Create New</span>
-                    <span class="material-symbols-outlined text-lg">add</span>
-                </button>
-                <div class="flex items-center gap-4 text-on-surface-variant">
-                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors relative">
-                        <span class="material-symbols-outlined">notifications</span>
-                        <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-                    </button>
-                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors">
-                        <span class="material-symbols-outlined">help_outline</span>
-                    </button>
-                </div>
-                <div
-                    class="h-10 w-10 rounded-xl overflow-hidden bg-surface-container-high border-2 border-primary-container/20">
-                    <img alt="Admin profile"
-                        data-alt="professional portrait of a high-tech platform administrator with a confident expression in a brightly lit studio environment"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeUM7gHj0yOa3q50wRr6Oga3gAyEcj3flw5fnH2q495nybeIjZQ4-M42gRT6EhaOa-3U3VGzroQ3Qm_PM2uHOQnyecG8zi4YTfv248kMHaQvEppGHtHhOuzIqgD6XgIwRViX3WNo9H_kidTghLSbZ-bKpjbJ4HgumTzBMhiclXubKEY__luZp1-5NUGnYbEEq9xwppVeRm6vseJ_MY0YchCSjIaE2YfDlMCgN3_hir9RGM5QCT1JZfuGmHmWnFrsebcuEV0seZ2u8o" />
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors"
+                        href="{{ url('/dashboard') }}">Dashboard</a>
+                    <div class="relative group py-4">
+                        <button
+                            class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                            Learn
+                            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                        </button>
+                        <div
+                            class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                            <a href="{{ url('/courses') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                            <a href="{{ url('/codeLab') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                            <a href="{{ url('/quizzes') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                        </div>
+                    </div>
+                    <div class="relative group py-4">
+                        <button
+                            class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                            Careers
+                            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                        </button>
+                        <div
+                            class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                            <a href="{{ url('/assesement') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                            <a href="{{ url('/career') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                            <a href="{{ url('/certifications') }}"
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                        </div>
+                    </div>
+                    <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+                        href="{{ url('/community') }}">Community</a>
+                    <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+                        href="{{ url('/contact') }}">Contact</a>
+
+                </nav>
+                <div class="flex items-center gap-4">
+                    <div
+                        class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+                        <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+                        <input class="bg-transparent border-none focus:ring-0 text-sm w-80"
+                            placeholder="Search courses..." type="text" />
+                    </div>
+                    <div class="relative" x-data="{ showNotifications: false }">
+                        <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false"
+                            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors relative">
+                            <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+                            <!-- Notification Badge -->
+                            <span
+                                class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+                        </button>
+
+                        <!-- Notifications Dropdown -->
+                        <div x-show="showNotifications" x-transition.opacity x-transition:enter.duration.200ms
+                            x-transition:leave.duration.150ms x-cloak
+                            class="absolute top-14 right-0 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 z-[100] overflow-hidden flex flex-col">
+
+                            <!-- Header -->
+                            <div
+                                class="p-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-lowest">
+                                <h3 class="font-bold text-on-surface text-sm">Notifications</h3>
+                                <span
+                                    class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">2
+                                    New</span>
+                            </div>
+
+                            <!-- List -->
+                            <div class="max-h-80 overflow-y-auto">
+                                <!-- Unread Item 1 -->
+                                <div
+                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
+                                    <div class="flex items-start gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                            <span
+                                                class="material-symbols-outlined text-on-primary text-sm">school</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-on-surface font-medium leading-tight">Course
+                                                completed:
+                                                Advanced React Patterns</p>
+                                            <p class="text-[11px] text-on-surface-variant mt-1">2 hours ago</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Unread Item 2 -->
+                                <div
+                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
+                                    <div class="flex items-start gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                                            <span
+                                                class="material-symbols-outlined text-on-secondary-container text-sm">forum</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-on-surface font-medium leading-tight">Alex replied to
+                                                your discussion in "Next.js routing"</p>
+                                            <p class="text-[11px] text-on-surface-variant mt-1">5 hours ago</p>
+                                        </div>
+                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Read Item -->
+                                <div class="p-4 hover:bg-surface-container-lowest transition-colors cursor-pointer">
+                                    <div class="flex items-start gap-3 opacity-70">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
+                                            <span
+                                                class="material-symbols-outlined text-on-tertiary-container text-sm">military_tech</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-on-surface font-medium leading-tight">You earned the
+                                                "Fast Learner" badge!</p>
+                                            <p class="text-[11px] text-on-surface-variant mt-1">1 day ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Actions -->
+                            <div class="p-2 border-t border-outline-variant/10 bg-surface-container-lowest">
+                                <button
+                                    class="w-full py-2.5 text-sm text-primary font-bold hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">done_all</span>
+                                    Mark all as read
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                        <a href="{{ url('/profile') }}">
+                            <img alt="User profile avatar"
+                                data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
         <!-- Dashboard Content -->
-        <div class="px-12 py-10 space-y-10">
+        <div class="px-12 py-10 space-y-10 mx-[100px]">
             <!-- Page Header -->
             <div class="flex justify-between items-end">
                 <div class="space-y-1">

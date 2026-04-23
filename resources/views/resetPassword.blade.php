@@ -109,7 +109,7 @@
     </style>
 </head>
 
-<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="bg-[#D0E3E6] font-body text-on-surface min-h-screen flex flex-col relative overflow-x-hidden">
     <!-- Subtle Background Elements -->
     <div class="fixed inset-0 kinetic-grid pointer-events-none"></div>
     <div
@@ -120,18 +120,12 @@
     </div>
     <!-- Top Navigation (Shell suppressed for Transactional focus, but Brand identity remains) -->
     <header
-        class="fixed top-0 w-full z-50 bg-[#f5f7f9] dark:bg-slate-950 flex justify-between items-center px-8 h-20 w-full mx-auto">
-        <div class="flex items-center gap-2">
-            <a href="{{ url('/') }}" class="flex items-center gap-2">
-                <span
-                    class="text-2xl font-headline font-bold text-slate-900 dark:text-white tracking-tighter">DEVRAK</span>
-                <div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-            </a>
+        class="fixed top-0 w-full z-50 bg-[#D0E3E6] dark:bg-slate-950 flex justify-between items-center px-8 h-20 w-full mx-auto">
+        <div class="flex items-center w-[20%]">
+            <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]" src="{{ asset('img/logo.png') }}"
+                        alt=""></a></span>
         </div>
-        <a class="font-label text-xs uppercase tracking-widest text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition-all duration-300 active:opacity-80 active:scale-[0.98]"
-            href="{{ route('login') }}">
-            Back to Login
-        </a>
+
     </header>
     <!-- Main Content Canvas -->
     <main class="flex-grow flex items-center justify-center px-6 pt-20 pb-12">
@@ -206,15 +200,15 @@
     </div>
     <!-- Footer -->
     <footer class="w-full py-12 flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-4">
-        <div class="font-body text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500">
-            © 2024 DEVRAK Kinetic Lab
+        <div class="font-body text-xs uppercase tracking-widest text-blue-700 dark:text-slate-500">
+            © 2024 CodeMentor BytesLab
         </div>
         <div class="flex gap-8">
-            <a class="font-body text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-cyan-600 transition-colors"
+            <a class="font-body text-xs uppercase tracking-widest text-blue-700 dark:text-slate-500 hover:text-cyan-600 transition-colors"
                 href="#">Privacy</a>
-            <a class="font-body text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-cyan-600 transition-colors"
+            <a class="font-body text-xs uppercase tracking-widest text-blue-700 dark:text-slate-500 hover:text-cyan-600 transition-colors"
                 href="#">Terms</a>
-            <a class="font-body text-xs uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-cyan-600 transition-colors"
+            <a class="font-body text-xs uppercase tracking-widest text-blue-700 dark:text-slate-500 hover:text-cyan-600 transition-colors"
                 href="#">Support</a>
         </div>
     </footer>

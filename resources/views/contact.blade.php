@@ -165,10 +165,9 @@
                 </button>
                 <div
                     class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('/profile') }}">
-                        <img alt="User profile avatar"
-                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    <a href="{{ url('/profile') }}" class="block w-full h-full">
+                        <img alt="User profile avatar" class="w-full h-full object-cover"
+                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
                     </a>
                 </div>
             </div>

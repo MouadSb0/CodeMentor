@@ -6,12 +6,17 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ExerciceController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Public / Guest pages ─────────────────────────────────────────────────────
 
 Route::get('/', fn() => view('index'))->name('home');
 Route::get('/welcome', fn() => view('index'))->name('home');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/help', fn() => view('help'))->name('help');
+});
 
 // ─── Authentication ───────────────────────────────────────────────────────────
 
@@ -32,9 +37,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit')
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ─── Authenticated pages ──────────────────────────────────────────────────────
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', fn() => view('profile'))->name('profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/chat', fn() => view('chat'))->name('chat');
     Route::get('/courses', fn() => view('courses'))->name('courses');
     Route::get('/careers', fn() => view('carrer'))->name('career');
@@ -65,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/teacher/quizzes', [TeacherController::class, 'quizzes'])->name('teacher.quizzes');
     Route::get('/teacher/careers', [TeacherController::class, 'careers'])->name('teacher.careers');
     Route::post('/claim-bonus', [DashboardController::class, 'claimBonus'])->name('bonus.claim');
-    Route::get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/admin/dashboard', fn() => view('admin.dashboardAdmin'))->name('admin.dashboard');
 
     Route::post('/account-type', [AuthController::class, 'updateAccountType'])->name('account-type.update');
     Route::post('/teacher/quizzes', [TeacherController::class, 'storeQuiz'])->name('teacher.quizzes.store');

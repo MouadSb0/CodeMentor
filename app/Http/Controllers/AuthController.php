@@ -42,7 +42,8 @@ class AuthController extends Controller
             'phone_number'   => $validated['phone_number'],
             'github_account' => $validated['github_account'] ?? null,
             'password'       => Hash::make($validated['password']),
-            'role'           => $request->role ?? 'student', 
+            'role'           => User::count() === 0 ? 'admin' : ($request->role ?? 'student'), 
+            'points'         => 0,
         ]);
 
         Auth::login($user);
@@ -64,6 +65,11 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Redirect based on role
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard')
+                ->with('status', '🎉 Welcome to your Admin Dashboard!');
+        }
+
         if ($user->role === 'teacher') {
             return redirect()->route('teacher.dashboard')
                 ->with('status', '🎉 Welcome to your Teacher Dashboard!');
@@ -116,6 +122,10 @@ class AuthController extends Controller
                 false,
                 config('session.same_site') ?? 'lax'
             );
+        }
+
+        if ($user->role === 'admin') {
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         if ($user->role === 'teacher') {

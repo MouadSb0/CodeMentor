@@ -112,9 +112,9 @@
                             alt=""></a></span>
             </div>
             <div class="flex items-center gap-6">
-                <span
-                    class="material-symbols-outlined text-cyan-400 dark:text-cyan-300 transition-all scale-95 active:opacity-80"
-                    data-icon="help_outline">help_outline</span>
+                <a href="{{ route('help') }}"><span
+                        class="material-symbols-outlined text-cyan-400 dark:text-cyan-300 transition-all scale-95 active:opacity-80"
+                        data-icon="help_outline">help_outline</span></a>
             </div>
         </div>
     </nav>
@@ -132,7 +132,8 @@
         <!-- Header -->
         <div class="text-center mb-16">
             <h1 class="font-headline text-5xl md:text-6xl font-bold tracking-tight text-on-surface mb-4">
-                Choose your <span class="text-primary">pathway.</span>
+                Choose your <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">pathway.</span>
             </h1>
             <p class="text-on-surface-variant text-lg max-w-md mx-auto leading-relaxed">
                 Personalize your experience by selecting the account type that best matches your goals.
@@ -157,7 +158,8 @@
                         <div
                             class="mt-auto flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                             <span>Select Student Path</span>
-                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+                            <span class="material-symbols-outlined text-sm"
+                                data-icon="arrow_forward">arrow_forward</span>
                         </div>
                         <!-- Visual Indicator for Selected State -->
                         <div
@@ -183,7 +185,8 @@
                         <div
                             class="mt-auto flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                             <span>Select Mentor Path</span>
-                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+                            <span class="material-symbols-outlined text-sm"
+                                data-icon="arrow_forward">arrow_forward</span>
                         </div>
                         <!-- Visual Indicator for Selected State -->
                         <div
@@ -196,8 +199,7 @@
             </div>
             <!-- Footer Action -->
             <div class="mt-16 w-full flex flex-col items-center">
-                <button
-                    type="submit"
+                <button type="submit"
                     class="w-full max-w-sm py-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-lg shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300 active:scale-95">
                     Continue to Registration
                 </button>

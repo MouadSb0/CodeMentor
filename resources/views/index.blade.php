@@ -17,7 +17,7 @@
                 <div class="header_links">
                     <a href="{{ url('/login') }}">Se connecter</a>
                     <a href="{{ url('/account-type') }}">S'inscrire</a>
-                    <a href="#" class="menu_icon">?</a>
+                    <a href="{{ url('/help') }}" class="menu_icon">?</a>
                 </div>
             </header>
         </div>
