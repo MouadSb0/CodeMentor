@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -21,6 +22,13 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        $isFirstUser = User::count() === 0;
+
+        // Normalize role early to avoid hidden-input/query inconsistencies.
+        if ($isFirstUser) {
+            $request->merge(['role' => 'admin']);
+        }
+
         $validated = $request->validate([
             'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -28,12 +36,17 @@ class AuthController extends Controller
             'github_account'        => ['nullable', 'string', 'max:255'],
             'password'              => ['required', 'confirmed', Password::min(8)],
             'terms'                 => ['accepted'],
+            'role'                  => $isFirstUser
+                ? ['required', 'string', 'in:admin']
+                : ['required', 'string', 'in:student,teacher'],
         ], [
             'name.required'         => 'Please enter your full name.',
             'email.unique'          => 'This email address is already registered.',
             'phone_number.required' => 'A phone number is required.',
             'password.confirmed'    => 'The password confirmation does not match.',
             'terms.accepted'        => 'You must accept the Terms of Service and Privacy Policy.',
+            'role.required'         => 'Please choose an account type first.',
+            'role.in'               => 'Please choose a valid account type (student or teacher).',
         ]);
 
         $user = User::create([
@@ -42,11 +55,26 @@ class AuthController extends Controller
             'phone_number'   => $validated['phone_number'],
             'github_account' => $validated['github_account'] ?? null,
             'password'       => Hash::make($validated['password']),
-            'role'           => User::count() === 0 ? 'admin' : ($request->role ?? 'student'), 
+            'role'           => $validated['role'],
             'points'         => 0,
         ]);
 
+        // Notify admins when a new non-admin user registers.
+        if (in_array($user->role, ['student', 'teacher'], true)) {
+            $adminIds = User::where('role', 'admin')->pluck('id');
+
+            foreach ($adminIds as $adminId) {
+                UserNotification::create([
+                    'user_id' => $adminId,
+                    'type' => 'new_user',
+                    'title' => 'New user registered',
+                    'body' => "{$user->name} registered as {$user->role}.",
+                ]);
+            }
+        }
+
         Auth::login($user);
+        $request->session()->put('user_role', $user->role);
 
         return redirect()->route('register.step2');
     }
@@ -63,6 +91,16 @@ class AuthController extends Controller
     public function completeRegistration(Request $request)
     {
         $user = Auth::user();
+        
+        if ($user) {
+            $user->update([
+                'institution' => $request->institution,
+                'bio' => $request->bio,
+                'specialization' => $request->specialization,
+            ]);
+        }
+
+        $request->session()->put('user_role', $user->role);
 
         // Redirect based on role
         if ($user->role === 'admin') {
@@ -108,6 +146,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
+        $request->session()->put('user_role', $user->role);
 
         if ($remember) {
             // ... (keep the cookie logic)
@@ -160,6 +199,7 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $request->session()->forget('user_role');
         Auth::logout();
 
         $request->session()->invalidate();

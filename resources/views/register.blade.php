@@ -124,11 +124,16 @@
             <section class="lg:col-span-5 space-y-8">
                 <div>
                     <h1 class="text-5xl md:text-7xl font-headline font-bold text-on-surface leading-[1.1] tracking-tight">
-                        Join the <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">ecosystem</span>
+                        @if($isFirstUser ?? false)
+                            Initialize <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">System</span>
+                        @else
+                            Join the <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">ecosystem</span>
+                        @endif
                     </h1>
                     <p class="mt-6 text-body-md text-on-surface-variant max-w-md leading-relaxed">
-                        Scale your development velocity with the next generation of modular architecture. Connect,
-                        build, and deploy within the Kinetic Lab.
+                        {{ ($isFirstUser ?? false) 
+                            ? 'As the first user, you will be granted Administrative privileges to manage the entire platform.' 
+                            : 'Scale your development velocity with the next generation of modular architecture. Connect, build, and deploy within the Kinetic Lab.' }}
                     </p>
                 </div>
                 <div class="relative overflow-hidden rounded-xl bg-surface-container-low p-8 space-y-6">
@@ -164,7 +169,9 @@
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-on-primary font-bold text-xs">2</div>
                         <div class="h-px w-8 bg-outline-variant/30"></div>
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-surface-container text-on-surface-variant font-bold text-xs">3</div>
-                        <span class="ml-auto text-xs font-semibold uppercase tracking-widest text-primary font-label">Step 2: Account Details</span>
+                        <span class="ml-auto text-xs font-semibold uppercase tracking-widest text-primary font-label">
+                            {{ ($isFirstUser ?? false) ? 'Administrative Setup' : 'Step 2: Account Details' }}
+                        </span>
                     </div>
 
                     {{-- ── Server-side general error bag ── --}}
@@ -213,7 +220,7 @@
                         novalidate
                     >
                         @csrf
-                        <input type="hidden" name="role" value="{{ request()->get('role', 'student') }}">
+                        <input type="hidden" name="role" value="{{ old('role', $selectedRole ?? request()->get('role')) }}">
 
                         {{-- Name + Email --}}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

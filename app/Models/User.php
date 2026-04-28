@@ -62,8 +62,49 @@ class User extends Authenticatable
         return $this->hasMany(Course::class);
     }
 
+    public function enrolledCourses()
+    {
+        return $this->belongsToMany(Course::class, 'course_user')
+            ->withPivot(['enrolled_at'])
+            ->withTimestamps();
+    }
+
+    public function completedModules()
+    {
+        return $this->belongsToMany(Module::class, 'module_user')
+            ->withPivot(['course_id', 'points_awarded', 'completed_at'])
+            ->withTimestamps();
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(UserNotification::class)->latest();
+    }
+
     public function exercises()
     {
         return $this->hasMany(Exercise::class);
+    }
+
+    /** Groups this user created (is admin of). */
+    public function ownedGroups()
+    {
+        return $this->hasMany(Group::class, 'admin_id');
+    }
+
+    /** Groups this user has joined as a member. */
+    public function memberGroups()
+    {
+        return $this->belongsToMany(Group::class, 'group_user')->withTimestamps();
+    }
+
+    public function discussions()
+    {
+        return $this->hasMany(Disccussion::class);
+    }
+
+    public function achievements()
+    {
+        return $this->hasMany(Achivement::class);
     }
 }

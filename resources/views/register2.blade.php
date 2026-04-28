@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title> Join the ecosystem 2 | CodeMentor</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
@@ -99,6 +100,10 @@
         body {
             min-height: max(884px, 100dvh);
         }
+
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -155,14 +160,48 @@
                         <div class="relative group">
                             <select
                                 class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface appearance-none focus:ring-2 focus:ring-primary transition-all cursor-pointer"
-                                id="role">
+                                id="role" name="specialization">
                                 <option disabled="" selected="">Select your current role</option>
-                                <option>Student</option>
-                                <option>Frontend Developer</option>
-                                <option>Backend Developer</option>
-                                <option>Fullstack Developer</option>
-                                <option>DevOps Engineer</option>
+                                <option>Front-End Developer</option>
+                                <option>UX/UI Designer</option>
+                                <option>WordPress Developer</option>
+                                <option>Mobile Developer</option>
+                                <option>Back-End Developer</option>
+                                <option>Database Developer</option>
+                                <option>Back-End Architect</option>
+                                <option>Microservices Developer</option>
+                                <option>Full-Stack Developer</option>
+                                <option>MEAN/MERN Stack Developer</option>
+                                <option>Product Developer</option>
+                                <option>Development Team Lead</option>
+                                <option>Data Analyst</option>
                                 <option>Data Scientist</option>
+                                <option>Business Intelligence (BI) Analyst</option>
+                                <option>Machine Learning Engineer</option>
+                                <option>Data Visualization Specialist</option>
+                                <option>Database Administrator (DBA)</option>
+                                <option>Big Data Engineer</option>
+                                <option>Cyber Security Analyst</option>
+                                <option>Penetration Tester</option>
+                                <option>Security Consultant</option>
+                                <option>Information Security Manager</option>
+                                <option>Cloud Security Engineer</option>
+                                <option>Security Architect</option>
+                                <option>Cryptographer</option>
+                                <option>DevOps Engineer</option>
+                                <option>Infrastructure Engineer</option>
+                                <option>CI/CD Engineer</option>
+                                <option>Containerization Specialist (Docker/K8s)</option>
+                                <option>Game Developer</option>
+                                <option>Unity Developer</option>
+                                <option>Game Designer</option>
+                                <option>Graphics Programmer</option>
+                                <option>Quality Assurance (QA) Engineer</option>
+                                <option>Automation Test Engineer</option>
+                                <option>Technical Writer</option>
+                                <option>Technical Support Engineer</option>
+                                <option>System Administrator</option>
+                                <option>Database Administrator</option>
                             </select>
                             <span
                                 class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
@@ -200,38 +239,64 @@
                         </div>
                     </div>
                     <!-- Primary Tech Stack -->
-                    <div class="space-y-3">
+                    <div class="space-y-3" x-data="{
+                        showLanguages: false,
+                        selectedTechs: ['React', 'Python', 'Node.js'],
+                        languages: [
+                            'JavaScript','TypeScript','Python','Java','C','C++','C#','PHP','Ruby','Go',
+                            'Rust','Swift','Kotlin','Dart','R','MATLAB','Scala','Perl','Lua','Haskell',
+                            'Elixir','Erlang','Julia','Groovy','F#','Objective-C','Shell','SQL','Assembly'
+                        ],
+                        addLanguage(language) {
+                            if (!this.selectedTechs.includes(language)) {
+                                this.selectedTechs.push(language);
+                            }
+                            this.showLanguages = false;
+                        },
+                        removeLanguage(language) {
+                            this.selectedTechs = this.selectedTechs.filter(item => item !== language);
+                        }
+                    }">
                         <label class="block text-sm font-medium text-on-surface-variant ml-1">Primary Tech Stack</label>
-                        <div class="flex flex-wrap gap-2">
-                            <button
-                                class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold flex items-center gap-2 transition-all active:scale-95"
-                                type="button">
-                                React <span class="material-symbols-outlined text-sm">close</span>
-                            </button>
-                            <button
-                                class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold flex items-center gap-2 transition-all active:scale-95"
-                                type="button">
-                                Python <span class="material-symbols-outlined text-sm">close</span>
-                            </button>
-                            <button
-                                class="px-4 py-2 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-semibold flex items-center gap-2 transition-all active:scale-95"
-                                type="button">
-                                Node.js <span class="material-symbols-outlined text-sm">close</span>
-                            </button>
+                        <div class="flex flex-wrap gap-2" @click.away="showLanguages = false">
+                            <template x-for="tech in selectedTechs" :key="tech">
+                                <button
+                                    class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold flex items-center gap-2 transition-all active:scale-95"
+                                    type="button" @click="removeLanguage(tech)">
+                                    <span x-text="tech"></span>
+                                    <span class="material-symbols-outlined text-sm">close</span>
+                                </button>
+                            </template>
                             <button
                                 class="px-4 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant text-xs font-medium hover:bg-surface-container-high transition-colors"
-                                type="button">
+                                type="button" @click="showLanguages = !showLanguages">
                                 + Add more
                             </button>
+                            <div x-show="showLanguages" x-cloak
+                                class="w-full mt-2 bg-surface-container-low rounded-xl border border-outline-variant/20 max-h-52 overflow-y-auto p-2">
+                                <template x-for="language in languages" :key="language">
+                                    <button type="button"
+                                        class="w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-surface-container-high transition-colors"
+                                        @click="addLanguage(language)">
+                                        <span x-text="language"></span>
+                                    </button>
+                                </template>
+                            </div>
                         </div>
                     </div>
-                    <!-- Learning Goals -->
+                    <!-- Institution Name -->
                     <div class="space-y-3">
-                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="goals">Learning
-                            Goals</label>
+                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="institution">Institution Name</label>
+                        <input
+                            class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline/60"
+                            id="institution" name="institution" type="text" placeholder="e.g. University, Company, or Bootcamp" />
+                    </div>
+                    <!-- Bio -->
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="bio">Bio / Description</label>
                         <textarea
                             class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline/60"
-                            id="goals" placeholder="What do you want to achieve?" rows="3"></textarea>
+                            id="bio" name="bio" placeholder="Tell us a bit about yourself, your passion, or what you're working on..." rows="3"></textarea>
                     </div>
                     <!-- Actions -->
                     <div class="pt-6 flex flex-col md:flex-row items-center justify-between gap-4">

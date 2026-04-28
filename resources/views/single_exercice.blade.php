@@ -123,8 +123,6 @@
       <span class="font-['Space_Grotesk'] text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">Kinetic
         Lab</span>
       <nav class="hidden md:flex items-center gap-6">
-        <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white transition-colors"
-          href="#">Curriculum</a>
         <a class="text-cyan-600 dark:text-cyan-400 font-bold border-b-2 border-cyan-500" href="#">Exercises</a>
         <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white transition-colors"
           href="#">Community</a>
@@ -418,10 +416,13 @@
             class="px-8 py-3 bg-secondary text-on-secondary font-bold text-sm rounded-xl transition-all hover:bg-secondary-dim active:scale-95">
             Run Code
           </button>
-          <button
-            class="px-10 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm rounded-xl transition-all hover:shadow-[0_0_20px_rgba(58,223,250,0.4)] active:scale-95">
-            Request Correction
-          </button>
+          <form method="POST" action="{{ route('exercise.complete', $exercice->id) }}">
+            @csrf
+            <button type="submit"
+              class="px-10 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold text-sm rounded-xl transition-all hover:shadow-[0_0_20px_rgba(58,223,250,0.4)] active:scale-95">
+              Mark as Completed
+            </button>
+          </form>
         </div>
       </div>
     </section>

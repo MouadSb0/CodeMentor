@@ -192,19 +192,41 @@
                     <span class="material-symbols-outlined text-on-surface-variant"
                         data-icon="notifications">notifications</span>
                 </button>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('profile') }}" class="block w-full h-full">
-                        <img alt="User profile avatar" class="w-full h-full object-cover"
-                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main class="flex h-[calc(100vh-80px)] overflow-hidden">
         <!-- Sidebar Navigation Drawer Shell -->
-        <aside class="hidden lg:flex flex-col w-72 bg-[#eef1f3] h-full p-6 gap-8">
+        <aside class="hidden lg:flex flex-col w-72 bg-[#D0E3E6] h-full p-6 gap-8">
             <div class="space-y-1">
                 <p class="text-[10px] uppercase tracking-widest font-bold text-outline mb-4 px-3">Main Workspace</p>
                 <a class="flex items-center gap-3 px-4 py-3 bg-white text-cyan-600 shadow-sm rounded-xl font-medium transition-transform hover:translate-x-1"
@@ -244,7 +266,7 @@
         <!-- Main Code Canvas -->
         <section class="flex-1 flex flex-col min-w-0 bg-[#D0E3E6]">
             <!-- Toolbar / Editor Header -->
-            <div class="px-6 py-3 bg-surface flex items-center justify-between border-b border-outline-variant/15">
+            <div class="px-6 py-3 bg-[#D0E3E6] flex items-center justify-between border-b border-outline-variant/15">
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-error"></span>
@@ -259,54 +281,45 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <button
+                        id="check-result-btn"
                         class="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm shadow-sm active:scale-95 transition-all">
-                        <span class="material-symbols-outlined text-lg" data-icon="play_arrow"
-                            style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                        RUN CODE
+                        <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                        CHECK RESULT
                     </button>
                     <button
                         class="flex items-center gap-2 px-5 py-2 rounded-xl bg-secondary-container text-on-secondary-container font-bold text-sm hover:bg-secondary-fixed transition-colors active:scale-95">
-                        <span class="material-symbols-outlined text-lg" data-icon="bug_report">bug_report</span>
+                        <span class="material-symbols-outlined text-lg">bug_report</span>
                         DEBUG
                     </button>
                 </div>
             </div>
             <!-- Code Editor Area -->
             <div
-                class="flex-1 overflow-auto p-8 font-mono text-sm leading-relaxed bg-surface-container-lowest m-4 rounded-xl shadow-sm">
-                <div class="flex gap-6">
-                    <div class="text-outline-variant/40 text-right select-none pr-4 border-r border-outline-variant/10">
+                class="flex-1 overflow-auto p-8 font-mono text-sm leading-relaxed bg-surface-container-lowest m-4 rounded-xl shadow-sm focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+                <div class="flex gap-6 h-full">
+                    <div id="line-numbers" class="text-outline-variant/40 text-right select-none pr-4 border-r border-outline-variant/10 min-w-[3rem]">
                         1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br />10<br />11<br />12<br />13<br />14
                     </div>
-                    <div class="flex-1">
-                        <span class="code-syntax-comment">// Kinetic Lab - Neural Architecture v4.2</span><br />
-                        <span class="code-syntax-keyword">async function</span> <span
-                            class="code-syntax-function">initializeCodeMentorCore</span>(config) {<br />
-                        &nbsp;&nbsp;<span class="code-syntax-keyword">const</span> node = <span
-                            class="code-syntax-keyword">await</span> Lab.<span
-                            class="code-syntax-function">connect</span>({<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;id: <span class="code-syntax-string">"kinetic-alpha-01"</span>,<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;mode: <span class="code-syntax-string">"surgical-precision"</span><br />
-                        &nbsp;&nbsp;});<br />
-                        <br />
-                        &nbsp;&nbsp;<span class="code-syntax-keyword">if</span> (!node.<span
-                            class="code-syntax-function">isActive</span>()) {<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-syntax-keyword">throw new</span> <span
-                            class="code-syntax-function">Error</span>(<span class="code-syntax-string">"System offline:
-                            Kinetic breach detected"</span>);<br />
-                        &nbsp;&nbsp;}<br />
-                        <br />
-                        &nbsp;&nbsp;<span class="code-syntax-keyword">return</span> node.<span
-                            class="code-syntax-function">spinUp</span>({<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;power: <span class="code-syntax-string">"max"</span>,<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;safety: <span class="code-syntax-keyword">false</span><br />
-                        &nbsp;&nbsp;});<br />
-                        }
-                    </div>
+                    <div id="code-editor" contenteditable="true" class="flex-1 outline-none spellcheck-false whitespace-pre-wrap text-on-surface">// Kinetic Lab - Neural Architecture v4.2
+async function initializeCodeMentorCore(config) {
+  const node = await Lab.connect({
+    id: "kinetic-alpha-01",
+    mode: "surgical-precision"
+  });
+
+  if (!node.isActive()) {
+    throw new Error("System offline: Kinetic breach detected");
+  }
+
+  return node.spinUp({
+    power: "max",
+    safety: false
+  });
+}</div>
                 </div>
             </div>
             <!-- Terminal Output -->
-            <div class="h-48 bg-surface-container-low mx-4 mb-4 rounded-xl p-5 flex flex-col">
+            <div class="h-48 bg-surface mx-4 mb-4 rounded-xl p-5 flex flex-col">
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-sm text-outline"
@@ -424,6 +437,56 @@
             <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
         </button>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const codeEditor = document.getElementById('code-editor');
+            const lineNumbers = document.getElementById('line-numbers');
+            const checkBtn = document.getElementById('check-result-btn');
+            const terminalOutput = document.querySelector('.overflow-auto.font-mono.text-xs');
+
+            // Update line numbers on input
+            codeEditor.addEventListener('input', () => {
+                const lines = codeEditor.innerText.split('\n').length;
+                lineNumbers.innerHTML = Array.from({ length: lines }, (_, i) => i + 1).join('<br />');
+            });
+
+            checkBtn.addEventListener('click', async () => {
+                const code = codeEditor.innerText;
+                
+                // Visual feedback
+                checkBtn.disabled = true;
+                checkBtn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">sync</span> CHECKING...';
+                
+                terminalOutput.innerHTML += `<p class="text-primary font-bold mt-4">● Checking code with DeepSeek AI...</p>`;
+                
+                try {
+                    const response = await fetch('/code/check', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({ code })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        terminalOutput.innerHTML += `<p class="text-tertiary mt-2">${data.analysis}</p>`;
+                    } else {
+                        terminalOutput.innerHTML += `<p class="text-error mt-2">Error: ${data.message || 'Analysis failed'}</p>`;
+                    }
+                } catch (error) {
+                    terminalOutput.innerHTML += `<p class="text-error mt-2">System Error: Could not connect to analysis service.</p>`;
+                } finally {
+                    checkBtn.disabled = false;
+                    checkBtn.innerHTML = '<span class="material-symbols-outlined text-lg" style="font-variation-settings: \'FILL\' 1;">analytics</span> CHECK RESULT';
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+            });
+        });
+    </script>
+@include('partials.ai_chat')
 </body>
 
 </html>

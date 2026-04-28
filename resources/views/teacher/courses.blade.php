@@ -261,21 +261,42 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('/profile') }}">
-                        <img alt="User profile avatar"
-                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main class="max-w-7xl mx-auto px-6 pt-12 pb-32">
         @if(session('success'))
-            <div
-                class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top duration-500">
+            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition.duration.500ms
+                class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl flex items-center gap-3">
                 <span class="material-symbols-outlined">check_circle</span>
                 <span class="font-bold">{{ session('success') }}</span>
             </div>
@@ -396,7 +417,7 @@
                             <span
                                 class="text-xs font-semibold text-primary uppercase tracking-widest">{{ $course->category }}</span>
                             <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                            <span class="text-xs text-on-surface-variant">0 Modules</span>
+                            <span class="text-xs text-on-surface-variant">{{ $course->modules_count ?? 0 }} Modules</span>
                         </div>
                         <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">
                             {{ $course->title }}
@@ -519,7 +540,7 @@
     <!-- Modal Overlay -->
     <div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 modal-blur hidden" id="modal_course">
         <div
-            class="bg-surface-container-lowest w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            class="bg-surface-container-lowest w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl animate-in fade-in zoom-in duration-300">
             <!-- Modal Header -->
             <div class="px-8 pt-8 pb-4 flex justify-between items-center">
                 <h2 class="text-2xl font-bold font-headline text-on-background">
@@ -586,6 +607,18 @@
                                 <p class="text-xs text-on-surface-variant">SVG, PNG, JPG or GIF (max. 800x400px)</p>
                             </div>
                             <input name="image" required class="hidden" type="file" />
+                        </div>
+                    </div>
+                    <!-- Modules Section -->
+                    <div class="space-y-3" id="modules-container">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wide px-1">Course Modules</label>
+                            <button type="button" id="add_module_btn" class="text-xs bg-primary/10 text-primary font-bold px-3 py-1.5 rounded-lg hover:bg-primary/20 transition-colors flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">add</span> Add Module
+                            </button>
+                        </div>
+                        <div id="modules_list" class="space-y-4 max-h-64 overflow-y-auto pr-2">
+                            <!-- Dynamic modules will be appended here -->
                         </div>
                     </div>
                 </div>
@@ -666,8 +699,55 @@
                     hideModal();
                 }
             });
+
+            // Add Module Logic
+            const addModuleBtn = document.getElementById('add_module_btn');
+            const modulesList = document.getElementById('modules_list');
+            let moduleIndex = 0;
+
+            if (addModuleBtn && modulesList) {
+                addModuleBtn.addEventListener('click', function() {
+                    const moduleHtml = `
+                        <div class="module-item p-4 bg-surface rounded-xl border border-outline-variant/20 relative group">
+                            <button type="button" class="remove-module-btn absolute top-2 right-2 text-error opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-error/10 rounded-lg">
+                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                            </button>
+                            <div class="space-y-3">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase module-title-label">Module Title</label>
+                                    <input name="modules[${moduleIndex}][title]" required class="w-full bg-white border-none focus:ring-2 focus:ring-primary rounded-lg py-2 px-3 text-sm text-on-surface placeholder:text-outline-variant" placeholder="e.g. Introduction" type="text" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase">Module Description</label>
+                                    <textarea name="modules[${moduleIndex}][description]" required class="w-full bg-white border-none focus:ring-2 focus:ring-primary rounded-lg py-2 px-3 text-sm text-on-surface placeholder:text-outline-variant resize-none" rows="2" placeholder="type the module content here"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    modulesList.insertAdjacentHTML('beforeend', moduleHtml);
+                    moduleIndex++;
+                    updateModuleLabels();
+                });
+
+                modulesList.addEventListener('click', function(e) {
+                    const removeBtn = e.target.closest('.remove-module-btn');
+                    if (removeBtn) {
+                        removeBtn.closest('.module-item').remove();
+                        updateModuleLabels();
+                    }
+                });
+
+                function updateModuleLabels() {
+                    const items = modulesList.querySelectorAll('.module-item');
+                    items.forEach((item, index) => {
+                        const label = item.querySelector('.module-title-label');
+                        if (label) label.textContent = 'Module ' + (index + 1) + ' Title';
+                    });
+                }
+            }
         });
     </script>
+@include('partials.ai_chat')
 </body>
 
 </html>

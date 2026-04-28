@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -212,6 +212,7 @@
                 href="#">Support</a>
         </div>
     </footer>
+@include('partials.ai_chat')
 </body>
 
 </html>

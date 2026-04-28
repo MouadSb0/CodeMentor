@@ -25,4 +25,16 @@ class Exercise extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_exercise')->withTimestamps();
+    }
+
+    public function completedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'exercise_user')
+            ->withPivot(['completed_at'])
+            ->withTimestamps();
+    }
 }

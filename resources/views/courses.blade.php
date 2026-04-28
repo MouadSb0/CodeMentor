@@ -125,13 +125,13 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/courses') }}"
+                        <a href="{{ route('courses') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
-                        <a href="{{ url('/exercices') }}"
+                        <a href="{{ route('exercices') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
-                        <a href="{{ url('/code') }}"
+                        <a href="{{ route('CodeLab') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
-                        <a href="{{ url('/quizzes') }}"
+                        <a href="{{ route('quizzes') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
                     </div>
                 </div>
@@ -143,18 +143,18 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/assesement') }}"
+                        <a href="{{ route('assesements') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
-                        <a href="{{ url('/career') }}"
+                        <a href="{{ route('career') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
                         <a href="{{ url('/certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
                 </div>
                 <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
-                    href="{{ url('/community') }}">Community</a>
+                    href="{{ route('community') }}">Community</a>
                 <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold"
-                    href="{{ url('/contact') }}">Contact</a>
+                    href="{{ route('contact') }}">Contact</a>
 
             </nav>
             <div class="flex items-center gap-4">
@@ -169,12 +169,34 @@
                     <span class="material-symbols-outlined text-on-surface-variant"
                         data-icon="notifications">notifications</span>
                 </button>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('/profile') }}" class="block w-full h-full">
-                        <img alt="User profile avatar" class="w-full h-full object-cover"
-                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,294 +277,106 @@
         </section>
         <!-- Course Catalog Grid -->
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Course Card 1 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
+            @forelse($courses as $course)
+            <div class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
+                <!-- Thumbnail -->
                 <div class="relative h-56 overflow-hidden">
                     <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Abstract vibrant digital art representing clean code with glowing yellow and orange lines on dark background"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUfeW92c-DOmPaVbmoFFKP-hGEDAEDbJdZeMUN4pj1Wn4rk25MYJTSZWznhrc8SyZ5P1nctRyZHmy1B7EYz4KgcsixeWGHrONzB2BBFKNzp6a0fddX0Z7Bl8hHeVdGFstCCVyFt6dAzBjsd9jRa0fkReV8xoEl1RLDwDe-52nWFFi8ySLQGH8SzWPffg4rhDUKBEn3jVjtHRY8A74ifgXtK5HQjP1jcqbT3VmsHoA2nhBa9noPumWPkLWHdK82hIIJi1KefEjP8Aut" />
+                        src="{{ $course->thumbnail }}"
+                        alt="{{ $course->title }}" />
                     <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-white/90 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">FREE</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Beginner</span>
+                        @if($course->is_premium)
+                            <span class="bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">PRO</span>
+                        @else
+                            <span class="bg-white/90 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">FREE</span>
+                        @endif
+                        <span class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">{{ $course->level }}</span>
                     </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">4.9</span>
+                    @if($course->rating > 0)
+                    <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
+                        <span class="material-symbols-outlined text-yellow-500 text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="text-xs font-bold text-on-surface">{{ number_format($course->rating, 1) }}</span>
                     </div>
+                    @endif
                 </div>
+                <!-- Body -->
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Web
-                            Development</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">12 Modules</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">Modern
-                        JavaScript Mastery</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Master ES2024 features, asynchronous
-                        patterns, and high-performance functional programming in JS.</p>
-                    <div class="mt-auto pt-6 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">8.5 Hours</span>
-                        </div>
-                        <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
-                            View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Course Card 2 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col border border-primary/5">
-                <div class="relative h-56 overflow-hidden">
-                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Macro photography of complex blue network servers and glowing fiber optic cables representing connectivity and APIs"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8SKB1S6fC8hx7IUmDjdfyyHHIClr-kmuLIidkAQXyCHuwUZJE-q_J7Xq_UIsZl03K9n_hZoL9sC5aHPv-_MjLVgTRGyeTs66Mr6hkHRViSL26onEe3C8aLrfAyNZjrDf8xsHA_uR6V3RkkV7nXpSlg59B6_oZ7k22eKMZhXr1iTrVxFbQwh7YfLkQkkw2TufxJOzkiBBFg-4n7qZdmN4uyKUMOvOtzgLTPS3RgGHvEUH_0CZl23BDWMM18Eb7yTwcehYrGI-WN8Wg" />
-                    <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">PRO</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Intermediate</span>
-                    </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">5.0</span>
-                    </div>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Backend
-                            Systems</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">18 Modules</span>
+                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">{{ $course->category }}</span>
+                        @if($course->modules_count > 0)
+                            <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
+                            <span class="text-xs text-on-surface-variant">{{ $course->modules_count }} Modules</span>
+                        @endif
                     </div>
                     <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">
-                        Scalable API Connection</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Build resilient communication layers
-                        with Webhooks, gRPC, and RESTful best practices.</p>
+                        {{ $course->title }}
+                    </h3>
+                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">{{ $course->description }}</p>
                     <div class="mt-auto pt-6 flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">14 Hours</span>
+                            @if($course->duration)
+                                <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
+                                <span class="text-xs font-medium text-on-surface-variant">{{ $course->duration }}</span>
+                            @endif
                         </div>
                         <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
+                            href="{{ route('course', $course->id) }}">
                             View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- Course Card 3 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
-                <div class="relative h-56 overflow-hidden">
-                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Technical drawing of a chip circuit board with cyan neon light accents against a dark slate background"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-YaHbwXd8MbbVciL8Uy7cS0bt5J5nPgawanreBKaHPIBGzoCf4FOgKAtlQ8YnKVK-UFQHEGFAJEmlkkyrZ3CPYpIrbLvXGJyyEITeJ_CVD-jXg4-iE3EvRKDb-8CYaF9OnPjMy26wIUGsjKJwbzIDrHanmf7R4BJiIVGduwVmZWj0m3exFBN71pSqmkdc1gloyDLtHDjX1n7ldTZqRW4igbv9ovIejUZQyDWi7K8P0Rp0U5NGty4nR9zgMr_LxWS2ag-fBhD_ErFo" />
-                    <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">PRO</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Advanced</span>
-                    </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">4.8</span>
-                    </div>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">System
-                            Architecture</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">24 Modules</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">
-                        Microservices Design</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Architect distributed systems that
-                        scale globally using Kubernetes and Docker orchestration.</p>
-                    <div class="mt-auto pt-6 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">22 Hours</span>
-                        </div>
-                        <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
-                            View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
+            @empty
+            <div class="col-span-3 py-24 flex flex-col items-center justify-center text-center">
+                <span class="material-symbols-outlined text-6xl text-outline-variant mb-4">school</span>
+                <h3 class="text-xl font-bold text-on-surface mb-2">No courses available yet</h3>
+                <p class="text-on-surface-variant text-sm max-w-sm">Teachers haven't published any courses yet. Check back soon!</p>
             </div>
-            <!-- Course Card 4 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
-                <div class="relative h-56 overflow-hidden">
-                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Close-up of a high-resolution monitor displaying beautiful clean code with colorful syntax highlighting"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTrqAmnAu40b8eQ6re59fA6mITZx0hNb7LygHUN2W6d2Eaaq5qiSFl4FEvuoRIQIIj8szhZzJZ8A-u29rpvdRnx8wGqIwgTy16Lgm4BHxkiEcR64GDBaqw_gFthIbX4IPrfGmmWIoyU3xb4tf872U3OTVV2xS6q3YcK1GZgpUCs0YCPIyXgAKGxEDEJz9cx2vVxwQtlTLRD3Ar9GhbcwpPuMthIevglgn7YplD_9J5oPvWD-BbjXPSZ9i_Ltpawtes-wnSeJLkE_eo" />
-                    <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-white/90 backdrop-blur-md text-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">FREE</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Beginner</span>
-                    </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">4.7</span>
-                    </div>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">UI/UX
-                            Development</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">10 Modules</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">
-                        Advanced Tailwind Logic</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Learn to build complex design systems
-                        and custom configurations with Tailwind CSS.</p>
-                    <div class="mt-auto pt-6 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">6 Hours</span>
-                        </div>
-                        <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
-                            View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Course Card 5 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col border border-primary/5">
-                <div class="relative h-56 overflow-hidden">
-                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Dynamic data visualization graphs and charts glowing on a clean glass surface with futuristic lighting"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP19qi9FgLlLhCb7Z2w0Z8TbK4X6VNSKhsViRX_jhgoEmYTH7XNpcZyZd-2LWTCzrn9R_spNQCfjFDzGvP_FqOkZFvDJ44c2y1dkOPMvz-v1_q0tv_A5IOWEItQI25zzwXhEU1Z6iXOc4lLHgXyy5_fUIdCLVuLX_fq4UZxKvPQXx2MveUTeyJ7s5_RVGFpCXurCwt16S5C0KVFvHSua-SkB5JlqKg9z8IZ5JScTF3MWhj5iMoCEK47136I13S2YyhLhbFee8vsuj3" />
-                    <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">PRO</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Intermediate</span>
-                    </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">4.9</span>
-                    </div>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Data
-                            Engineering</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">15 Modules</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">Python
-                        for Big Data</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Utilize Pandas, NumPy, and Spark to
-                        process and analyze massive datasets efficiently.</p>
-                    <div class="mt-auto pt-6 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">16.5 Hours</span>
-                        </div>
-                        <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
-                            View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Course Card 6 -->
-            <div
-                class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
-                <div class="relative h-56 overflow-hidden">
-                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        data-alt="Security-themed imagery with glowing padlock and binary code elements in dark blue and emerald green"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSywkV3Ig85EaxHEf19QnECy6hdw1FIbzl1AiJnSSGLo2JvRC0xP7ZDLVAy2uv6VgYuey1KYNUWwH7CqvRB1LoySMlGalrZ4-iMPMBoyK4HUrFQWZxtyV_nHHXucG1wAIHUMdhQx5_tjczovfya-GHywkK0-vjOalLNx9ZqCSzYNzlEshF5mpkjKGiyuakmdMzaCXqEnGvPyKuoT8FZfU8PcYFRXTZAAMigEtlm7P1uleGYKB71cEml2fOZpouh1z237-j8T-ESo8W" />
-                    <div class="absolute top-4 left-4 flex gap-2">
-                        <span
-                            class="bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">PRO</span>
-                        <span
-                            class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded tracking-tighter uppercase">Advanced</span>
-                    </div>
-                    <div
-                        class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 shadow-sm">
-                        <span class="material-symbols-outlined text-yellow-500 text-sm"
-                            style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="text-xs font-bold text-on-surface">4.9</span>
-                    </div>
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Security</span>
-                        <span class="w-1 h-1 rounded-full bg-outline-variant/30"></span>
-                        <span class="text-xs text-on-surface-variant">12 Modules</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">
-                        Ethical Hacking Core</h3>
-                    <p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Learn the mindset and tools of security
-                        researchers to build bulletproof applications.</p>
-                    <div class="mt-auto pt-6 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-on-surface-variant text-base">schedule</span>
-                            <span class="text-xs font-medium text-on-surface-variant">11 Hours</span>
-                        </div>
-                        <a class="text-primary font-bold text-sm flex items-center gap-1 hover:translate-x-1 transition-transform"
-                            href="{{ url('/course') }}">
-                            View Details <span class="material-symbols-outlined text-sm">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </section>
-        <!-- Pagination (Asymmetric Style) -->
-        <div
-            class="mt-20 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-outline-variant/10 pt-12">
+
+        <!-- Pagination -->
+        @if($courses->hasPages())
+        <div class="mt-20 flex flex-col md:flex-row items-center justify-between gap-8 border-t border-outline-variant/10 pt-12">
             <div>
-                <p class="text-sm text-on-surface-variant">Showing <span class="font-bold text-on-surface">6</span> of
-                    48 total courses</p>
+                <p class="text-sm text-on-surface-variant">Showing <span class="font-bold text-on-surface">{{ $courses->firstItem() }}–{{ $courses->lastItem() }}</span> of {{ $courses->total() }} courses</p>
             </div>
             <div class="flex items-center gap-2">
-                <button
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface hover:bg-primary hover:text-white transition-all">
-                    <span class="material-symbols-outlined">west</span>
-                </button>
+                @if($courses->onFirstPage())
+                    <span class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container text-outline cursor-not-allowed opacity-50">
+                        <span class="material-symbols-outlined">west</span>
+                    </span>
+                @else
+                    <a href="{{ $courses->previousPageUrl() }}" class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">west</span>
+                    </a>
+                @endif
                 <div class="flex gap-1 px-4">
-                    <button class="w-10 h-10 rounded-full font-bold bg-primary text-white">1</button>
-                    <button class="w-10 h-10 rounded-full font-bold hover:bg-surface-container-high">2</button>
-                    <button class="w-10 h-10 rounded-full font-bold hover:bg-surface-container-high">3</button>
-                    <span class="px-2 self-center">...</span>
-                    <button class="w-10 h-10 rounded-full font-bold hover:bg-surface-container-high">8</button>
+                    @for($p = 1; $p <= $courses->lastPage(); $p++)
+                        @if($p == $courses->currentPage())
+                            <span class="w-10 h-10 rounded-full font-bold bg-primary text-white flex items-center justify-center">{{ $p }}</span>
+                        @else
+                            <a href="{{ $courses->url($p) }}" class="w-10 h-10 rounded-full font-bold hover:bg-surface-container-high flex items-center justify-center transition-colors">{{ $p }}</a>
+                        @endif
+                    @endfor
                 </div>
-                <button
-                    class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface hover:bg-primary hover:text-white transition-all">
-                    <span class="material-symbols-outlined">east</span>
-                </button>
+                @if($courses->hasMorePages())
+                    <a href="{{ $courses->nextPageUrl() }}" class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-high text-on-surface hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined">east</span>
+                    </a>
+                @else
+                    <span class="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container text-outline cursor-not-allowed opacity-50">
+                        <span class="material-symbols-outlined">east</span>
+                    </span>
+                @endif
             </div>
         </div>
+        @endif
     </main>
     <!-- BottomNavBar Component (Mobile Only) -->
     <nav
         class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.03)] rounded-t-[1.5rem] border-t border-[#abadaf]/15">
-        <a href="{{ url('/courses') }}"
+        <a href="{{ route('courses') }}"
             class="flex flex-col items-center justify-center bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-300 rounded-2xl px-5 py-2 active:scale-90 transition-transform">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Learn</span>
@@ -552,7 +386,7 @@
             <span class="material-symbols-outlined">terminal</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Build</span>
         </a>
-        <a href="{{ url('/career') }}"
+        <a href="{{ route('career') }}"
             class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 active:scale-90 transition-transform">
             <span class="material-symbols-outlined">work</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Jobs</span>
@@ -575,6 +409,7 @@
             <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
         </button>
     </div>
+@include('partials.ai_chat')
 </body>
 
 </html>

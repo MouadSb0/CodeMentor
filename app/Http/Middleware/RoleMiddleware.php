@@ -22,6 +22,7 @@ class RoleMiddleware
 
         $user = Auth::user();
         $currentRouteName = $request->route()->getName();
+        $request->session()->put('user_role', $user->role);
 
         // Admin rules
         if ($user->role === 'admin') {
@@ -45,7 +46,7 @@ class RoleMiddleware
                 'certifications', 'chat_group', 'community', 'contact', 
                 'group', 'other_profile', 'result', 'single_course', 
                 'single_exercice', 'single_quiz', 'profile',
-                'course', 'singleCourse', 'CodeLab', 'activities.store', 'bonus.claim', 'profile.update'
+                'course', 'singleCourse', 'CodeLab', 'code.check', 'activities.store', 'bonus.claim', 'profile.update'
             ];
 
             if (in_array($currentRouteName, $allowedTeacherRoutes)) {

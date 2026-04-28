@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -162,13 +162,34 @@
                     <span class="material-symbols-outlined text-on-surface-variant"
                         data-icon="notifications">notifications</span>
                 </button>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('profile') }}">
-                        <img alt="User profile avatar"
-                            data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -356,6 +377,7 @@
             <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
         </button>
     </div>
+@include('partials.ai_chat')
 </body>
 
 </html>

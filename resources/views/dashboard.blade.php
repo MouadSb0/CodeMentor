@@ -127,13 +127,13 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/courses') }}"
+                        <a href="{{ route('courses') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
-                        <a href="#"
+                        <a href="{{ route('exercices') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
-                        <a href="{{ url('/codeLab') }}"
+                        <a href="{{ route('CodeLab') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
-                        <a href="{{ url('/quizzes') }}"
+                        <a href="{{ route('quizzes') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
                     </div>
                 </div>
@@ -145,11 +145,11 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/assesement') }}"
+                        <a href="{{ route('assesements') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
-                        <a href="{{ url('/career') }}"
+                        <a href="{{ route('career') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
-                        <a href="{{ url('/certifications') }}"
+                        <a href="{{ route('certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
                 </div>
@@ -252,19 +252,42 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('/profile') }}" class="block w-full h-full">
-                        <img alt="User profile avatar" class="w-full h-full object-cover"
-                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
     <main class="max-w-7xl mx-auto px-6 py-8 pb-32">
         @if (session('success'))
-            <div class="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary rounded-xl flex items-center gap-3">
+            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition.duration.500ms
+                class="mb-6 p-4 bg-primary/10 border border-primary/20 text-primary rounded-xl flex items-center gap-3">
                 <span class="material-symbols-outlined">check_circle</span>
                 <p class="font-medium">{{ session('success') }}</p>
             </div>
@@ -273,10 +296,10 @@
         <section class="mb-12">
             <h1 class="text-5xl md:text-6xl font-headline font-bold text-on-surface tracking-tight leading-tight">
                 Welcome back, <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Alex!</span>
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">{{ auth()->user()->name }}!</span>
             </h1>
             <p class="text-on-surface-variant mt-4 text-lg max-w-2xl font-body">
-                You're on a <span class="font-bold text-on-surface">12-day streak</span>. Keep the momentum going and
+                You're on a <span class="font-bold text-on-surface">{{ $streak }}-day streak</span>. Keep the momentum going and
                 reach your daily XP goal to unlock the Senior Architect badge.
             </p>
         </section>
@@ -288,23 +311,23 @@
                 <div class="flex justify-between items-end mb-8">
                     <div>
                         <h2 class="text-2xl font-headline font-semibold text-on-surface">Learning Progress</h2>
-                        <p class="text-sm text-on-surface-variant">Full-Stack Mastery Path</p>
+                        <p class="text-sm text-on-surface-variant">{{ auth()->user()->specialization ?? 'General Learning Path' }}</p>
                     </div>
                     <div class="text-right">
-                        <span class="text-4xl font-headline font-bold text-primary">74%</span>
+                        <span class="text-4xl font-headline font-bold text-primary">{{ $progressPercentage }}%</span>
                         <p class="text-[10px] uppercase tracking-tighter text-outline">Overall Completion</p>
                     </div>
                 </div>
                 <div class="relative h-4 w-full bg-surface-container rounded-full overflow-hidden mb-10">
                     <div
-                        class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-primary-container rounded-full w-[74%]">
+                        class="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: {{ $progressPercentage }}%">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
                     <div class="bg-surface-container-low p-4 rounded-lg">
                         <span class="material-symbols-outlined text-primary mb-2">bolt</span>
                         <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest">Streak</p>
-                        <p class="text-xl font-headline font-bold">12 Days</p>
+                        <p class="text-xl font-headline font-bold">{{ $streak }} {{ Str::plural('Day', $streak) }}</p>
                     </div>
                     <div class="bg-surface-container-low p-4 rounded-lg">
                         <span class="material-symbols-outlined text-primary mb-2">military_tech</span>
@@ -315,40 +338,35 @@
                     <div class="bg-surface-container-low p-4 rounded-lg">
                         <span class="material-symbols-outlined text-primary mb-2">menu_book</span>
                         <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest">Courses</p>
-                        <p class="text-xl font-headline font-bold">6 Active</p>
+                        <p class="text-xl font-headline font-bold">{{ $activeCoursesCount }} Active</p>
                     </div>
                     <div class="bg-surface-container-low p-4 rounded-lg">
                         <span class="material-symbols-outlined text-primary mb-2">timer</span>
                         <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest">Hours</p>
-                        <p class="text-xl font-headline font-bold">124 Total</p>
+                        <p class="text-xl font-headline font-bold">{{ $totalHours }} Total</p>
                     </div>
                 </div>
             </div>
-            <!-- Streak Visualizer: Spans 4 cols -->
+            <!-- Pro Upgrade: Spans 4 cols -->
             <div
-                class="md:col-span-4 bg-primary text-on-primary rounded-xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0px_10px_40px_rgba(0,101,115,0.06)]">
+                class="md:col-span-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-xl p-8 flex flex-col justify-between relative overflow-hidden shadow-[0px_10px_40px_rgba(0,101,115,0.06)] border border-primary-fixed/20">
                 <div class="relative z-10">
-                    <h3 class="text-xl font-headline font-bold mb-2">Daily Goal</h3>
-                    <p class="text-sm opacity-80">850 / 1000 XP</p>
+                    <div class="bg-primary-fixed/20 w-fit p-2 rounded-lg mb-4">
+                        <span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                    </div>
+                    <h3 class="text-2xl font-headline font-bold mb-2">Upgrade your account to PRO</h3>
+                    <p class="text-sm opacity-80 leading-relaxed">Unlock advanced courses, AI code mentoring, and professional certifications to accelerate your career.</p>
                 </div>
                 <div class="relative z-10 mt-8">
-                    <div class="flex items-center gap-1 mb-4">
-                        <div class="h-12 w-2 bg-on-primary/20 rounded-full"></div>
-                        <div class="h-16 w-2 bg-on-primary/40 rounded-full"></div>
-                        <div class="h-10 w-2 bg-on-primary/20 rounded-full"></div>
-                        <div class="h-20 w-2 bg-on-primary rounded-full"></div>
-                        <div class="h-14 w-2 bg-on-primary/60 rounded-full"></div>
-                        <div class="h-18 w-2 bg-on-primary rounded-full"></div>
-                        <div class="h-24 w-2 bg-primary-fixed rounded-full"></div>
-                    </div>
-                    <button
-                        class="w-full bg-primary-fixed text-white font-bold py-3 rounded-lg hover:scale-105 transition-transform active:scale-95 bg-gradient-to-r from-primary to-primary-container">
-                        Claim Daily Bonus
-                    </button>
+                    <a href="{{ route('upgrade') }}"
+                        class="w-full bg-white text-primary font-bold py-4 rounded-xl hover:scale-[1.02] transition-all active:scale-95 shadow-xl flex items-center justify-center gap-2">
+                        Upgrade Now
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
                 </div>
                 <!-- Abstract decorative element -->
-                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-primary-container/20 rounded-full blur-3xl">
-                </div>
+                <div class="absolute -right-12 -top-12 w-48 h-48 bg-primary-fixed/10 rounded-full blur-3xl"></div>
+                <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
             </div>
             <!-- Recent Activity Feed: Spans 6 cols -->
             <div class="md:col-span-6 space-y-4" x-data="{ showAll: false }">
@@ -419,36 +437,49 @@
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="text-xl font-headline font-bold text-on-surface">Continue Learning</h3>
                 </div>
-                <div class="relative rounded-xl overflow-hidden aspect-[16/7] shadow-lg group">
-                    <img alt="Cybersecurity"
+                @if($continueCourse)
+                <a href="{{ route('course', $continueCourse->id) }}" class="block relative rounded-xl overflow-hidden aspect-[16/7] shadow-lg group">
+                    <img alt="{{ $continueCourse->title }}"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        data-alt="Futuristic glowing digital security interface with complex data structures and blue neon light"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu3nmXhUJ8w9csFHG9GcBsjQY8EJuyLjgi0DMGCoony9gjHsfF3nFwF8cWrrRpmQsgbnbicXyMp1Qf-ZLj_geTeY2UxEPYTQBJFJdresqKyQNKrTZs2ukUz7Cs8BgLgP3y5g-e3uZ61B6MBJK45snv2MgIe0GVhvj1ZrViq2fwgdwNY6QU48rXQvTAh5zzSW-hx45Run51qT1ZVaFGX2kcIUWFzUuf72G5yg6LchHthlMxOMa0kczvArRjyfmip2lwnTrfjIVLImOl" />
+                        src="{{ $continueCourse->thumbnail }}" />
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
                         <span
                             class="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-2 py-1 rounded w-fit mb-2 uppercase">In
                             Progress</span>
-                        <h4 class="text-white text-xl font-headline font-bold">Advanced Cybersecurity</h4>
-                        <p class="text-white/70 text-sm">Module 4: Network Penetration</p>
+                        <h4 class="text-white text-xl font-headline font-bold">{{ $continueCourse->title }}</h4>
+                        @if($currentModule)
+                        <p class="text-white/70 text-sm">Next Module: {{ $currentModule->title }}</p>
+                        @endif
                     </div>
+                </a>
+                @else
+                <div class="relative rounded-xl overflow-hidden aspect-[16/7] shadow-lg bg-surface-container-low flex flex-col items-center justify-center p-8 text-center border-2 border-dashed border-outline-variant/20">
+                    <span class="material-symbols-outlined text-4xl text-outline-variant mb-4">school</span>
+                    <h4 class="text-on-surface font-headline font-bold text-lg">No active courses</h4>
+                    <p class="text-on-surface-variant text-sm mt-1 mb-6">Explore our catalog and start learning today!</p>
+                    <a href="{{ url('/courses') }}" class="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-dim transition-colors text-xs">Browse Courses</a>
                 </div>
+                @endif
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                        <h4 class="font-bold text-sm mb-1">Code Lab</h4>
-                        <p class="text-xs text-on-surface-variant mb-3">Practice real projects</p>
-                        <div class="flex -space-x-2">
-                            <img alt="user" class="w-6 h-6 rounded-full border-2 border-surface-container-lowest"
-                                data-alt="Avatar of a female software developer"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZr1MYyd3vxgSwLDXAgSIerSOLEWFQ-hj-rQsGaX5Uz3-6N3VaiUWkQoQVM2E_xYfeobV2Yzy3BbL8i08CwuFhgALJwYquFFJk7rTYWk6kqju7xXtovHbiFgODPSbzzjhTnqKgHGkjAxe6H8bFDusNY8l6sOMPFZPv_wCWPShJsG8jkaX3ufOVcowd1Bz8v4hzpE_6Weo-gt3X4aOpt_PycN2firqNzXBf5GcSEHZZOWxyJDfHGl1FjqJ6rV5fx-CD3vrZ3NpY4RBf" />
-                            <img alt="user" class="w-6 h-6 rounded-full border-2 border-surface-container-lowest"
-                                data-alt="Avatar of a male software developer"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtYaZoQHZ45SItv1EmspsV-THcjtXzGa5ihUr5EghdqbJXuAFMmLDQ91Gm2OConnUdnTj04MJ9vc-7CmF1iuGYrMyTfrm2YtrR9hhyqCAyP9p2AYbjaoLIrxi2ObaYKjFBFNTqzsadbb7XyqUSUtUa1s_pV4Pw0FwMVcB6XweTSaPssphocdUgzvT9g3Lt-Oxk-mpFESiP90Ehm9r-JVsj2HDdrie0w3b6ByoZTlo9I5ecnd-YjS3Hsp9s9dmIzkMn16SG9jBhnniJ" />
-                            <div
-                                class="w-6 h-6 rounded-full bg-surface-container text-[8px] flex items-center justify-center font-bold">
-                                +12</div>
+                    @if($suggestedGroup)
+                    <a href="{{ route('groups.show', $suggestedGroup->id) }}" class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-all group/card overflow-hidden relative">
+                        <div class="relative z-10">
+                            <h4 class="font-bold text-sm mb-1 group-hover/card:text-primary transition-colors line-clamp-1">{{ $suggestedGroup->name }}</h4>
+                            <p class="text-xs text-on-surface-variant mb-3">{{ $suggestedGroup->members_count }} {{ Str::plural('Member', $suggestedGroup->members_count) }}</p>
+                            <span class="inline-flex items-center text-primary text-[10px] font-bold uppercase tracking-widest">
+                                Join Group
+                                <span class="material-symbols-outlined text-[14px] ml-1 group-hover/card:translate-x-1 transition-transform">arrow_forward</span>
+                            </span>
                         </div>
+                        <!-- Subtle background decoration -->
+                        <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/5 rounded-full blur-xl group-hover/card:bg-primary/10 transition-colors"></div>
+                    </a>
+                    @else
+                    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm opacity-50 flex items-center justify-center italic text-xs">
+                        No groups available
                     </div>
+                    @endif
                     <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                         <h4 class="font-bold text-sm mb-1">Career Hub</h4>
                         <p class="text-xs text-on-surface-variant mb-3">3 new job matches</p>
@@ -470,19 +501,19 @@
             </div>
             <nav class="space-y-2">
                 <a class="flex items-center gap-4 p-4 bg-white dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 shadow-sm rounded-xl font-medium"
-                    href="{{ url('/courses') }}">
+                    href="{{ route('courses') }}">
                     <span class="material-symbols-outlined">school</span> Courses
                 </a>
                 <a class="flex items-center gap-4 p-4 text-slate-600 dark:text-slate-400 hover:bg-white/50 rounded-xl transition-all hover:translate-x-1"
-                    href="{{ url('/code') }}">
+                    href="{{ route('CodeLab') }}">
                     <span class="material-symbols-outlined">code_blocks</span> Playground
                 </a>
                 <a class="flex items-center gap-4 p-4 text-slate-600 dark:text-slate-400 hover:bg-white/50 rounded-xl transition-all hover:translate-x-1"
-                    href="{{ url('/certifications') }}">
+                    href="{{ route('certifications') }}">
                     <span class="material-symbols-outlined">verified</span> Certifications
                 </a>
                 <a class="flex items-center gap-4 p-4 text-slate-600 dark:text-slate-400 hover:bg-white/50 rounded-xl transition-all hover:translate-x-1"
-                    href="{{ url('/community') }}">
+                    href="{{ route('community') }}">
                     <span class="material-symbols-outlined">group</span> Community
                 </a>
             </nav>
@@ -492,22 +523,22 @@
     <nav
         class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 md:hidden bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl rounded-t-[1.5rem] shadow-[0_-4px_20px_rgba(0,0,0,0.03)] border-t border-[#abadaf]/15">
         <a class="flex flex-col items-center justify-center bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-300 rounded-2xl px-5 py-2 active:scale-90 transition-transform"
-            href="{{ url('/dashboard') }}">
+            href="{{ route('dashboard') }}">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Learn</span>
         </a>
         <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 hover:text-cyan-500 transition-all active:scale-90"
-            href="{{ url('/playground') }}">
+            href="{{ route('CodeLab') }}">
             <span class="material-symbols-outlined">terminal</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Build</span>
         </a>
         <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 hover:text-cyan-500 transition-all active:scale-90"
-            href="{{ url('/career') }}">
+            href="{{ route('career') }}">
             <span class="material-symbols-outlined">work</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Jobs</span>
         </a>
         <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-2 hover:text-cyan-500 transition-all active:scale-90"
-            href="{{ url('/profile') }}">
+            href="{{ route('profile') }}">
             <span class="material-symbols-outlined">person</span>
             <span class="font-['Inter'] text-[10px] uppercase tracking-widest font-bold mt-1">Profile</span>
         </a>
@@ -748,6 +779,7 @@
                 </button>
             </div>
             <script src="{{ asset('js/modals.js') }}"></script>
+@include('partials.ai_chat')
 </body>
 
 </html>

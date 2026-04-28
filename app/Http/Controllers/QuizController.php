@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Quiz;
 use App\Models\Result;
+use App\Models\UserNotification;
 
 class QuizController extends Controller
 {
@@ -33,6 +34,16 @@ class QuizController extends Controller
             'total_questions' => $request->total_questions,
             'time_taken' => $request->time_taken,
         ]);
+
+        $student = auth()->user();
+        if ($quiz->user_id && $quiz->user_id !== $student->id) {
+            UserNotification::create([
+                'user_id' => $quiz->user_id,
+                'type' => 'quiz_completed',
+                'title' => 'Quiz completed by a student',
+                'body' => "{$student->name} completed your quiz \"{$quiz->title}\".",
+            ]);
+        }
 
         return response()->json([
             'success' => true,

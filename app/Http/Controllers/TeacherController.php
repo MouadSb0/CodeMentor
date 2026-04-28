@@ -3,20 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Course;
 use App\Models\Exercise;
+use App\Models\Module;
 use App\Models\Quiz;
+use App\Models\UserNotification;
 
 class TeacherController extends Controller
 {
     public function storeCourse(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'required|string',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'modules' => 'required|array|min:1',
+            'modules.*.title' => 'required|string|max:255',
+            'modules.*.description' => 'required|string',
         ]);
 
         $imagePath = null;
@@ -24,13 +30,30 @@ class TeacherController extends Controller
             $imagePath = $request->file('image')->store('courses', 'public');
         }
 
-        Course::create([
-            'title' => $request->title,
-            'category' => $request->category,
-            'description' => $request->description,
-            'image' => $imagePath,
-            'user_id' => auth()->id(),
-        ]);
+        DB::transaction(function () use ($validated, $imagePath) {
+            $course = Course::create([
+                'title' => $validated['title'],
+                'category' => $validated['category'],
+                'description' => $validated['description'],
+                'image' => $imagePath,
+                'user_id' => auth()->id(),
+                'modules_count' => count($validated['modules']),
+            ]);
+
+            $modules = collect($validated['modules'])
+                ->map(function (array $module) use ($course) {
+                    return [
+                        'course_id' => $course->id,
+                        'title' => $module['title'],
+                        'description' => $module['description'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                })
+                ->toArray();
+
+            Module::insert($modules);
+        });
 
         return redirect()->route('teacher.courses')->with('success', 'Course created successfully!');
     }
@@ -47,11 +70,21 @@ class TeacherController extends Controller
             session(['daily_bonus' => $bonusAmount]);
         }
 
-        return view('teacher.dashboard', compact('showBonusModal', 'bonusAmount'));
+        $notifications = UserNotification::where('user_id', $user->id)->latest()->take(10)->get();
+        $unreadNotificationsCount = UserNotification::where('user_id', $user->id)
+            ->whereNull('read_at')
+            ->count();
+
+        return view('teacher.dashboard', compact(
+            'showBonusModal',
+            'bonusAmount',
+            'notifications',
+            'unreadNotificationsCount'
+        ));
     }
     public function courses(Request $request)
     {
-        $query = Course::query()->latest();
+        $query = Course::query()->latest()->withCount('modules');
 
         if ($request->get('filter') === 'my_courses') {
             $query->where('user_id', auth()->id());
@@ -60,6 +93,121 @@ class TeacherController extends Controller
         $courses = $query->paginate(6)->withQueryString();
 
         return view('teacher.courses', compact('courses'));
+    }
+
+    public function showCourse($id)
+    {
+        $course = Course::with(['user', 'modules', 'exercises', 'quizzes'])
+            ->where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $teacherExercises = Exercise::where('user_id', auth()->id())
+            ->latest()
+            ->get(['id', 'title']);
+
+        $teacherQuizzes = Quiz::where('user_id', auth()->id())
+            ->latest()
+            ->get(['id', 'title']);
+
+        $relatedCourses = Course::where('category', $course->category)
+            ->where('id', '!=', $course->id)
+            ->take(3)
+            ->get();
+
+        return view('single_course', compact('course', 'relatedCourses', 'teacherExercises', 'teacherQuizzes'));
+    }
+
+    public function attachReferences(Request $request, $id)
+    {
+        $course = Course::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $validated = $request->validate([
+            'exercise_id' => 'nullable|integer|exists:exercises,id',
+            'quiz_id' => 'nullable|integer|exists:quizzes,id',
+        ]);
+
+        if (empty($validated['exercise_id']) && empty($validated['quiz_id'])) {
+            return redirect()
+                ->route('teacher.course.manage', $course->id)
+                ->withErrors(['reference' => 'Please select an exercise or a quiz to attach.']);
+        }
+
+        if (!empty($validated['exercise_id'])) {
+            $exercise = Exercise::where('id', $validated['exercise_id'])
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+
+            $course->exercises()->syncWithoutDetaching([$exercise->id]);
+        }
+
+        if (!empty($validated['quiz_id'])) {
+            $quiz = Quiz::where('id', $validated['quiz_id'])
+                ->where('user_id', auth()->id())
+                ->firstOrFail();
+
+            $course->quizzes()->syncWithoutDetaching([$quiz->id]);
+        }
+
+        return redirect()
+            ->route('teacher.course.manage', $course->id)
+            ->with('success', 'Reference(s) attached successfully.');
+    }
+
+    public function storeModule(Request $request, $id)
+    {
+        $course = Course::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $course->modules()->create($validated);
+        $course->update(['modules_count' => $course->modules()->count()]);
+
+        return redirect()
+            ->route('teacher.course.manage', $course->id)
+            ->with('success', 'Module added successfully.');
+    }
+
+    public function updateModule(Request $request, $id, $moduleId)
+    {
+        $course = Course::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $module = $course->modules()->where('id', $moduleId)->firstOrFail();
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $module->update($validated);
+
+        return redirect()
+            ->route('teacher.course.manage', $course->id)
+            ->with('success', 'Module updated successfully.');
+    }
+
+    public function destroyModule($id, $moduleId)
+    {
+        $course = Course::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $module = $course->modules()->where('id', $moduleId)->firstOrFail();
+        $module->delete();
+        $course->update(['modules_count' => $course->modules()->count()]);
+
+        return redirect()
+            ->route('teacher.course.manage', $course->id)
+            ->with('success', 'Module deleted successfully.');
     }
 
     public function exercices(Request $request)

@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    //
+    protected $fillable = ['user_id', 'disccussion_id', 'content'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function disccussion()
+    {
+        return $this->belongsTo(Disccussion::class);
+    }
 }

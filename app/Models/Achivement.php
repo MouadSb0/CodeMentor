@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Achivement extends Model
 {
-    //
+    protected $fillable = [
+        'user_id',
+        'type',
+        'name',
+        'icon',
+        'color',
+        'description'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

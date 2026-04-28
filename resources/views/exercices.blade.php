@@ -130,7 +130,7 @@
                 </div>
                 <nav class="hidden md:flex items-center gap-8">
                     <a class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors"
-                        href="{{ url('/dashboard') }}">Dashboard</a>
+                        href="{{ route('dashboard') }}">Dashboard</a>
                     <div class="relative group py-4">
                         <button
                             class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
@@ -139,13 +139,13 @@
                         </button>
                         <div
                             class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                            <a href="{{ url('/courses') }}"
+                            <a href="{{ route('courses') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
-                            <a href="#"
+                            <a href="{{ route('exercices') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
-                            <a href="{{ url('/codeLab') }}"
+                            <a href="{{ route('CodeLab') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
-                            <a href="{{ url('/quizzes') }}"
+                            <a href="{{ route('quizzes') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
                         </div>
                     </div>
@@ -157,18 +157,18 @@
                         </button>
                         <div
                             class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                            <a href="{{ url('/assesement') }}"
+                            <a href="{{ route('assesements') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
-                            <a href="{{ url('/career') }}"
+                            <a href="{{ route('career') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
-                            <a href="{{ url('/certifications') }}"
+                            <a href="{{ route('certifications') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                         </div>
                     </div>
                     <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
-                        href="{{ url('/community') }}">Community</a>
+                        href="{{ route('community') }}">Community</a>
                     <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
-                        href="{{ url('/contact') }}">Contact</a>
+                        href="{{ route('contact') }}">Contact</a>
 
                 </nav>
                 <div class="flex items-center gap-4">
@@ -183,13 +183,35 @@
                         <span class="material-symbols-outlined text-on-surface-variant"
                             data-icon="notifications">notifications</span>
                     </button>
+                    <div class="relative group/avatar">
                     <div
-                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                        <a href="{{ url('/profile') }}" class="block w-full h-full">
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
                             <img alt="User profile avatar" class="w-full h-full object-cover"
-                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
                         </a>
                     </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </header>
@@ -407,6 +429,7 @@
             <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
         </button>
     </div>
+@include('partials.ai_chat')
 </body>
 
 </html>

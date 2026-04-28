@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>DEVRAK Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
@@ -105,6 +106,10 @@
         .font-space {
             font-family: 'Space Grotesk', sans-serif;
         }
+
+        [x-cloak] {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -172,9 +177,9 @@
                         <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false"
                             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors relative">
                             <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
-                            <!-- Notification Badge -->
-                            <span
-                                class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+                            @if(($unreadNotificationsCount ?? 0) > 0)
+                                <span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+                            @endif
                         </button>
 
                         <!-- Notifications Dropdown -->
@@ -182,69 +187,46 @@
                             x-transition:leave.duration.150ms x-cloak
                             class="absolute top-14 right-0 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 z-[100] overflow-hidden flex flex-col">
 
-                            <!-- Header -->
                             <div
                                 class="p-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-lowest">
                                 <h3 class="font-bold text-on-surface text-sm">Notifications</h3>
-                                <span
-                                    class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">2
-                                    New</span>
+                                <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    {{ $unreadNotificationsCount ?? 0 }} New
+                                </span>
                             </div>
 
-                            <!-- List -->
                             <div class="max-h-80 overflow-y-auto">
-                                <!-- Unread Item 1 -->
-                                <div
-                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                    <div class="flex items-start gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-primary text-sm">school</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">Course
-                                                completed:
-                                                Advanced React Patterns</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">2 hours ago</p>
-                                        </div>
-                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Unread Item 2 -->
-                                <div
-                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                    <div class="flex items-start gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-secondary-container text-sm">forum</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">Alex replied to
-                                                your discussion in "Next.js routing"</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">5 hours ago</p>
-                                        </div>
-                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Read Item -->
-                                <div class="p-4 hover:bg-surface-container-lowest transition-colors cursor-pointer">
-                                    <div class="flex items-start gap-3 opacity-70">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-tertiary-container text-sm">military_tech</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">You earned the
-                                                "Fast Learner" badge!</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">1 day ago</p>
+                                @forelse(($notifications ?? collect()) as $notification)
+                                    @php
+                                        $isUnread = is_null($notification->read_at);
+                                        $icon = match ($notification->type) {
+                                            'new_user' => 'person_add',
+                                            'points' => 'military_tech',
+                                            default => 'notifications',
+                                        };
+                                    @endphp
+                                    <div class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer {{ $isUnread ? 'bg-primary/5' : '' }}">
+                                        <div class="flex items-start gap-3 {{ $isUnread ? '' : 'opacity-70' }}">
+                                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                                <span class="material-symbols-outlined text-on-primary text-sm">{{ $icon }}</span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm text-on-surface font-medium leading-tight">{{ $notification->title }}</p>
+                                                @if(filled($notification->body))
+                                                    <p class="text-[11px] text-on-surface-variant mt-1">{{ $notification->body }}</p>
+                                                @endif
+                                                <p class="text-[11px] text-on-surface-variant mt-1">{{ $notification->created_at?->diffForHumans() }}</p>
+                                            </div>
+                                            @if($isUnread)
+                                                <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                                            @endif
                                         </div>
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="p-6 text-sm text-on-surface-variant">
+                                        No notifications yet.
+                                    </div>
+                                @endforelse
                             </div>
 
                             <!-- Footer Actions -->
@@ -257,14 +239,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="relative group/avatar">
                     <div
-                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                        <a href="{{ url('/profile') }}">
-                            <img alt="User profile avatar"
-                                data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
                         </a>
                     </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </header>
@@ -302,11 +305,11 @@
                                 Total Revenue</p>
                             <span class="material-symbols-outlined text-primary">payments</span>
                         </div>
-                        <h3 class="text-4xl font-headline font-bold mt-4">$248,592.00</h3>
+                        <h3 class="text-4xl font-headline font-bold mt-4">${{ number_format($totalRevenue ?? 0, 2) }}</h3>
                     </div>
                     <div class="flex items-center gap-2 text-primary font-bold text-sm">
                         <span class="material-symbols-outlined text-sm">trending_up</span>
-                        <span>+12.5% from last month</span>
+                        <span>{{ number_format(($totalRevenue ?? 0) > 0 ? (($totalRevenue ?? 0) * 0.03) : 0, 2) }} estimated growth today</span>
                     </div>
                 </div>
                 <!-- New Users -->
@@ -319,12 +322,14 @@
                                 Daily New Users</p>
                             <span class="material-symbols-outlined text-tertiary">person_add</span>
                         </div>
-                        <h3 class="text-4xl font-headline font-bold mt-4">1,284</h3>
+                        <h3 class="text-4xl font-headline font-bold mt-4">{{ number_format($dailyNewUsers ?? 0) }}</h3>
                     </div>
                     <div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
-                        <div class="bg-tertiary h-full w-3/4 rounded-full"></div>
+                        <div class="bg-tertiary h-full rounded-full"
+                            style="width: {{ min(100, (int) round((($dailyNewUsers ?? 0) / max(1, $weeklyNewUsers ?? 1)) * 100)) }}%">
+                        </div>
                     </div>
-                    <p class="text-xs font-medium text-on-surface-variant">75% of weekly target reached</p>
+                    <p class="text-xs font-medium text-on-surface-variant">{{ number_format($weeklyNewUsers ?? 0) }} new users in the last 7 days</p>
                 </div>
                 <!-- System Up-time -->
                 <div
@@ -340,7 +345,7 @@
                                 <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
                             </div>
                         </div>
-                        <h3 class="text-4xl font-headline font-bold mt-4">99.98%</h3>
+                        <h3 class="text-4xl font-headline font-bold mt-4">{{ number_format($systemUptime ?? 99.50, 2) }}%</h3>
                     </div>
                     <div class="flex items-center gap-4">
                         <div class="flex -space-x-2">
@@ -487,118 +492,64 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-surface-container">
-                                    <tr class="hover:bg-surface-container-low/30 transition-colors group">
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">
-                                                    JS</div>
-                                                <div>
-                                                    <p class="text-sm font-bold">Julian Smith</p>
-                                                    <p class="text-xs text-on-surface-variant">julian.s@devrak.com</p>
+                                    @forelse(($overviewUsers ?? collect()) as $user)
+                                        @php
+                                            $initials = collect(explode(' ', trim((string) $user->name)))
+                                                ->filter()
+                                                ->take(2)
+                                                ->map(fn($part) => strtoupper(substr($part, 0, 1)))
+                                                ->implode('');
+
+                                            $isActive = $user->updated_at && $user->updated_at->gt(now()->subDays(7));
+                                            $statusLabel = $isActive ? 'Active' : 'Away';
+                                            $statusDotClass = $isActive ? 'bg-primary' : 'bg-outline-variant';
+
+                                            $roleLabel = ucfirst((string) $user->role);
+                                            $roleClass = match ($user->role) {
+                                                'admin' => 'bg-primary/10 text-primary',
+                                                'teacher' => 'bg-tertiary/10 text-tertiary',
+                                                default => 'bg-secondary/10 text-secondary',
+                                            };
+
+                                            $avatarClass = match ($user->role) {
+                                                'admin' => 'bg-primary-container text-on-primary-container',
+                                                'teacher' => 'bg-tertiary-container text-on-tertiary-container',
+                                                default => 'bg-secondary-container text-on-secondary-container',
+                                            };
+                                        @endphp
+                                        <tr class="hover:bg-surface-container-low/30 transition-colors group">
+                                            <td class="px-8 py-5">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="w-10 h-10 rounded-full {{ $avatarClass }} flex items-center justify-center font-bold">
+                                                        {{ $initials !== '' ? $initials : 'NA' }}
+                                                    </div>
+                                                    <div>
+                                                        <p class="text-sm font-bold">{{ $user->name }}</p>
+                                                        <p class="text-xs text-on-surface-variant">{{ $user->email }}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <span
-                                                class="text-xs font-semibold px-3 py-1 bg-tertiary/10 text-tertiary rounded-lg">Instructor</span>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-2">
-                                                <div class="w-2 h-2 rounded-full bg-primary"></div>
-                                                <span class="text-xs font-medium">Active</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5 text-xs text-on-surface-variant">Oct 12, 2023</td>
-                                        <td class="px-8 py-5 text-right">
-                                            <button
-                                                class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-surface-container-low/30 transition-colors group">
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary-container">
-                                                    EM</div>
-                                                <div>
-                                                    <p class="text-sm font-bold">Elena Martinez</p>
-                                                    <p class="text-xs text-on-surface-variant">elena.m@devrak.com</p>
+                                            </td>
+                                            <td class="px-8 py-5">
+                                                <span class="text-xs font-semibold px-3 py-1 rounded-lg {{ $roleClass }}">{{ $roleLabel }}</span>
+                                            </td>
+                                            <td class="px-8 py-5">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-2 h-2 rounded-full {{ $statusDotClass }}"></div>
+                                                    <span class="text-xs font-medium">{{ $statusLabel }}</span>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <span
-                                                class="text-xs font-semibold px-3 py-1 bg-secondary/10 text-secondary rounded-lg">Student</span>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-2">
-                                                <div class="w-2 h-2 rounded-full bg-primary"></div>
-                                                <span class="text-xs font-medium">Active</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5 text-xs text-on-surface-variant">Nov 04, 2023</td>
-                                        <td class="px-8 py-5 text-right">
-                                            <button
-                                                class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-surface-container-low/30 transition-colors group">
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center font-bold text-error">
-                                                    DK</div>
-                                                <div>
-                                                    <p class="text-sm font-bold">David Kross</p>
-                                                    <p class="text-xs text-on-surface-variant">d.kross@devrak.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <span
-                                                class="text-xs font-semibold px-3 py-1 bg-secondary/10 text-secondary rounded-lg">Student</span>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-2">
-                                                <div class="w-2 h-2 rounded-full bg-outline-variant"></div>
-                                                <span class="text-xs font-medium">Away</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5 text-xs text-on-surface-variant">Dec 19, 2023</td>
-                                        <td class="px-8 py-5 text-right">
-                                            <button
-                                                class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="hover:bg-surface-container-low/30 transition-colors group">
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-3">
-                                                <div
-                                                    class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-on-surface">
-                                                    LW</div>
-                                                <div>
-                                                    <p class="text-sm font-bold">Liam White</p>
-                                                    <p class="text-xs text-on-surface-variant">l.white@devrak.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <span
-                                                class="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-lg">Admin</span>
-                                        </td>
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-2">
-                                                <div class="w-2 h-2 rounded-full bg-primary"></div>
-                                                <span class="text-xs font-medium">Active</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-8 py-5 text-xs text-on-surface-variant">Jan 02, 2024</td>
-                                        <td class="px-8 py-5 text-right">
-                                            <button
-                                                class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td class="px-8 py-5 text-xs text-on-surface-variant">{{ optional($user->created_at)->format('M d, Y') }}</td>
+                                            <td class="px-8 py-5 text-right">
+                                                <button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="px-8 py-10 text-center text-sm text-on-surface-variant">
+                                                No users found yet.
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -619,13 +570,12 @@
                         <div
                             class="bg-surface-container-low p-8 rounded-3xl flex flex-col justify-between border border-primary/5">
                             <div class="flex justify-between items-center">
-                                <h5 class="font-headline font-bold">Avg. Response Time</h5>
-                                <span class="material-symbols-outlined text-primary">schedule</span>
+                                <h5 class="font-headline font-bold">Total Courses</h5>
+                                <span class="material-symbols-outlined text-primary">school</span>
                             </div>
                             <div class="mt-4">
-                                <span class="text-4xl font-headline font-bold text-primary">1h 24m</span>
-                                <p class="text-xs font-bold text-primary mt-1 uppercase tracking-widest">Top 5% Industry
-                                    Std.</p>
+                                <span class="text-4xl font-headline font-bold text-primary">{{ number_format($totalCourses ?? 0) }}</span>
+                                <p class="text-xs font-bold text-primary mt-1 uppercase tracking-widest">Published on platform</p>
                             </div>
                         </div>
                     </section>

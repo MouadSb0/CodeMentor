@@ -18,4 +18,9 @@ class Quiz extends Model
     protected $casts = [
         'questions' => 'json',
     ];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_quiz')->withTimestamps();
+    }
 }

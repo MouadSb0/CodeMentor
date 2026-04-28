@@ -124,7 +124,7 @@
             </div>
             <nav class="hidden md:flex items-center gap-8">
                 <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
-                    href="{{ url('/dashboard') }}">Dashboard</a>
+                    href="{{ route('dashboard') }}">Dashboard</a>
                 <div class="relative group py-4">
                     <button
                         class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
@@ -133,13 +133,13 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/courses') }}"
+                        <a href="{{ route('courses') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
-                        <a href="#"
+                        <a href="{{ route('exercices') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
-                        <a href="{{ url('/codeLab') }}"
+                        <a href="{{ route('CodeLab') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
-                        <a href="{{ url('/quizzes') }}"
+                        <a href="{{ route('quizzes') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
                     </div>
                 </div>
@@ -151,18 +151,18 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/assesement') }}"
+                        <a href="{{ route('assesements') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
-                        <a href="{{ url('/career') }}"
+                        <a href="{{ route('career') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
-                        <a href="{{ url('/certifications') }}"
+                        <a href="{{ route('certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
                 </div>
                 <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
-                    href="{{ url('/community') }}">Community</a>
+                    href="{{ route('community') }}">Community</a>
                 <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
-                    href="{{ url('/contact') }}">Contact</a>
+                    href="{{ route('contact') }}">Contact</a>
 
             </nav>
             <div class="flex items-center gap-4">
@@ -258,12 +258,34 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                    <a href="{{ url('/profile') }}" class="block w-full h-full">
-                        <img alt="User profile avatar" class="w-full h-full object-cover"
-                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=random' }}" />
-                    </a>
+                <div class="relative group/avatar">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                        </a>
+                    </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -400,18 +422,92 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Achievements Wall -->
-                    <div class="lg:col-span-1 bg-surface-container-low rounded-2xl p-8 space-y-6"
-                        id="section_certifications">
-                        <h3 class="text-xl font-bold font-headline">Achievements</h3>
-                        <div class="grid grid-cols-3 gap-4">
-                            <!-- Badges -->
-                            <div class="flex flex-col items-center gap-2">
-                                <div class="w-14 h-14 rounded-full bg-white shadow-sm flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+                    <!-- Achievements Section -->
+                    <div class="lg:col-span-3" id="section_certifications">
+                        <div class="flex flex-col lg:flex-row justify-between gap-6 items-stretch">
+                            <!-- User Briefing Card -->
+                            <div class="w-full lg:w-1/2 bg-surface-container-low rounded-2xl p-8 space-y-6 shadow-sm border border-outline-variant/5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-20 h-20 rounded-full overflow-hidden ring-4 ring-white shadow-md flex-shrink-0 transition-transform hover:scale-105 duration-300">
+                                        <img alt="User Avatar" class="w-full h-full object-cover"
+                                            src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h3 class="text-xl font-bold font-headline text-on-surface truncate">{{ auth()->user()->name }}</h3>
+                                        <p class="text-sm text-secondary font-medium truncate">{{ auth()->user()->specialization ?? 'Member' }}</p>
+                                    </div>
                                 </div>
-                                <span class="text-[10px] text-center font-bold text-secondary uppercase">Code
-                                    Master</span>
+                                
+                                <div class="space-y-6 pt-6 border-t border-outline-variant/10">
+                                    <div>
+                                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-outline mb-3">Last Achievement</p>
+                                        @if($lastAchievement = auth()->user()->achievements()->latest()->first())
+                                            <div class="flex items-center gap-3 p-3 bg-white/60 rounded-2xl border border-white shadow-sm transition-all hover:shadow-md">
+                                                <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
+                                                    <span class="material-symbols-outlined text-2xl {{ $lastAchievement->color }}">{{ $lastAchievement->icon }}</span>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <p class="text-sm font-bold text-on-surface truncate">{{ $lastAchievement->name }}</p>
+                                                    <p class="text-[10px] text-on-surface-variant">{{ $lastAchievement->created_at->diffForHumans() }}</p>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="p-4 bg-white/40 rounded-xl border border-dashed border-outline-variant/30 text-center">
+                                                <p class="text-xs text-on-surface-variant italic">No badges earned yet.</p>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div>
+                                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-outline mb-3">Last Certification</p>
+                                        <div class="flex items-center gap-3 p-3 bg-surface-container rounded-2xl opacity-60 border border-outline-variant/10">
+                                            <div class="w-12 h-12 rounded-full bg-white/50 flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-2xl text-slate-400">verified</span>
+                                            </div>
+                                            <div class="min-w-0">
+                                                <p class="text-sm font-bold text-slate-400">Not Certified Yet</p>
+                                                <p class="text-[10px] text-slate-400">Complete a path to earn one</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Achievements Wall -->
+                            <div class="w-full lg:w-1/2 bg-surface-container-low rounded-2xl p-8 space-y-6 shadow-sm border border-outline-variant/5">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-xl font-bold font-headline flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+                                        Achievements Wall
+                                    </h3>
+                                    <span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-md">{{ auth()->user()->achievements->count() }} Earned</span>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                                    @foreach(auth()->user()->achievements as $achievement)
+                                        <div class="flex flex-col items-center gap-3 group relative">
+                                            <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:ring-4 group-hover:ring-primary/5">
+                                                <span class="material-symbols-outlined text-3xl {{ $achievement->color }}">{{ $achievement->icon }}</span>
+                                            </div>
+                                            <span class="text-[10px] text-center font-bold text-on-surface uppercase tracking-tighter">{{ $achievement->name }}</span>
+                                            
+                                            <!-- Tooltip -->
+                                            <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-40 p-3 bg-slate-900/95 backdrop-blur-md text-white text-[10px] rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-10 text-center shadow-xl translate-y-2 group-hover:translate-y-0">
+                                                <div class="font-bold border-b border-white/10 pb-1 mb-1">{{ $achievement->name }}</div>
+                                                {{ $achievement->description }}
+                                                <div class="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-900/95"></div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                    <!-- Locked Achievement Placeholder -->
+                                    <div class="flex flex-col items-center gap-3 opacity-30 group cursor-help">
+                                        <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center border-2 border-dashed border-outline-variant transition-colors group-hover:border-primary">
+                                            <span class="material-symbols-outlined text-slate-400 text-2xl group-hover:text-primary">lock</span>
+                                        </div>
+                                        <span class="text-[10px] text-center font-bold text-secondary uppercase tracking-tighter">Locked</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1076,6 +1172,7 @@
             });
         }
     </script>
+@include('partials.ai_chat')
 </body>
 
 </html>

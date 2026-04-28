@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -179,9 +179,9 @@
                         <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false"
                             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors relative">
                             <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
-                            <!-- Notification Badge -->
-                            <span
-                                class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+                            @if(($unreadNotificationsCount ?? 0) > 0)
+                                <span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+                            @endif
                         </button>
 
                         <!-- Notifications Dropdown -->
@@ -189,69 +189,48 @@
                             x-transition:leave.duration.150ms x-cloak
                             class="absolute top-14 right-0 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 z-[100] overflow-hidden flex flex-col">
 
-                            <!-- Header -->
                             <div
                                 class="p-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-lowest">
                                 <h3 class="font-bold text-on-surface text-sm">Notifications</h3>
-                                <span
-                                    class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">2
-                                    New</span>
+                                <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                    {{ $unreadNotificationsCount ?? 0 }} New
+                                </span>
                             </div>
 
-                            <!-- List -->
                             <div class="max-h-80 overflow-y-auto">
-                                <!-- Unread Item 1 -->
-                                <div
-                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                    <div class="flex items-start gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-primary text-sm">school</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">Course
-                                                completed:
-                                                Advanced React Patterns</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">2 hours ago</p>
-                                        </div>
-                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Unread Item 2 -->
-                                <div
-                                    class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                    <div class="flex items-start gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-secondary-container text-sm">forum</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">Alex replied to
-                                                your discussion in "Next.js routing"</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">5 hours ago</p>
-                                        </div>
-                                        <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
-                                    </div>
-                                </div>
-
-                                <!-- Read Item -->
-                                <div class="p-4 hover:bg-surface-container-lowest transition-colors cursor-pointer">
-                                    <div class="flex items-start gap-3 opacity-70">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                            <span
-                                                class="material-symbols-outlined text-on-tertiary-container text-sm">military_tech</span>
-                                        </div>
-                                        <div class="flex-1">
-                                            <p class="text-sm text-on-surface font-medium leading-tight">You earned the
-                                                "Fast Learner" badge!</p>
-                                            <p class="text-[11px] text-on-surface-variant mt-1">1 day ago</p>
+                                @forelse(($notifications ?? collect()) as $notification)
+                                    @php
+                                        $isUnread = is_null($notification->read_at);
+                                        $icon = match ($notification->type) {
+                                            'course_enrollment' => 'person_add',
+                                            'course_rating' => 'star',
+                                            'quiz_completed', 'exercise_completed' => 'task_alt',
+                                            'points' => 'military_tech',
+                                            default => 'notifications',
+                                        };
+                                    @endphp
+                                    <div class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer {{ $isUnread ? 'bg-primary/5' : '' }}">
+                                        <div class="flex items-start gap-3 {{ $isUnread ? '' : 'opacity-70' }}">
+                                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                                                <span class="material-symbols-outlined text-on-primary text-sm">{{ $icon }}</span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm text-on-surface font-medium leading-tight">{{ $notification->title }}</p>
+                                                @if(filled($notification->body))
+                                                    <p class="text-[11px] text-on-surface-variant mt-1">{{ $notification->body }}</p>
+                                                @endif
+                                                <p class="text-[11px] text-on-surface-variant mt-1">{{ $notification->created_at?->diffForHumans() }}</p>
+                                            </div>
+                                            @if($isUnread)
+                                                <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                                            @endif
                                         </div>
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="p-6 text-sm text-on-surface-variant">
+                                        No notifications yet.
+                                    </div>
+                                @endforelse
                             </div>
 
                             <!-- Footer Actions -->
@@ -264,14 +243,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="relative group/avatar">
                     <div
-                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
-                        <a href="{{ url('/profile') }}">
-                            <img alt="User profile avatar"
-                                data-alt="Professional developer profile portrait with clean lighting and neutral studio background"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                        class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+                        <a href="{{ url('profile') }}" class="block w-full h-full">
+                            <img alt="User profile avatar" class="w-full h-full object-cover"
+                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
                         </a>
                     </div>
+                    <!-- Logout Dropdown -->
+                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                        <div class="p-3 border-b border-outline-variant/10">
+                            <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                                <span class="material-symbols-outlined text-base">person</span>
+                                <span>Mon profil</span>
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                    <span class="material-symbols-outlined text-base">logout</span>
+                                    <span>Se deconnecter</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </header>
@@ -695,6 +695,7 @@
             <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
         </button>
     </div>
+@include('partials.ai_chat')
 </body>
 
 </html>
