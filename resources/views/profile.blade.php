@@ -778,21 +778,19 @@
                                 <h3 class="text-xl font-semibold font-headline">Language</h3>
                             </div>
                             <div class="flex-1 flex flex-col justify-center">
-                                <label class="text-xs font-bold uppercase tracking-wider text-outline mb-3">System
-                                    Language</label>
-                                <div class="relative">
-                                    <select
-                                        class="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 appearance-none focus:ring-2 focus:ring-primary cursor-pointer text-on-surface font-medium">
-                                        <option value="en">English (US)</option>
-                                        <option value="fr">French (Français)</option>
-                                        <option value="es">Spanish (Español)</option>
-                                        <option value="de">German (Deutsch)</option>
-                                    </select>
-                                    <span
-                                        class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">unfold_more</span>
-                                </div>
-                                <p class="text-xs text-on-surface-variant mt-4 leading-relaxed">System text, emails, and
-                                    notifications will be sent in your preferred language.</p>
+                                <form action="{{ route('profile.update') }}" method="POST">
+                                    @csrf
+                                    <label class="text-xs font-bold uppercase tracking-wider text-outline mb-3 block">System Language</label>
+                                    <div class="relative">
+                                        <select name="language" onchange="this.form.submit()" class="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 appearance-none focus:ring-2 focus:ring-primary cursor-pointer text-on-surface font-medium">
+                                            <option value="en" {{ (auth()->user()->language ?? 'en') == 'en' ? 'selected' : '' }}>English (US)</option>
+                                            <option value="fr" {{ auth()->user()->language == 'fr' ? 'selected' : '' }}>French (Français)</option>
+                                            <option value="ar" {{ auth()->user()->language == 'ar' ? 'selected' : '' }}>Arabic (العربية)</option>
+                                        </select>
+                                        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">unfold_more</span>
+                                    </div>
+                                    <p class="text-xs text-on-surface-variant mt-4 leading-relaxed">System text, emails, and notifications will be sent in your preferred language.</p>
+                                </form>
                             </div>
                         </section>
                         <!-- Learning Path: Multi-grid module -->

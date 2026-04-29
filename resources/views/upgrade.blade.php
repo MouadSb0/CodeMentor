@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Upgrade | CodeMentor</title>
+  <title>Upgrade your plan | CodeMentor</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap"
     rel="stylesheet" />
@@ -111,11 +111,13 @@
   </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-[#D0E3E6] selection:bg-primary-container selection:text-on-primary-container">
+<body
+  class="min-h-screen flex flex-col bg-[#D0E3E6] selection:bg-primary-container selection:text-on-primary-container">
   <!-- Back Button -->
   <div class="fixed top-0 left-0 w-full p-8 z-50 pointer-events-none">
-    <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/90 backdrop-blur-md shadow-lg text-primary hover:scale-110 active:scale-95 transition-all pointer-events-auto">
-        <span class="material-symbols-outlined">arrow_back</span>
+    <a href="{{ route('dashboard') }}"
+      class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/90 backdrop-blur-md shadow-lg text-primary hover:scale-110 active:scale-95 transition-all pointer-events-auto">
+      <span class="material-symbols-outlined">arrow_back</span>
     </a>
   </div>
 

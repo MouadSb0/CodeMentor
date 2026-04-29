@@ -29,6 +29,7 @@ class ProfileController extends Controller
             'bio'            => ['nullable', 'string'],
             'photo'          => ['nullable', 'string', 'max:2048'],
             'photo_file'     => ['nullable', 'image', 'max:10240'],
+            'language'       => ['nullable', 'string', 'in:en,fr,ar'],
         ]);
 
         if ($request->hasFile('photo_file')) {

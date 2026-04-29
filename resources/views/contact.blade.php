@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Contact | CodeMentor</title>
+    <title>Contact Us| CodeMentor</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
@@ -172,19 +172,22 @@
                         </a>
                     </div>
                     <!-- Logout Dropdown -->
-                    <div class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+                    <div
+                        class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
                         <div class="p-3 border-b border-outline-variant/10">
                             <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
                             <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
                         </div>
                         <div class="p-2">
-                            <a href="{{ url('profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                            <a href="{{ url('profile') }}"
+                                class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
                                 <span class="material-symbols-outlined text-base">person</span>
                                 <span>Mon profil</span>
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                                <button type="submit"
+                                    class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
                                     <span class="material-symbols-outlined text-base">logout</span>
                                     <span>Se deconnecter</span>
                                 </button>
