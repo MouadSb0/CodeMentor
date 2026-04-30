@@ -25,4 +25,23 @@ class Group extends Model
     {
         return $this->hasMany(Disccussion::class)->latest();
     }
+
+    /**
+     * Get the group's cover photo URL.
+     */
+    public function getCoverPhotoAttribute($value): string
+    {
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            $value = ltrim($value, '/');
+            if (str_starts_with($value, 'storage/')) {
+                return asset($value);
+            }
+            return asset('storage/' . $value);
+        }
+
+        return 'https://picsum.photos/seed/' . $this->id . '/800/300';
+    }
 }

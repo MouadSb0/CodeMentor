@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
         if ($request->hasFile('photo_file')) {
             $path = $request->file('photo_file')->store('profile-photos', 'public');
-            $validated['photo'] = asset('storage/' . $path);
+            $validated['photo'] = $path;
         }
 
         $user->update($validated);

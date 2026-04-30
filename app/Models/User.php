@@ -108,4 +108,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Achivement::class);
     }
+
+    /**
+     * Get the user's photo URL.
+     */
+    public function getPhotoAttribute($value): string
+    {
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            $value = ltrim($value, '/');
+            if (str_starts_with($value, 'storage/')) {
+                return asset($value);
+            }
+            return asset('storage/' . $value);
+        }
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=4F8EF7&color=fff';
+    }
 }

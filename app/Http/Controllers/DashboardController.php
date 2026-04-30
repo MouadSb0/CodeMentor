@@ -114,7 +114,13 @@ class DashboardController extends Controller
             $suggestedGroup = \App\Models\Group::withCount('members')->inRandomOrder()->first();
         }
 
-        // 8. Bonus Modal Logic
+        // 8. Notifications
+        $notifications = UserNotification::where('user_id', $user->id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        // 9. Bonus Modal Logic
         $showBonusModal = false;
         $bonusAmount = 0;
         if (!$user->last_bonus_at || !$user->last_bonus_at->isToday()) {
@@ -134,7 +140,8 @@ class DashboardController extends Controller
             'totalHours',
             'continueCourse',
             'currentModule',
-            'suggestedGroup'
+            'suggestedGroup',
+            'notifications'
         ));
     }
     public function claimBonus(Request $request)

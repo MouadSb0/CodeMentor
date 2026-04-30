@@ -46,7 +46,12 @@ class RoleMiddleware
                 'certifications', 'chat_group', 'community', 'contact', 
                 'group', 'other_profile', 'result', 'single_course', 
                 'single_exercice', 'single_quiz', 'profile',
-                'course', 'singleCourse', 'CodeLab', 'code.check', 'activities.store', 'bonus.claim', 'profile.update'
+                'course', 'singleCourse', 'CodeLab', 'code.check', 'activities.store', 'bonus.claim', 'profile.update',
+                'exercices', 'quizzes', 'quiz.result.store',
+                'groups.store', 'groups.show', 'groups.join', 'groups.leave', 
+                'groups.members.invite', 'invitations.accept', 'invitations.reject', 
+                'groups.members.remove', 'groups.discussions.store', 
+                'groups.discussions.remove', 'groups.comments.remove', 'groups.updateCover'
             ];
 
             if (in_array($currentRouteName, $allowedTeacherRoutes)) {

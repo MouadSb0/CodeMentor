@@ -131,14 +131,17 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::post('/discussions', [App\Http\Controllers\DisccussionController::class, 'store'])->name('discussions.store');
     Route::post('/discussions/{id}/share', [App\Http\Controllers\DisccussionController::class, 'share'])->name('discussions.share');
     Route::post('/discussions/{id}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{id}/react', [App\Http\Controllers\CommentController::class, 'react'])->name('comments.react');
 
     // ── Community: Groups ─────────────────────────────────────────────────────
     Route::post('/groups', [App\Http\Controllers\GroupController::class, 'store'])->name('groups.store');
     Route::get('/groups/{id}', [App\Http\Controllers\GroupController::class, 'show'])->name('groups.show');
     Route::post('/groups/{id}/join', [App\Http\Controllers\GroupController::class, 'join'])->name('groups.join');
     Route::post('/groups/{id}/leave', [App\Http\Controllers\GroupController::class, 'leave'])->name('groups.leave');
-    // Admin-only group management
-    Route::post('/groups/{id}/members', [App\Http\Controllers\GroupController::class, 'addMember'])->name('groups.members.add');
+    // Group invitation management
+    Route::post('/groups/{id}/invite', [App\Http\Controllers\GroupController::class, 'inviteMember'])->name('groups.members.invite');
+    Route::post('/invitations/{id}/accept', [App\Http\Controllers\GroupController::class, 'acceptInvitation'])->name('invitations.accept');
+    Route::post('/invitations/{id}/reject', [App\Http\Controllers\GroupController::class, 'rejectInvitation'])->name('invitations.reject');
     Route::delete('/groups/{id}/members/{userId}', [App\Http\Controllers\GroupController::class, 'removeMember'])->name('groups.members.remove');
     Route::post('/groups/{id}/discussions', [App\Http\Controllers\GroupController::class, 'storeDiscussion'])->name('groups.discussions.store');
     Route::delete('/groups/{id}/discussions/{discussionId}', [App\Http\Controllers\GroupController::class, 'removeDiscussion'])->name('groups.discussions.remove');
@@ -156,6 +159,7 @@ Route::middleware(['auth', 'role'])->group(function () {
     Route::get('/teacher/quizzes', [TeacherController::class, 'quizzes'])->name('teacher.quizzes');
     Route::get('/teacher/careers', [TeacherController::class, 'careers'])->name('teacher.careers');
     Route::post('/claim-bonus', [DashboardController::class, 'claimBonus'])->name('bonus.claim');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
     Route::get('/admin/dashboard', function () {
         $adminUser = auth()->user();
         $dailyNewUsers = User::whereDate('created_at', now()->toDateString())->count();

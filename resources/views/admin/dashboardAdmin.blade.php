@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -152,10 +152,8 @@
                         </button>
                         <div
                             class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                            <a href="{{ url('/assesement') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
                             <a href="{{ url('/career') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                             <a href="{{ url('/certifications') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                         </div>
@@ -276,7 +274,7 @@
             <!-- Page Header -->
             <div class="flex justify-between items-end">
                 <div class="space-y-1">
-                    <h2 class="text-4xl font-bold font-headline tracking-tighter text-on-background">Platform Analytics
+                    <h2 class="text-5xl font-bold font-headline tracking-tighter text-on-background"><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Platform</span> Analytics
                     </h2>
                     <p class="text-on-surface-variant font-medium">Real-time system oversight and user engagement
                         metrics.</p>
@@ -366,7 +364,7 @@
                     <section class="bg-surface-container-low p-8 rounded-3xl space-y-6">
                         <h4 class="text-xl font-headline font-bold flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary">analytics</span>
-                            System Health
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">System</span>  Health
                         </h4>
                         <div class="space-y-4">
                             <div class="bg-surface-container-lowest p-5 rounded-2xl flex items-center justify-between">

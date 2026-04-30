@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
             'role' => 'admin',
+            'phone_number' => '1234567890',
         ]);
     }
 }

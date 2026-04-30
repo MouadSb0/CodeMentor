@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -137,10 +137,8 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ url('/assesement') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
                         <a href="{{ url('/career') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                         <a href="{{ url('/certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
@@ -238,7 +236,13 @@
                                 <span class="material-symbols-outlined text-sm" data-icon="verified"
                                     style="font-variation-settings: 'FILL' 1;">verified</span>
                                 <span class="text-xs font-bold tracking-wider uppercase font-label">
-                                    {{ $userRank == 1 ? 'Podium Finisher' : ($percentage >= 80 ? 'Assessment Passed' : 'Assessment Completed') }}
+                                    {{ $userRank == 1 ? 'Podium Finisher' : ($percentage >= ($result->quiz->passing_score ?? 70) ? 'Assessment Passed' : 'Assessment Completed') }}
+                                </span>
+                            </div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full {{ $percentage >= ($result->quiz->passing_score ?? 70) ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }} mb-4 ml-2">
+                                <span class="material-symbols-outlined text-sm">{{ $percentage >= ($result->quiz->passing_score ?? 70) ? 'check_circle' : 'cancel' }}</span>
+                                <span class="text-xs font-bold tracking-wider uppercase font-label">
+                                    {{ $percentage >= ($result->quiz->passing_score ?? 70) ? 'Status: Passed' : 'Status: Failed' }}
                                 </span>
                             </div>
                             <h2 class="font-headline text-4xl font-bold leading-tight mb-4 text-on-background">
@@ -247,7 +251,7 @@
                                 @elseif($userRank <= 3)
                                     🥉 Top 3 Performance!
                                 @else
-                                    {{ $percentage >= 80 ? 'Excellent work!' : 'Good effort!' }}
+                                    {{ $percentage >= ($result->quiz->passing_score ?? 70) ? 'Excellent work!' : 'Keep practicing!' }}
                                 @endif
                             </h2>
                             <p class="text-on-surface-variant leading-relaxed max-w-md">

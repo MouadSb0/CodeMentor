@@ -145,10 +145,8 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ route('assesements') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
                         <a href="{{ route('career') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                         <a href="{{ route('certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
@@ -190,65 +188,72 @@
 
                         <!-- List -->
                         <div class="max-h-80 overflow-y-auto">
-                            <!-- Unread Item 1 -->
-                            <div
-                                class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
-                                        <span class="material-symbols-outlined text-on-primary text-sm">school</span>
+                            @forelse($notifications as $notification)
+                                <div class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer {{ $notification->read_at ? '' : 'bg-primary/5' }}">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 rounded-full 
+                                            @if($notification->type == 'group_invite') bg-secondary-container 
+                                            @elseif($notification->type == 'points') bg-tertiary-container
+                                            @else bg-primary @endif 
+                                            flex items-center justify-center flex-shrink-0 mt-1">
+                                            <span class="material-symbols-outlined text-sm 
+                                                @if($notification->type == 'group_invite') text-on-secondary-container 
+                                                @elseif($notification->type == 'points') text-on-tertiary-container
+                                                @else text-on-primary @endif">
+                                                @if($notification->type == 'group_invite') group_add 
+                                                @elseif($notification->type == 'points') military_tech
+                                                @elseif($notification->type == 'comment') forum
+                                                @else notifications @endif
+                                            </span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-on-surface font-medium leading-tight">{{ $notification->title }}</p>
+                                            <p class="text-[11px] text-on-surface-variant mt-1">{{ $notification->body }}</p>
+                                            
+                                            @if($notification->type == 'group_invite' && isset($notification->data['invitation_id']))
+                                                @php
+                                                    $invitation = \App\Models\GroupInvitation::find($notification->data['invitation_id']);
+                                                @endphp
+                                                @if($invitation && $invitation->status == 'pending')
+                                                    <div class="flex gap-2 mt-3">
+                                                        <form method="POST" action="{{ route('invitations.accept', $invitation->id) }}">
+                                                            @csrf
+                                                            <button type="submit" class="px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-lg hover:bg-primary-dim transition-colors">Accept</button>
+                                                        </form>
+                                                        <form method="POST" action="{{ route('invitations.reject', $invitation->id) }}">
+                                                            @csrf
+                                                            <button type="submit" class="px-3 py-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold rounded-lg hover:bg-surface-dim transition-colors">Reject</button>
+                                                        </form>
+                                                    </div>
+                                                @elseif($invitation)
+                                                    <p class="text-[10px] italic text-on-surface-variant mt-2 uppercase tracking-tighter font-bold">Invitation {{ $invitation->status }}</p>
+                                                @endif
+                                            @endif
+                                            
+                                            <p class="text-[10px] text-on-surface-variant mt-2">{{ $notification->created_at->diffForHumans() }}</p>
+                                        </div>
+                                        @if(!$notification->read_at)
+                                            <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                                        @endif
                                     </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm text-on-surface font-medium leading-tight">Course completed:
-                                            Advanced React Patterns</p>
-                                        <p class="text-[11px] text-on-surface-variant mt-1">2 hours ago</p>
-                                    </div>
-                                    <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
                                 </div>
-                            </div>
-
-                            <!-- Unread Item 2 -->
-                            <div
-                                class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
-                                <div class="flex items-start gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                        <span
-                                            class="material-symbols-outlined text-on-secondary-container text-sm">forum</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm text-on-surface font-medium leading-tight">Alex replied to
-                                            your discussion in "Next.js routing"</p>
-                                        <p class="text-[11px] text-on-surface-variant mt-1">5 hours ago</p>
-                                    </div>
-                                    <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                            @empty
+                                <div class="p-8 text-center text-on-surface-variant text-sm italic">
+                                    No new notifications.
                                 </div>
-                            </div>
-
-                            <!-- Read Item -->
-                            <div class="p-4 hover:bg-surface-container-lowest transition-colors cursor-pointer">
-                                <div class="flex items-start gap-3 opacity-70">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
-                                        <span
-                                            class="material-symbols-outlined text-on-tertiary-container text-sm">military_tech</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <p class="text-sm text-on-surface font-medium leading-tight">You earned the
-                                            "Fast Learner" badge!</p>
-                                        <p class="text-[11px] text-on-surface-variant mt-1">1 day ago</p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforelse
                         </div>
 
                         <!-- Footer Actions -->
                         <div class="p-2 border-t border-outline-variant/10 bg-surface-container-lowest">
-                            <button
-                                class="w-full py-2.5 text-sm text-primary font-bold hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-[18px]">done_all</span>
-                                Mark all as read
-                            </button>
+                            <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full py-2.5 text-sm text-primary font-bold hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">done_all</span>
+                                    Mark all as read
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

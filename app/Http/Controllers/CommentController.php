@@ -36,4 +36,42 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'Comment added successfully.');
     }
+
+    public function react(Request $request, $id)
+    {
+        $comment = Comment::findOrFail($id);
+        $user = auth()->user();
+        $type = $request->input('type', 'like');
+
+        $reaction = \App\Models\CommentReaction::where('comment_id', $comment->id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if ($reaction) {
+            if ($reaction->type === $type) {
+                $reaction->delete();
+                $status = 'removed';
+            } else {
+                $reaction->update(['type' => $type]);
+                $status = 'updated';
+            }
+        } else {
+            \App\Models\CommentReaction::create([
+                'comment_id' => $comment->id,
+                'user_id' => $user->id,
+                'type' => $type,
+            ]);
+            $status = 'added';
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'action' => $status,
+                'count' => $comment->reactions()->count(),
+            ]);
+        }
+
+        return back();
+    }
 }

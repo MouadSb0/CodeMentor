@@ -142,7 +142,9 @@
                         3</span>
                 </div>
                 <h1 class="text-4xl md:text-5xl font-headline font-bold text-on-surface leading-tight tracking-tight">
-                    Complete <span class="text-primary">your profile</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">Complete</span>
+                    your profile
                 </h1>
                 <p class="text-on-surface-variant text-lg max-w-lg leading-relaxed">
                     Tell us more about your background to personalize your learning journey.
@@ -286,25 +288,29 @@
                     </div>
                     <!-- Institution Name -->
                     <div class="space-y-3">
-                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="institution">Institution Name</label>
+                        <label class="block text-sm font-medium text-on-surface-variant ml-1"
+                            for="institution">Institution Name</label>
                         <input
                             class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline/60"
-                            id="institution" name="institution" type="text" placeholder="e.g. University, Company, or Bootcamp" />
+                            id="institution" name="institution" type="text"
+                            placeholder="e.g. University, Company, or Bootcamp" />
                     </div>
                     <!-- Bio -->
                     <div class="space-y-3">
-                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="bio">Bio / Description</label>
+                        <label class="block text-sm font-medium text-on-surface-variant ml-1" for="bio">Bio /
+                            Description</label>
                         <textarea
                             class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline/60"
-                            id="bio" name="bio" placeholder="Tell us a bit about yourself, your passion, or what you're working on..." rows="3"></textarea>
+                            id="bio" name="bio"
+                            placeholder="Tell us a bit about yourself, your passion, or what you're working on..."
+                            rows="3"></textarea>
                     </div>
                     <!-- Actions -->
                     <div class="pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
                         <a class="text-on-surface-variant font-medium text-sm hover:text-primary transition-colors underline-offset-4 hover:underline"
                             href="{{ url('/dashboard') }}">Skip for now</a>
 
-                        <button
-                            type="submit"
+                        <button type="submit"
                             class="w-full md:w-auto px-10 py-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all">
                             Complete Registration
                         </button>
@@ -321,7 +327,7 @@
             </div>
         </div>
     </main>
-    <!-- BottomNavBar -->
+    <!-- BottomNavBar
     <nav
         class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-[#0f172a]/80 backdrop-blur-xl border-t border-[#abadaf]/15 shadow-[0_-4px_20px_rgba(44,47,49,0.04)] z-50 rounded-t-2xl">
         <a class="flex flex-col items-center justify-center text-[#abadaf] dark:text-[#64748b] px-4 py-1 hover:text-[#006573] dark:hover:text-[#22d3ee] transition-all duration-300 ease-out"
@@ -339,7 +345,7 @@
             <span class="material-symbols-outlined mb-1">help_outline</span>
             <span class="font-['Inter'] text-[10px] font-medium tracking-wide">Help</span>
         </a>
-    </nav>
+    </nav> -->
     <!-- Filler for bottom nav height -->
     <div class="h-24 md:hidden"></div>
 </body>

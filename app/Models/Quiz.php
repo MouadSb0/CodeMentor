@@ -10,6 +10,7 @@ class Quiz extends Model
         'user_id',
         'course_name',
         'title',
+        'description',
         'time_limit',
         'passing_score',
         'questions',

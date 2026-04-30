@@ -116,30 +116,176 @@
 </head>
 
 <body class="bg-[#D0E3E6] text-on-surface min-h-screen overflow-x-hidden flex flex-col">
-  <!-- TopNavBar -->
+  <!-- TopAppBar Execution -->
   <header
-    class="flex justify-between items-center px-8 h-16 w-full sticky top-0 z-50 bg-[#f5f7f9]/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-[0_4px_20px_rgba(44,47,49,0.04)] font-['Inter'] tracking-tight">
-    <div class="flex items-center gap-8">
-      <span class="font-['Space_Grotesk'] text-2xl font-bold tracking-tighter text-slate-900 dark:text-white">Kinetic
-        Lab</span>
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-cyan-600 dark:text-cyan-400 font-bold border-b-2 border-cyan-500" href="#">Exercises</a>
-        <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white transition-colors"
-          href="#">Community</a>
-        <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white transition-colors"
-          href="#">Settings</a>
+    class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+    <div class="flex justify-between items-center px-2 w-full mx-auto">
+      <div class="flex items-center w-[20%]">
+        <span class="w-[75%]"><a href="{{ url('/') }}"><img class="w-[100%]" src="{{ asset('img/logo.png') }}"
+              alt=""></a></span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium"
+          href="{{ auth()->user()->role === 'teacher' ? route('teacher.dashboard') : route('dashboard') }}">Dashboard</a>
+        <div class="relative group py-4">
+          <button class="text-cyan-600 dark:text-cyan-400 font-bold transition-colors">
+            Learn
+            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+          </button>
+          <div
+            class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+            <a href="{{ auth()->user()->role === 'teacher' ? route('teacher.courses') : route('courses') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+            <a href="{{ auth()->user()->role === 'teacher' ? route('teacher.exercices') : route('exercices') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+            <a href="{{ route('CodeLab') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+            <a href="{{ auth()->user()->role === 'teacher' ? route('teacher.quizzes') : route('quizzes') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+          </div>
+        </div>
+        <div class="relative group py-4">
+          <button
+            class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+            Careers
+            <span class="material-symbols-outlined text-[20px]">expand_more</span>
+          </button>
+          <div
+            class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+            <a href="{{ route('career') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
+            <a href="{{ route('certifications') }}"
+              class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+          </div>
+        </div>
+        <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+          href="{{ route('community') }}">Community</a>
+        <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors text-slate-500 font-bold"
+          href="{{ route('contact') }}">Contact</a>
+
       </nav>
-    </div>
-    <div class="flex items-center gap-4">
-      <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">
-        <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-      </button>
-      <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">
-        <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-      </button>
-      <div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/20">
-        <img alt="User profile"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR7lobt-Co20hVyghbX3qYhle-eq_t1s7Q5blg2El0zz8pxCbA0QGqYn7nxo2O8jIasM10xcJ5MsZxvfebmcDewHiGjAQiqHibAogNU3C28Yfy7iaUQXRru_8LN-qcbSuaydy5kAUhm3uC9A2cN-jTsDyO5RXNtMrIwkDxgyiIP_668NKKwdJpnlC3_t9ifemDUfpcssBMcscf_9yV0Ka0ctuJ6JcvWWl3DUjjQbd4aD_xPRyJZ58KtF7ajAvuPhD-YrwAcaWvx-Gj" />
+      <div class="flex items-center gap-4">
+        <div
+          class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/15">
+          <span class="material-symbols-outlined text-sm text-on-surface-variant mr-2">search</span>
+          <input class="bg-transparent border-none focus:ring-0 text-sm w-80" placeholder="Search courses..."
+            type="text" />
+        </div>
+        <div class="relative" x-data="{ showNotifications: false }">
+          <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false"
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors relative">
+            <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+            <!-- Notification Badge -->
+            <span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full border border-white animate-pulse"></span>
+          </button>
+
+          <!-- Notifications Dropdown -->
+          <div x-show="showNotifications" x-transition.opacity x-transition:enter.duration.200ms
+            x-transition:leave.duration.150ms x-cloak
+            class="absolute top-14 right-0 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 z-[100] overflow-hidden flex flex-col">
+
+            <!-- Header -->
+            <div
+              class="p-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-lowest">
+              <h3 class="font-bold text-on-surface text-sm">Notifications</h3>
+              <span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">2
+                New</span>
+            </div>
+
+            <!-- List -->
+            <div class="max-h-80 overflow-y-auto">
+              <!-- Unread Item 1 -->
+              <div
+                class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
+                <div class="flex items-start gap-3">
+                  <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-on-primary text-sm">school</span>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-on-surface font-medium leading-tight">Course
+                      completed:
+                      Advanced React Patterns</p>
+                    <p class="text-[11px] text-on-surface-variant mt-1">2 hours ago</p>
+                  </div>
+                  <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                </div>
+              </div>
+
+              <!-- Unread Item 2 -->
+              <div
+                class="p-4 border-b border-outline-variant/10 hover:bg-surface-container-lowest transition-colors cursor-pointer bg-primary/5">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-on-secondary-container text-sm">forum</span>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-on-surface font-medium leading-tight">Alex replied to
+                      your discussion in "Next.js routing"</p>
+                    <p class="text-[11px] text-on-surface-variant mt-1">5 hours ago</p>
+                  </div>
+                  <div class="w-2 h-2 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                </div>
+              </div>
+
+              <!-- Read Item -->
+              <div class="p-4 hover:bg-surface-container-lowest transition-colors cursor-pointer">
+                <div class="flex items-start gap-3 opacity-70">
+                  <div
+                    class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-on-tertiary-container text-sm">military_tech</span>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-on-surface font-medium leading-tight">You earned the
+                      "Fast Learner" badge!</p>
+                    <p class="text-[11px] text-on-surface-variant mt-1">1 day ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-2 border-t border-outline-variant/10 bg-surface-container-lowest">
+              <button
+                class="w-full py-2.5 text-sm text-primary font-bold hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">done_all</span>
+                Mark all as read
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="relative group/avatar">
+          <div
+            class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
+            <a href="{{ url('profile') }}" class="block w-full h-full">
+              <img alt="User profile avatar" class="w-full h-full object-cover"
+                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+            </a>
+          </div>
+          <!-- Logout Dropdown -->
+          <div
+            class="absolute right-0 top-12 w-56 bg-white rounded-2xl shadow-2xl border border-outline-variant/20 opacity-0 invisible group-hover/avatar:opacity-100 group-hover/avatar:visible transition-all duration-200 translate-y-2 group-hover/avatar:translate-y-0 z-[999]">
+            <div class="p-3 border-b border-outline-variant/10">
+              <p class="text-xs font-bold text-on-surface truncate">{{ auth()->user()->name }}</p>
+              <p class="text-[10px] text-outline truncate">{{ auth()->user()->email }}</p>
+            </div>
+            <div class="p-2">
+              <a href="{{ url('profile') }}"
+                class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-on-surface hover:bg-surface-container transition-colors">
+                <span class="material-symbols-outlined text-base">person</span>
+                <span>Mon profil</span>
+              </a>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                  class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-error hover:bg-red-50 transition-colors">
+                  <span class="material-symbols-outlined text-base">logout</span>
+                  <span>Se deconnecter</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>

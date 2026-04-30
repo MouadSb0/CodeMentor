@@ -63,16 +63,35 @@ class Course extends Model
     }
 
     /**
-     * Returns the course thumbnail URL.
+     * Returns the course image URL.
+     */
+    public function getImageAttribute($value): string
+    {
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+
+            // Remove leading slash if any
+            $value = ltrim($value, '/');
+
+            // If it already starts with 'storage/', don't add it again
+            if (str_starts_with($value, 'storage/')) {
+                return asset($value);
+            }
+
+            return asset('storage/' . $value);
+        }
+
+        // Fallback gradient placeholder via picsum
+        return 'https://picsum.photos/seed/' . ($this->id ?? 'default') . '/600/400';
+    }
+
+    /**
+     * Alias for image attribute.
      */
     public function getThumbnailAttribute(): string
     {
-        if ($this->image) {
-            return str_starts_with($this->image, 'http')
-                ? $this->image
-                : asset('storage/' . $this->image);
-        }
-        // Fallback gradient placeholder via picsum
-        return 'https://picsum.photos/seed/' . $this->id . '/600/400';
+        return $this->image;
     }
 }

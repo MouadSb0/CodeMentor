@@ -48,7 +48,7 @@
                 <nav class="hidden md:flex items-center gap-6">
                     <a class="text-slate-500 hover:text-slate-900 transition-colors font-headline" href="{{ route('dashboard') }}">Dashboard</a>
                     <a class="text-cyan-600 font-semibold border-b-2 border-cyan-600 font-headline" href="{{ route('quizzes') }}">Quizzes</a>
-                    <a class="text-slate-500 hover:text-slate-900 transition-colors font-headline" href="{{ route('result') }}">Results</a>
+                    <a class="text-slate-500 hover:text-slate-900 transition-colors font-headline" href="{{ route('profile') }}">Results</a>
                 </nav>
             </div>
             <div class="flex items-center gap-4">

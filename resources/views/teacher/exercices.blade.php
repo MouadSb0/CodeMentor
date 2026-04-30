@@ -162,11 +162,8 @@
                         </button>
                         <div
                             class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                            <a href="{{ route('teacher.careers') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Management</a>
                             <a href="{{ route('career') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career
-                                Center</a>
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                             <a href="{{ route('certifications') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                         </div>
@@ -306,14 +303,19 @@
             </div>
         </header>
         <div class="px-12 py-8">
-            @if (session('success'))
-                <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition.duration.500ms
-                    class="mb-6 flex items-center gap-3 bg-green-500/10 border border-green-500/20 text-green-600 px-6 py-4 rounded-xl">
-                    <span class="material-symbols-outlined">check_circle</span>
-                    <p class="text-sm font-bold">{{ session('success') }}</p>
-                    <button @click="show = false" class="ml-auto">
-                        <span class="material-symbols-outlined text-sm">close</span>
-                    </button>
+            @if(session('success'))
+                <!-- Success Modal -->
+                <div x-data="{ open: true }" x-show="open" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4 modal-blur">
+                    <div @click.away="open = false" class="bg-surface-container-lowest w-full max-w-sm p-10 rounded-3xl shadow-2xl text-center animate-in fade-in zoom-in duration-300 border border-outline-variant/10">
+                        <div class="w-24 h-24 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'opsz' 48;">check_circle</span>
+                        </div>
+                        <h3 class="text-3xl font-headline font-bold text-on-surface mb-3">Success!</h3>
+                        <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">{{ session('success') }}</p>
+                        <button @click="open = false" class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-2xl shadow-xl shadow-primary/25 hover:brightness-110 active:scale-95 transition-all">
+                            Done
+                        </button>
+                    </div>
                 </div>
             @endif
 

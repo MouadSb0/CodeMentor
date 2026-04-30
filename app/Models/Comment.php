@@ -17,4 +17,14 @@ class Comment extends Model
     {
         return $this->belongsTo(Disccussion::class);
     }
+
+    public function reactions()
+    {
+        return $this->hasMany(CommentReaction::class);
+    }
+
+    public function userReaction()
+    {
+        return $this->hasOne(CommentReaction::class)->where('user_id', auth()->id());
+    }
 }

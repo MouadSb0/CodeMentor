@@ -152,11 +152,8 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ route('teacher.careers') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Management</a>
                         <a href="{{ route('career') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career
-                            Center</a>
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                         <a href="{{ route('certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
@@ -266,7 +263,7 @@
                         class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
                         <a href="{{ url('profile') }}" class="block w-full h-full">
                             <img alt="User profile avatar" class="w-full h-full object-cover"
-                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                                src="{{ auth()->user()->photo }}" />
                         </a>
                     </div>
                     <!-- Logout Dropdown -->
@@ -295,10 +292,18 @@
     </header>
     <main class="max-w-7xl mx-auto px-6 pt-12 pb-32">
         @if(session('success'))
-            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition.duration.500ms
-                class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl flex items-center gap-3">
-                <span class="material-symbols-outlined">check_circle</span>
-                <span class="font-bold">{{ session('success') }}</span>
+            <!-- Success Modal -->
+            <div x-data="{ open: true }" x-show="open" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center p-4 modal-blur">
+                <div @click.away="open = false" class="bg-surface-container-lowest w-full max-w-sm p-10 rounded-3xl shadow-2xl text-center animate-in fade-in zoom-in duration-300 border border-outline-variant/10">
+                    <div class="w-24 h-24 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'opsz' 48;">check_circle</span>
+                    </div>
+                    <h3 class="text-3xl font-headline font-bold text-on-surface mb-3">Success!</h3>
+                    <p class="text-on-surface-variant mb-10 text-lg leading-relaxed">{{ session('success') }}</p>
+                    <button @click="open = false" class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-white font-bold rounded-2xl shadow-xl shadow-primary/25 hover:brightness-110 active:scale-95 transition-all">
+                        Done
+                    </button>
+                </div>
             </div>
         @endif
 
@@ -403,7 +408,7 @@
                     class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(44,47,49,0.04)] hover:shadow-[0px_10px_40px_rgba(0,101,115,0.06)] transition-all flex flex-col">
                     <div class="relative h-56 overflow-hidden">
                         <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                            src="{{ $course->image ? asset('storage/' . $course->image) : 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800' }}"
+                            src="{{ $course->image }}"
                             alt="{{ $course->title }}" />
                         <div class="absolute top-4 left-4 flex gap-2">
                             <span

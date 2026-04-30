@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="en">
 
@@ -149,11 +149,8 @@
                     </button>
                     <div
                         class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                        <a href="{{ route('teacher.careers') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Management</a>
                         <a href="{{ route('career') }}"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career
-                            Center</a>
+                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                         <a href="{{ route('certifications') }}"
                             class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                     </div>
@@ -263,7 +260,7 @@
                         class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm cursor-pointer ring-2 ring-transparent group-hover/avatar:ring-primary/40 transition-all">
                         <a href="{{ url('profile') }}" class="block w-full h-full">
                             <img alt="User profile avatar" class="w-full h-full object-cover"
-                                src="{{ auth()->user()->photo ?? 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&background=4F8EF7&color=fff' }}" />
+                                src="{{ auth()->user()->photo }}" />
                         </a>
                     </div>
                     <!-- Logout Dropdown -->
@@ -457,7 +454,7 @@
         id="modal_quiz">
         <!-- Create New Quiz Modal -->
         <div
-            class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] overflow-hidden flex flex-col max-h-[921px]">
+            class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] overflow-hidden flex flex-col max-h-[90vh]">
             <!-- Modal Header -->
             <div
                 class="px-8 py-6 border-b border-outline-variant/15 flex justify-between items-center bg-surface-container-low/30">
@@ -492,9 +489,10 @@
                                 <div class="relative">
                                     <select
                                         class="w-full appearance-none bg-surface-container-low/50 border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary transition-all font-medium">
-                                        <option>Advanced Robotics 101</option>
-                                        <option>Intro to Kinetic Arts</option>
-                                        <option>Neural Engineering</option>
+                                        <option value="">No Course (General)</option>
+                                        @foreach($teacherCourses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->title }}</option>
+                                        @endforeach
                                     </select>
                                     <span
                                         class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
@@ -513,14 +511,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="group">
+                        <div class="group" x-data="{ score: 70 }">
                             <label
                                 class="block text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Passing
                                 Score (%)</label>
                             <div class="flex items-center gap-4">
-                                <input class="flex-1 accent-primary h-1.5 rounded-full bg-surface-container-high"
-                                    max="100" min="0" type="range" value="70" />
-                                <span class="w-12 text-right font-bold text-primary font-headline">70%</span>
+                                <input x-model="score" class="flex-1 accent-primary h-1.5 rounded-full bg-surface-container-high cursor-pointer"
+                                    max="100" min="0" type="range" />
+                                <span class="w-12 text-right font-bold text-primary font-headline" x-text="score + '%'">70%</span>
                             </div>
                         </div>
                     </div>
@@ -568,7 +566,7 @@
         id="modal_quiz1">
         <!-- Create New Quiz Modal -->
         <div
-            class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] overflow-hidden flex flex-col max-h-[921px]">
+            class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0px_10px_40px_rgba(0,101,115,0.06)] overflow-hidden flex flex-col max-h-[90vh]">
             <!-- Modal Header -->
             <div
                 class="px-8 py-6 border-b border-outline-variant/15 flex justify-between items-center bg-surface-container-low/30">
@@ -602,18 +600,26 @@
                                 class="w-full bg-surface-container-low/50 border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline-variant font-medium"
                                 placeholder="e.g., Fundamentals of Kinematic Motion" type="text" />
                         </div>
+                        <div class="group">
+                            <label
+                                class="block text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Quiz
+                                Description</label>
+                            <textarea id="quiz_description" name="description"
+                                class="w-full bg-surface-container-low/50 border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline-variant font-medium resize-none"
+                                placeholder="e.g., This quiz covers the basic laws of motion and energy conservation." rows="3"></textarea>
+                        </div>
                         <div class="grid grid-cols-2 gap-6">
                             <div class="group">
                                 <label
                                     class="block text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Course
                                     Association</label>
                                 <div class="relative">
-                                    <select id="quiz_course" name="course_id" required
+                                    <select id="quiz_course" name="course_id"
                                         class="w-full appearance-none bg-surface-container-low/50 border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-primary transition-all font-medium">
-                                        <option value="">Select a course</option>
-                                        <option>Advanced Robotics 101</option>
-                                        <option>Intro to Kinetic Arts</option>
-                                        <option>Neural Engineering</option>
+                                        <option value="">No Course (General)</option>
+                                        @foreach($teacherCourses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->title }}</option>
+                                        @endforeach
                                     </select>
                                     <span
                                         class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
@@ -632,14 +638,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="group">
+                        <div class="group" x-data="{ score: 70 }">
                             <label
                                 class="block text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-2 px-1">Passing
                                 Score (%)</label>
                             <div class="flex items-center gap-4">
-                                <input class="flex-1 accent-primary h-1.5 rounded-full bg-surface-container-high"
-                                    max="100" min="0" type="range" value="70" />
-                                <span class="w-12 text-right font-bold text-primary font-headline">70%</span>
+                                <input id="quiz_passing_score" name="passing_score" x-model="score"
+                                    class="flex-1 accent-primary h-1.5 rounded-full bg-surface-container-high cursor-pointer"
+                                    max="100" min="0" type="range" />
+                                <span class="w-12 text-right font-bold text-primary font-headline" x-text="score + '%'">70%</span>
                             </div>
                         </div>
                     </div>
@@ -1435,12 +1442,15 @@
                         }
 
                         // Collect Form Data from Modal 1
+                        const courseSelect = document.getElementById('quiz_course');
                         const data = {
                             _token: '{{ csrf_token() }}',
                             title: document.getElementById('quiz_title').value,
-                            course_name: document.getElementById('quiz_course').value,
+                            description: document.getElementById('quiz_description').value,
+                            course_id: courseSelect.value || null,
+                            course_name: courseSelect.options[courseSelect.selectedIndex].text,
                             time_limit: document.getElementById('quiz_time').value,
-                            passing_score: 80, // Default for now
+                            passing_score: document.getElementById('quiz_passing_score').value,
                             questions: questions
                         };
 

@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>DEVRAK Teacher Dashboard</title>
+    <title>Teacher Dashboard | CodeMentor</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
@@ -153,11 +153,8 @@
                         </button>
                         <div
                             class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
-                            <a href="{{ route('teacher.careers') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Management</a>
                             <a href="{{ route('career') }}"
-                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career
-                                Center</a>
+                                class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Careers</a>
                             <a href="{{ route('certifications') }}"
                                 class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
                         </div>
@@ -235,11 +232,14 @@
 
                             <!-- Footer Actions -->
                             <div class="p-2 border-t border-outline-variant/10 bg-surface-container-lowest">
-                                <button
+                            <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                @csrf
+                                <button type="submit"
                                     class="w-full py-2.5 text-sm text-primary font-bold hover:bg-primary/5 rounded-lg transition-colors flex items-center justify-center gap-2">
                                     <span class="material-symbols-outlined text-[18px]">done_all</span>
                                     Mark all as read
                                 </button>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -308,7 +308,7 @@
                     <div class="mt-8">
                         <p
                             class="text-3xl font-bold font-headline text-on-surface group-hover:text-white transition-colors">
-                            1,284</p>
+                            {{ number_format($totalStudents) }}</p>
                         <p
                             class="text-sm font-medium text-on-surface-variant group-hover:text-white/80 transition-colors">
                             Total Students</p>
@@ -322,7 +322,7 @@
                     <div class="mt-8">
                         <p
                             class="text-3xl font-bold font-headline text-on-surface group-hover:text-white transition-colors">
-                            12</p>
+                            {{ $coursesActive }}</p>
                         <p
                             class="text-sm font-medium text-on-surface-variant group-hover:text-white/80 transition-colors">
                             Courses Active</p>
@@ -336,7 +336,7 @@
                     <div class="mt-8">
                         <p
                             class="text-3xl font-bold font-headline text-on-surface group-hover:text-white transition-colors">
-                            A-</p>
+                            {{ $averageGrade }}</p>
                         <p
                             class="text-sm font-medium text-on-surface-variant group-hover:text-white/80 transition-colors">
                             Average Grade</p>
@@ -350,7 +350,7 @@
                     <div class="mt-8">
                         <p
                             class="text-3xl font-bold font-headline text-on-surface group-hover:text-white transition-colors">
-                            42h</p>
+                            {{ round($hoursTaught, 1) }}h</p>
                         <p
                             class="text-sm font-medium text-on-surface-variant group-hover:text-white/80 transition-colors">
                             Hours Taught</p>
@@ -366,74 +366,38 @@
                             <button class="text-primary font-bold text-sm hover:underline">View All</button>
                         </div>
                         <div class="space-y-6">
-                            <!-- Course Item 1 -->
-                            <div
-                                class="bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between shadow-sm">
-                                <div class="flex items-center gap-6">
-                                    <div
-                                        class="h-16 w-16 bg-primary-container/20 rounded-lg flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-primary text-2xl"
-                                            data-icon="terminal">terminal</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-lg">Full-Stack Kinetic Web Systems</h4>
-                                        <div class="flex gap-4 mt-1">
-                                            <span class="text-xs text-on-surface-variant flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]"
-                                                    data-icon="person">person</span> 412 Students
-                                            </span>
-                                            <span class="text-xs text-on-surface-variant flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]"
-                                                    data-icon="update">update</span> Updated 2h ago
-                                            </span>
+                            @forelse($myCourses as $course)
+                                <div class="bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between shadow-sm">
+                                    <div class="flex items-center gap-6">
+                                        <div class="h-16 w-16 bg-primary-container/20 rounded-lg flex items-center justify-center overflow-hidden">
+                                            @if($course->image)
+                                                <img src="{{ $course->image }}" class="w-full h-full object-cover">
+                                            @else
+                                                <span class="material-symbols-outlined text-primary text-2xl" data-icon="terminal">terminal</span>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-lg">{{ $course->title }}</h4>
+                                            <div class="flex gap-4 mt-1">
+                                                <span class="text-xs text-on-surface-variant flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[14px]" data-icon="person">person</span> {{ $course->enrolled_users_count }} Students
+                                                </span>
+                                                <span class="text-xs text-on-surface-variant flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[14px]" data-icon="update">update</span> Updated {{ $course->updated_at->diffForHumans() }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="text-right flex flex-col items-end gap-2">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-xs font-bold text-primary">78% Progress</span>
-                                        <div class="w-32 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                                            <div class="w-[78%] h-full bg-primary"></div>
-                                        </div>
-                                    </div>
-                                    <span
-                                        class="text-[10px] uppercase tracking-wider bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-bold">In-Demand</span>
-                                </div>
-                            </div>
-                            <!-- Course Item 2 -->
-                            <div
-                                class="bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between shadow-sm">
-                                <div class="flex items-center gap-6">
-                                    <div
-                                        class="h-16 w-16 bg-tertiary-container/20 rounded-lg flex items-center justify-center">
-                                        <span class="material-symbols-outlined text-tertiary text-2xl"
-                                            data-icon="design_services">design_services</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-lg">UI Architecture: Editorial Design</h4>
-                                        <div class="flex gap-4 mt-1">
-                                            <span class="text-xs text-on-surface-variant flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]"
-                                                    data-icon="person">person</span> 285 Students
-                                            </span>
-                                            <span class="text-xs text-on-surface-variant flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-[14px]"
-                                                    data-icon="update">update</span> Updated 1d ago
-                                            </span>
-                                        </div>
+                                    <div class="text-right flex flex-col items-end gap-2">
+                                        <a href="{{ route('teacher.course.manage', $course->id) }}" class="text-xs font-bold text-primary hover:underline">Manage Course</a>
+                                        <span class="text-[10px] uppercase tracking-wider bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-bold">{{ $course->category }}</span>
                                     </div>
                                 </div>
-                                <div class="text-right flex flex-col items-end gap-2">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-xs font-bold text-tertiary">92% Progress</span>
-                                        <div class="w-32 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                                            <div class="w-[92%] h-full bg-tertiary"></div>
-                                        </div>
-                                    </div>
-                                    <span
-                                        class="text-[10px] uppercase tracking-wider bg-primary-container text-on-primary-container px-2 py-1 rounded font-bold">Trending</span>
+                            @empty
+                                <div class="text-center py-10 text-on-surface-variant italic">
+                                    You haven't created any courses yet.
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
                     <!-- Student Analytics Preview -->

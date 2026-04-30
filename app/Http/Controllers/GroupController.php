@@ -30,7 +30,7 @@ class GroupController extends Controller
         $group->members()->attach(Auth::id());
 
         return redirect()->route('groups.show', $group->id)
-            ->with('success', 'Group created! You are now its admin.');
+            ->with('group_created', 'Group created successfully! You are now its admin.');
     }
 
     // ── Show a group page ─────────────────────────────────────────────────────
@@ -42,8 +42,8 @@ class GroupController extends Controller
         $isAdmin  = Auth::id() === $group->admin_id;
         $isMember = $group->members->contains(Auth::id());
 
-        // All users the admin can add (not already members)
-        $nonMembers = $isAdmin
+        // All users the member can invite (not already members)
+        $nonMembers = $isMember
             ? User::whereNotIn('id', $group->members->pluck('id'))->get(['id', 'name', 'photo'])
             : collect();
 
@@ -75,18 +75,83 @@ class GroupController extends Controller
             ->with('success', 'You left the group.');
     }
 
-    // ── Admin: add a member ───────────────────────────────────────────────────
-    public function addMember(Request $request, $id)
+    // ── Invite a member ───────────────────────────────────────────────────
+    public function inviteMember(Request $request, $id)
     {
         $group = Group::findOrFail($id);
-        $this->authorizeAdmin($group);
+        
+        // Check if the current user is a member
+        if (!$group->members->contains(Auth::id())) {
+            abort(403, 'Only group members can invite others.');
+        }
 
         $request->validate(['user_id' => 'required|exists:users,id']);
 
-        $group->members()->syncWithoutDetaching([$request->user_id]);
+        // Check if already a member
+        if ($group->members->contains($request->user_id)) {
+            return redirect()->back()->with('error', 'User is already a member.');
+        }
+
+        // Check if invitation already exists
+        $existing = \App\Models\GroupInvitation::where('group_id', $group->id)
+            ->where('user_id', $request->user_id)
+            ->where('status', 'pending')
+            ->first();
+
+        if ($existing) {
+            return redirect()->back()->with('error', 'An invitation is already pending for this user.');
+        }
+
+        $invitation = \App\Models\GroupInvitation::create([
+            'group_id' => $group->id,
+            'user_id' => $request->user_id,
+            'invited_by' => Auth::id(),
+            'status' => 'pending',
+        ]);
+
+        // Create a notification for the invited user
+        \App\Models\UserNotification::create([
+            'user_id' => $request->user_id,
+            'type' => 'group_invite',
+            'title' => 'New Group Invitation',
+            'body' => Auth::user()->name . ' invited you to join ' . $group->name,
+            'points' => 0,
+            'data' => [
+                'invitation_id' => $invitation->id,
+                'group_name' => $group->name,
+            ]
+        ]);
 
         return redirect()->route('groups.show', $id)
-            ->with('success', 'Member added successfully.');
+            ->with('success', 'Invitation sent successfully.');
+    }
+
+    public function acceptInvitation($id)
+    {
+        $invitation = \App\Models\GroupInvitation::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        $invitation->update(['status' => 'accepted']);
+        
+        $group = Group::findOrFail($invitation->group_id);
+        $group->members()->syncWithoutDetaching([Auth::id()]);
+
+        return redirect()->route('groups.show', $group->id)
+            ->with('success', 'You have joined the group!');
+    }
+
+    public function rejectInvitation($id)
+    {
+        $invitation = \App\Models\GroupInvitation::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        $invitation->update(['status' => 'rejected']);
+
+        return redirect()->back()->with('success', 'Invitation rejected.');
     }
 
     // ── Admin: remove a member ────────────────────────────────────────────────
@@ -191,7 +256,7 @@ class GroupController extends Controller
 
         if ($request->hasFile('cover_photo')) {
             $path = $request->file('cover_photo')->store('group-covers', 'public');
-            $group->update(['cover_photo' => asset('storage/' . $path)]);
+            $group->update(['cover_photo' => $path]);
         }
 
         return back()->with('success', 'Cover photo updated!');

@@ -89,6 +89,42 @@
     </header>
 
     {{-- ── Flash Messages ───────────────────────────────────────────────────── --}}
+    @if(session('group_created'))
+        <div x-data="{ showModal: true }" x-show="showModal" class="fixed inset-0 z-[100] flex items-center justify-center">
+            <!-- Backdrop -->
+            <div x-show="showModal" 
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+            
+            <!-- Modal content -->
+            <div x-show="showModal" 
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 scale-90 translate-y-4"
+                 class="relative bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center border border-slate-100 z-10 flex flex-col items-center">
+                
+                <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-5 text-emerald-600 shadow-inner">
+                    <span class="material-symbols-outlined text-4xl">task_alt</span>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Group Created!</h3>
+                <p class="text-slate-500 mb-8">{{ session('group_created') }}</p>
+                
+                <button @click="showModal = false" class="w-full bg-[#006573] hover:bg-[#004b56] text-white font-semibold py-3.5 px-6 rounded-2xl transition-all shadow-md hover:shadow-lg active:scale-95">
+                    Done
+                </button>
+            </div>
+        </div>
+    @endif
+
     @if(session('success'))
         <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 5000)" x-show="show" x-transition.duration.500ms
             class="mx-auto mt-4 max-w-4xl w-full px-4">
@@ -218,14 +254,14 @@
                 </div>
             </div>
 
-            {{-- Admin: Add Member Panel --}}
-            @if($isAdmin && $nonMembers->count() > 0)
+            {{-- Member: Invite Member Panel --}}
+            @if($isMember && $nonMembers->count() > 0)
                 <div class="bg-white rounded-2xl shadow-sm border border-primary/20 p-5">
                     <h3 class="font-bold text-on-surface mb-4 flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary text-base">person_add</span>
-                        Add Member
+                        Invite Member
                     </h3>
-                    <form method="POST" action="{{ route('groups.members.add', $group->id) }}" class="flex flex-col gap-3">
+                    <form method="POST" action="{{ route('groups.members.invite', $group->id) }}" class="flex flex-col gap-3">
                         @csrf
                         <select name="user_id" required
                             class="w-full bg-surface-container-low border-none rounded-xl p-3 text-sm text-on-surface focus:ring-2 focus:ring-primary/20">
@@ -235,7 +271,7 @@
                             @endforeach
                         </select>
                         <button type="submit" class="w-full bg-primary text-white py-2.5 rounded-xl text-sm font-bold hover:bg-primary-dim transition-colors">
-                            Add to Group
+                            Send Invitation
                         </button>
                     </form>
                 </div>
@@ -372,6 +408,14 @@
                                         <div class="flex-1 bg-surface-container-low rounded-xl px-3 py-2">
                                             <a href="{{ route('other_profile', $comment->user?->id ?? 0) }}" class="text-xs font-bold text-on-surface hover:text-primary transition-colors">{{ $comment->user?->name ?? 'Unknown' }}</a>
                                             <p class="text-xs text-on-surface-variant mt-0.5">{{ $comment->content }}</p>
+                                            
+                                            <div class="flex items-center gap-3 mt-2">
+                                                <button onclick="reactToComment({{ $comment->id }}, this)" 
+                                                    class="flex items-center gap-1 text-[10px] font-bold transition-colors {{ $comment->userReaction ? 'text-primary' : 'text-on-surface-variant hover:text-primary' }}">
+                                                    <span class="material-symbols-outlined text-sm" style="{{ $comment->userReaction ? 'font-variation-settings: \'FILL\' 1;' : '' }}">thumb_up</span>
+                                                    <span class="reaction-count">{{ $comment->reactions->count() }}</span>
+                                                </button>
+                                            </div>
                                         </div>
                                         {{-- Admin: remove comment --}}
                                         @if($isAdmin)
@@ -446,6 +490,41 @@
             const input = document.getElementById('post_attachment');
             input.value = '';
             document.getElementById('attachment_preview').classList.add('hidden');
+        }
+
+        async function reactToComment(id, btn) {
+            try {
+                const response = await fetch(`/comments/${id}/react`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ type: 'like' })
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    const countSpan = btn.querySelector('.reaction-count');
+                    const iconSpan = btn.querySelector('.material-symbols-outlined');
+                    
+                    countSpan.innerText = data.count;
+                    
+                    if (data.action === 'added' || data.action === 'updated') {
+                        btn.classList.remove('text-on-surface-variant');
+                        btn.classList.add('text-primary');
+                        iconSpan.style.fontVariationSettings = "'FILL' 1";
+                    } else {
+                        btn.classList.remove('text-primary');
+                        btn.classList.add('text-on-surface-variant');
+                        iconSpan.style.fontVariationSettings = "'FILL' 0";
+                    }
+                }
+            } catch (error) {
+                console.error('Reaction error:', error);
+            }
         }
     </script>
     @include('partials.ai_chat')

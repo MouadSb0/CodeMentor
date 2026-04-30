@@ -75,12 +75,58 @@ class TeacherController extends Controller
             ->whereNull('read_at')
             ->count();
 
+        // ── Dynamic Statistics ──
+        $totalStudents = DB::table('course_user')
+            ->join('courses', 'courses.id', '=', 'course_user.course_id')
+            ->where('courses.user_id', $user->id)
+            ->distinct('course_user.user_id')
+            ->count('course_user.user_id');
+
+        $coursesActive = Course::where('user_id', $user->id)->count();
+
+        $avgScore = \App\Models\Result::whereIn('quiz_id', Quiz::where('user_id', $user->id)->pluck('id'))
+            ->avg('score') ?? 0;
+        
+        $averageGrade = $this->calculateLetterGrade($avgScore);
+
+        $hoursTaught = Course::where('user_id', $user->id)
+            ->get()
+            ->sum(function($course) {
+                return (float) preg_replace('/[^0-9.]/', '', $course->duration);
+            });
+
+        // Get my courses for the management list
+        $myCourses = Course::where('user_id', $user->id)
+            ->withCount('enrolledUsers')
+            ->latest()
+            ->take(5)
+            ->get();
+
         return view('teacher.dashboard', compact(
             'showBonusModal',
             'bonusAmount',
             'notifications',
-            'unreadNotificationsCount'
+            'unreadNotificationsCount',
+            'totalStudents',
+            'coursesActive',
+            'averageGrade',
+            'hoursTaught',
+            'myCourses'
         ));
+    }
+
+    private function calculateLetterGrade($score)
+    {
+        if ($score === 0) return 'N/A';
+        if ($score >= 95) return 'A+';
+        if ($score >= 90) return 'A';
+        if ($score >= 85) return 'A-';
+        if ($score >= 80) return 'B+';
+        if ($score >= 75) return 'B';
+        if ($score >= 70) return 'B-';
+        if ($score >= 65) return 'C+';
+        if ($score >= 60) return 'C';
+        return 'D';
     }
     public function courses(Request $request)
     {
@@ -247,8 +293,9 @@ class TeacherController extends Controller
     {
         $recentQuizzes = Quiz::where('user_id', auth()->id())->latest()->take(3)->get();
         $randomQuizzes = Quiz::inRandomOrder()->take(6)->get();
+        $teacherCourses = Course::where('user_id', auth()->id())->get();
 
-        return view('teacher.quiz', compact('recentQuizzes', 'randomQuizzes'));
+        return view('teacher.quiz', compact('recentQuizzes', 'randomQuizzes', 'teacherCourses'));
     }
 
     public function careers()
@@ -259,15 +306,27 @@ class TeacherController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'course_name' => 'required|string',
+            'description' => 'nullable|string',
+            'course_name' => 'nullable|string',
+            'course_id' => 'nullable|exists:courses,id',
             'time_limit' => 'required|integer|min:1',
             'passing_score' => 'required|integer|min:0|max:100',
             'questions' => 'required|array|min:3',
         ]);
 
-        $quiz = new Quiz($validated);
+        $quiz = new Quiz();
         $quiz->user_id = auth()->id();
+        $quiz->title = $validated['title'];
+        $quiz->description = $validated['description'];
+        $quiz->course_name = $validated['course_name'] ?? 'General';
+        $quiz->time_limit = $validated['time_limit'];
+        $quiz->passing_score = $validated['passing_score'];
+        $quiz->questions = $validated['questions'];
         $quiz->save();
+
+        if (!empty($validated['course_id'])) {
+            $quiz->courses()->attach($validated['course_id']);
+        }
 
         return response()->json([
             'success' => true,
