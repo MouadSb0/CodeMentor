@@ -475,42 +475,42 @@
             <header>
                 <div class="logo"><a href="{{ url('/') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a></div>
                 <div class="header_links">
-                    <a href="{{ url('/login') }}">Se connecter</a>
-                    <a href="{{ url('/account-type') }}">S'inscrire</a>
+                    <a href="{{ url('/login') }}">Login</a>
+                    <a href="{{ url('/account-type') }}">Sign up</a>
                     <a href="{{ url('/help') }}" class="menu_icon">?</a>
                 </div>
             </header>
         </div>
         <div class="header_content">
-            <a href="#1sectionw">Commencer</a>
-            <h2>Apprenez la programmation autrement...</h2>
+            <a href="#1sectionw">Start Now</a>
+            <h2>Learn programming differently...</h2>
         </div>
     </div>
     <section class="problem_section" id="problem-section-anchor">
         <div class="content" id="1section">
             <div class="content_text ps-content-text">
-                <p>La première plateforme qui combine cours interactifs et génération de code pédagogique.</p>
-                <p>Comprenez “pourquoi” le code fonctionne, pas seulement “comment”</p>
+                <p>The first platform that combines interactive courses and educational code generation.</p>
+                <p>Understand "why" the code works, not just "how"</p>
             </div>
             <div class="content_steps">
                 <div class="two_steps">
                     <div class="step ps-step">
                         <i class="fa-solid fa-person-chalkboard"></i>
-                        <h4>Cours Interactifs</h4>
+                        <h4>Interactive Courses</h4>
                     </div>
                     <div class="step ps-step">
                         <i class="fa-solid fa-cube"></i>
-                        <h4>Exercices Pratiques </h4>
+                        <h4>Practical Exercises</h4>
                     </div>
                 </div>
                 <div class="two_steps">
                     <div class="step ps-step">
                         <i class="fa-solid fa-laptop-code"></i>
-                        <h4>Code Générateur</h4>
+                        <h4>Code Generator</h4>
                     </div>
                     <div class="step ps-step">
                         <i class="fa-solid fa-robot"></i>
-                        <h4>Formateurs Pro</h4>
+                        <h4>Pro Instructors</h4>
                     </div>
                 </div>
             </div>
@@ -523,22 +523,22 @@
     </section>
     <section class="nightmare_section" id="nightmare-section-anchor">
         <div class="title title1">
-            <h1 class="ns-title-h1">Le cauchemar de tout apprenant en code</h1>
+            <h1 class="ns-title-h1">Every coding learner's nightmare</h1>
             <div class="title_ligne title_ligne1 ns-title-ligne"></div>
         </div>
         <div class="content_container">
             <div class="content">
                 <div class="step ns-step">
                     <span>1</span>
-                    <p>J'ai passé 3 heures sur un exercice simple.</p>
+                    <p>I spent 3 hours on a simple exercise.</p>
                 </div>
                 <div class="step ns-step">
-                    <p> J'ai trouvé la solution sur un site</p>
+                    <p>I found the solution on a website</p>
                     <span>2</span>
                 </div>
                 <div class="step ns-step">
                     <span>3</span>
-                    <p>Mais je n'ai toujours pas compris pourquoi ça marche</p>
+                    <p>But I still don't understand why it works</p>
                 </div>
             </div>
             <div class="design ns-design">
@@ -552,34 +552,33 @@
             <div class="steps">
                 <div class="step is-step">
                     <span>1</span>
-                    <h4>Choisissez votre parcours</h4>
-                    <p> - Python <br>- JavaScript <br>- Data Science <br>- Algorithmes</p>
-                    <a href="#">Voir Plus</a>
-                    <h4> Du débutant à l'expert, on a le programme qu'il vous faut.</h4>
+                    <h4>Choose your path</h4>
+                    <p> - Python <br>- JavaScript <br>- Data Science <br>- Algorithms</p>
+                    <a href="#">See More</a>
+                    <h4> From beginner to expert, we have the right program for you.</h4>
                 </div>
                 <div class="step is-step">
                     <span>2</span>
-                    <h4>Apprenez en pratiquant</h4>
-                    <p> Théorie interactive <br> + exercices corrigés <br> instantanément.</p>
-                    <a href="#">Savoir plus</a>
-                    <h4> Tapez du code, exécutez-le, voyez le résultat en directTapez du code, exécutez-le, voyez le
-                        résultat en direct</h4>
+                    <h4>Learn by doing</h4>
+                    <p> Interactive theory <br> + instantly corrected <br> exercises.</p>
+                    <a href="#">Learn more</a>
+                    <h4> Type code, run it, see the result live</h4>
                 </div>
                 <div class="step is-step">
                     <span>3</span>
-                    <h4> Débloquez-vous avec l'IA</h4>
-                    <p> Bloqué sur <br> un concept ?</p>
-                    <a href="#">Savoir Plus</a>
-                    <h4>Demandez à notre IA. Elle génèr du code et vous l'explique comme si c'était un vrai prof.</h4>
+                    <h4> Get unstuck with AI</h4>
+                    <p> Stuck on <br> a concept?</p>
+                    <a href="#">Learn More</a>
+                    <h4>Ask our AI. It generates code and explains it like a real teacher.</h4>
                 </div>
                 <div class="step is-step">
                     <span>4</span>
-                    <h4>Partagez et grandissez avec la communauté</h4>
-                    <p> Rejoignez des milliers d'apprenants, <br> échangez vos solutions, <br> participez aux défis,
-                        <br> et faites-vous mentor par les plus expérimentés
+                    <h4>Share and grow with the community</h4>
+                    <p> Join thousands of learners, <br> share your solutions, <br> participate in challenges,
+                        <br> and get mentored by experts.
                     </p>
-                    <a href="#">Savoir Plus</a>
-                    <h4>L'apprentissage ne se fait pas seul</h4>
+                    <a href="#">Learn More</a>
+                    <h4>Learning doesn't happen alone</h4>
                 </div>
             </div>
         </div>
@@ -588,15 +587,14 @@
     <section class="promos_section" id="promos-section-anchor">
         <div class="rec_white prs-rec-white"></div>
         <div class="content prs-content">
-            <h3>Du <span>"Hello World"</span> à votre premier job de développeur</h3>
-            <p>Un parcours structuré, des projets concrets, et un assistant IA qui vous guide à chaque étape. Rejoignez
-                les 85% de nos apprenants qui changent de carrière.</p>
+            <h3>From <span>"Hello World"</span> to your first developer job</h3>
+            <p>A structured path, practical projects, and an AI assistant that guides you every step of the way. Join the 85% of our learners who change their careers.</p>
         </div>
         <div class="img prs-img"><img src="{{ asset('img/background5.jpg') }}" alt=""></div>
     </section>
     <section class="obj_section" id="obj-section-anchor">
         <div class="title title2">
-            <h1 class="os-title-h1">Des parcours pour tous les objectifs</h1>
+            <h1 class="os-title-h1">Paths for all goals</h1>
             <div class="title_ligne title_ligne2 os-title-ligne"></div>
         </div>
         <div class="obj_div">
@@ -608,12 +606,12 @@
             <div class="cours os-cours">
                 <h3>Python</h3>
                 <ul>
-                    <li>54 Heures</li>
+                    <li>54 Hours</li>
                     <li>12 Modules</li>
-                    <li>150 Exercices</li>
+                    <li>150 Exercises</li>
                 </ul>
                 <p>4.8 / 5</p>
-                <a href="#">Découvrir</a>
+                <a href="#">Discover</a>
                 <button class="flech_left"><i class="fa-solid fa-circle-chevron-left"></i></button>
                 <button class="flech_right"><i class="fa-solid fa-circle-chevron-right"></i></button>
             </div>
@@ -621,16 +619,16 @@
         </div>
     </section>
     <section class="generator_section gs-section" id="generator-section-anchor" style="padding-bottom: 150px">
-        <h1 class="gs-h1">GÉNÉRATEUR DE CODE - DÉMO EN DIRECT</h1>
+        <h1 class="gs-h1">CODE GENERATOR - LIVE DEMO</h1>
         <div class="generator_input gs-input">
-            <input type="text" placeholder="Décrivez ce que vous voulez comprendre...">
+            <input type="text" placeholder="Describe what you want to understand...">
             <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
         </div>
-        <h2 class="gs-h2">Pour tester tous les langages et des requêtes plus complexes</h2>
-        <p class="gs-p">créez votre compte gratuit !</p>
+        <h2 class="gs-h2">To test all languages and more complex queries</h2>
+        <p class="gs-p">create your free account!</p>
     </section>
     <footer class="footer_section" id="footer-section-anchor">
-        <h2 class="fs-h2"><span>CodeMentor :</span> L'anti-école du code traditionnelle</h2>
+        <h2 class="fs-h2"><span>CodeMentor :</span> The anti-traditional coding school</h2>
         <div class="footer_top">
             <div class="footer_links">
                 <ul class="social_medias">
@@ -654,15 +652,15 @@
             </div>
             <div class="footer_adds fs-tag">
                 <h3>Newsletter</h3>
-                <p>Recevez nos astuces et nouveaux cours</p>
+                <p>Receive our tips and new courses</p>
                 <div class="subscribe">
-                    <input type="text" placeholder="Votre Email">
-                    <input type="submit" value="S'abonner" class="submit">
+                    <input type="text" placeholder="Your Email">
+                    <input type="submit" value="Subscribe" class="submit">
                 </div>
             </div>
         </div>
         <div class="footer_bottom fs-tag">
-            <p>© 2026 CodeMentor Interactive (DevLearn Solutions) - CGV - Confidentialité - Mentions légales</p>
+            <p>© 2026 CodeMentor Interactive (DevLearn Solutions) - ToS - Privacy - Legal Notice</p>
         </div>
     </footer>
     <script src="{{ asset('js/particles.js') }}"></script>
@@ -760,26 +758,26 @@
 
                 await delay(2000);
                 scrollToElement('.problem_section');
-                await showToast("CodeMentor est L'anti-école du code traditionnelle", 3000);
+                await showToast("CodeMentor is the anti-traditional coding school", 3000);
 
                 scrollToElement('.nightmare_section');
-                await showToast("nous traitons un problème majeure qui est l'apprenstissage de vraie coding", 3000);
+                await showToast("We address a major issue: learning real coding", 3000);
 
                 scrollToElement('.infos_section');
-                await showToast("des parcours intéressants, des projets pratiques, Débloquage avec l'IA, Partager et grandir avec la communauté", 3000);
+                await showToast("Interesting paths, practical projects, unblocking with AI, sharing and growing with the community", 3000);
 
                 scrollToElement('.promos_section');
-                await showToast("De la première ligne de code à la maîtrise professionnelle", 3000);
+                await showToast("From the first line of code to professional mastery", 3000);
 
                 scrollToElement('.obj_section');
-                await showToast("nous offrons des parcours pour des objectifs différents", 2000);
+                await showToast("We offer paths for different goals", 2000);
 
                 scrollToElement('.generator_section');
-                await showToast("générez des explications de code magnifiques et simples à comprendre pour vous", 2000);
+                await showToast("Generate beautiful and simple code explanations for yourself", 2000);
 
                 scrollToElement('.footer_section');
                 await delay(2000);
-                await showToast("the tour is ended, now the controll is yours", 3000);
+                await showToast("The tour has ended, now the control is yours", 3000);
                 
                 toast.classList.add('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
