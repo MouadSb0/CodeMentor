@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Course;
 use App\Models\Quiz;
 use App\Models\Result;
 use App\Models\UserNotification;
@@ -14,7 +15,30 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::all();
-        return view('quiz', compact('quizzes'));
+        $recentQuizzes = collect();
+        $randomQuizzes = Quiz::inRandomOrder()->take(6)->get();
+        $teacherCourses = Course::latest()->get();
+        $notifications = collect();
+
+        if (auth()->check()) {
+            $notifications = UserNotification::where('user_id', auth()->id())
+                ->latest()
+                ->take(10)
+                ->get();
+
+            $recentQuizzes = Quiz::where('user_id', auth()->id())
+                ->latest()
+                ->take(3)
+                ->get();
+        }
+
+        return view('quiz', compact(
+            'quizzes',
+            'notifications',
+            'recentQuizzes',
+            'randomQuizzes',
+            'teacherCourses'
+        ));
     }
 
     public function show($id)
