@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeMentor - Complete Your Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-dim": "#455064",
+                        "surface-container-highest": "#d9dde0",
+                        "on-tertiary": "#eff2ff",
+                        "surface-container-low": "#eef1f3",
+                        "on-surface-variant": "#595c5e",
+                        "on-secondary-fixed": "#354053",
+                        "primary": "#006573",
+                        "on-surface": "#2c2f31",
+                        "primary-fixed": "#3adffa",
+                        "surface-container": "#e5e9eb",
+                        "on-error-container": "#570008",
+                        "surface-dim": "#d0d5d8",
+                        "primary-dim": "#005865",
+                        "secondary-container": "#d8e3fb",
+                        "on-error": "#ffefee",
+                        "on-tertiary-container": "#003064",
+                        "on-tertiary-fixed": "#001737",
+                        "error-dim": "#9f0519",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "tertiary": "#005ab3",
+                        "secondary": "#515c70",
+                        "on-primary-fixed": "#00363e",
+                        "tertiary-fixed": "#84b1ff",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-background": "#2c2f31",
+                        "surface-bright": "#f5f7f9",
+                        "primary-container": "#3adffa",
+                        "tertiary-dim": "#004e9d",
+                        "outline": "#747779",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "surface": "#f5f7f9",
+                        "outline-variant": "#abadaf",
+                        "error-container": "#fb5151",
+                        "inverse-primary": "#3adffa",
+                        "surface-variant": "#d9dde0",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "on-secondary": "#eff2ff",
+                        "error": "#b31b25",
+                        "surface-tint": "#006573",
+                        "inverse-on-surface": "#9a9d9f",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary": "#daf8ff",
+                        "on-primary-fixed-variant": "#005561",
+                        "background": "#f5f7f9",
+                        "tertiary-container": "#84b1ff",
+                        "surface-container-high": "#dfe3e6",
+                        "on-secondary-container": "#475266",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#004b56"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .kinetic-grid {
+            background-image: radial-gradient(#abadaf 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.15;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#D0E3E6] font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 z-50 bg-[#D0E3E6] dark:bg-[#0f172a] flex items-center justify-between px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="text-[#006573] dark:text-[#22d3ee] active:scale-95 duration-200 hover:bg-[#eef1f3] dark:hover:bg-[#1e293b] transition-colors p-2 rounded-full">
+<a href="register.html" class="material-symbols-outlined">arrow_back</a>
+</button>
+<span class="font-['Space_Grotesk'] font-bold tracking-tight text-3xl text-primary dark:text-white tracking-tighter">Back</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-[#006573] dark:text-[#22d3ee] active:scale-95 duration-200 hover:bg-[#eef1f3] dark:hover:bg-[#1e293b] transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<main class="flex-grow relative overflow-hidden flex items-center justify-center py-12 px-6">
+<!-- Abstract Background Pattern -->
+<div class="absolute inset-0 kinetic-grid pointer-events-none"></div>
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-tertiary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative w-full max-w-2xl">
+<div class="mb-10 flex flex-col items-start gap-4">
+<div class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10">
+<span class="text-xs font-bold tracking-widest text-primary font-headline uppercase">Step 2 of 2</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-headline font-bold text-on-surface leading-tight tracking-tight">
+                    Complete <span class="text-primary">your profile</span>
+                </h1>
+<p class="text-on-surface-variant text-lg max-w-lg leading-relaxed">
+                    Tell us more about your background to personalize your learning journey.
+                </p>
+</div>
+<!-- Form Container -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_20px_rgba(44,47,49,0.04)] shadow-[0_10px_40px_rgba(0,101,115,0.06)]">
+<form class="space-y-8">
+<!-- Professional Role -->
+<div class="space-y-3">
+<label class="block text-sm font-medium text-on-surface-variant ml-1" for="role">Professional Role</label>
+<div class="relative group">
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface appearance-none focus:ring-2 focus:ring-primary transition-all cursor-pointer" id="role">
+<option disabled="" selected="">Select your current role</option>
+<option>Student</option>
+<option>Frontend Developer</option>
+<option>Backend Developer</option>
+<option>Fullstack Developer</option>
+<option>DevOps Engineer</option>
+<option>Data Scientist</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Years of Experience -->
+<div class="space-y-3">
+<label class="block text-sm font-medium text-on-surface-variant ml-1">Years of Experience</label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<label class="relative group cursor-pointer">
+<input checked="" class="peer sr-only" name="experience" type="radio"/>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low text-center font-medium text-sm transition-all peer-checked:bg-primary peer-checked:text-on-primary group-hover:bg-surface-container-high">0-1 Years</div>
+</label>
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="experience" type="radio"/>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low text-center font-medium text-sm transition-all peer-checked:bg-primary peer-checked:text-on-primary group-hover:bg-surface-container-high">2-4 Years</div>
+</label>
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="experience" type="radio"/>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low text-center font-medium text-sm transition-all peer-checked:bg-primary peer-checked:text-on-primary group-hover:bg-surface-container-high">5-8 Years</div>
+</label>
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="experience" type="radio"/>
+<div class="px-4 py-3 rounded-xl bg-surface-container-low text-center font-medium text-sm transition-all peer-checked:bg-primary peer-checked:text-on-primary group-hover:bg-surface-container-high">9+ Years</div>
+</label>
+</div>
+</div>
+<!-- Primary Tech Stack -->
+<div class="space-y-3">
+<label class="block text-sm font-medium text-on-surface-variant ml-1">Primary Tech Stack</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold flex items-center gap-2 transition-all active:scale-95" type="button">
+                                React <span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold flex items-center gap-2 transition-all active:scale-95" type="button">
+                                Python <span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="px-4 py-2 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-semibold flex items-center gap-2 transition-all active:scale-95" type="button">
+                                Node.js <span class="material-symbols-outlined text-sm">close</span>
+</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant text-xs font-medium hover:bg-surface-container-high transition-colors" type="button">
+                                + Add more
+                            </button>
+</div>
+</div>
+<!-- Learning Goals -->
+<div class="space-y-3">
+<label class="block text-sm font-medium text-on-surface-variant ml-1" for="goals">Learning Goals</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 text-on-surface focus:ring-2 focus:ring-primary transition-all placeholder:text-outline/60" id="goals" placeholder="What do you want to achieve?" rows="3"></textarea>
+</div>
+<!-- Actions -->
+<div class="pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<a class="text-on-surface-variant font-medium text-sm hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Skip for now</a>
+<button class="w-full md:w-auto px-10 py-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all" type="button">
+                            Complete Registration
+                        </button>
+</div>
+</form>
+</div>
+<!-- Side Visual Element -->
+<div class="hidden lg:block absolute -right-64 top-1/2 -translate-y-1/2 w-48">
+<div class="flex flex-col gap-4">
+<div class="w-12 h-1 bg-primary rounded-full"></div>
+<div class="w-24 h-1 bg-primary/40 rounded-full"></div>
+<div class="w-16 h-1 bg-primary/20 rounded-full"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-[#0f172a]/80 backdrop-blur-xl border-t border-[#abadaf]/15 shadow-[0_-4px_20px_rgba(44,47,49,0.04)] z-50 rounded-t-2xl">
+<a class="flex flex-col items-center justify-center text-[#abadaf] dark:text-[#64748b] px-4 py-1 hover:text-[#006573] dark:hover:text-[#22d3ee] transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1">account_circle</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">Account</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#eef1f3] dark:bg-[#1e293b] text-[#006573] dark:text-[#22d3ee] rounded-xl px-4 py-1 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1">steps</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#abadaf] dark:text-[#64748b] px-4 py-1 hover:text-[#006573] dark:hover:text-[#22d3ee] transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1">help_outline</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide">Help</span>
+</a>
+</nav>
+<!-- Filler for bottom nav height -->
+<div class="h-24 md:hidden"></div>
+</body></html>

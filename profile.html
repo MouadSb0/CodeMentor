@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeMentor Profile &amp; Certs | Kinetic Academy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#006573",
+                        "surface-container-low": "#eef1f3",
+                        "surface-dim": "#d0d5d8",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "surface-tint": "#006573",
+                        "primary-fixed": "#3adffa",
+                        "on-error-container": "#570008",
+                        "error-container": "#fb5151",
+                        "tertiary-fixed": "#84b1ff",
+                        "inverse-primary": "#3adffa",
+                        "outline": "#747779",
+                        "error-dim": "#9f0519",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffefee",
+                        "tertiary": "#005ab3",
+                        "secondary": "#515c70",
+                        "on-tertiary": "#eff2ff",
+                        "on-primary-fixed-variant": "#005561",
+                        "on-primary-container": "#004b56",
+                        "background": "#f5f7f9",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "on-secondary-container": "#475266",
+                        "on-primary": "#daf8ff",
+                        "tertiary-container": "#84b1ff",
+                        "tertiary-dim": "#004e9d",
+                        "outline-variant": "#abadaf",
+                        "error": "#b31b25",
+                        "surface-container-high": "#dfe3e6",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "on-surface-variant": "#595c5e",
+                        "on-surface": "#2c2f31",
+                        "on-tertiary-container": "#003064",
+                        "surface": "#f5f7f9",
+                        "on-secondary-fixed": "#354053",
+                        "on-tertiary-fixed": "#001737",
+                        "surface-container": "#e5e9eb",
+                        "secondary-fixed": "#d8e3fb",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "secondary-dim": "#455064",
+                        "on-primary-fixed": "#00363e",
+                        "surface-variant": "#d9dde0",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "primary-dim": "#005865",
+                        "primary-container": "#3adffa",
+                        "inverse-surface": "#0b0f10",
+                        "on-background": "#2c2f31",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-container-highest": "#d9dde0",
+                        "surface-bright": "#f5f7f9",
+                        "secondary-container": "#d8e3fb",
+                        "on-secondary": "#eff2ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7f9;
+            color: #2c2f31;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #006573 0%, #3adffa 100%);
+        }
+    </style>
+  </head>
+<body class="bg-[#D0E3E6] text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#D0E3E6] dark:bg-[#0f172a] shadow-[0px_9px_20px_rgba(44,47,49,0.04)]">
+        <div class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+                <span class="font-headline font-bold text-xl text-primary hidden sm:block">Kinetic Academy</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold" href="dashboard.html">Dashboard</a>
+                <div class="relative group py-4">
+                    <button class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Learn
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="courses.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Courses</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Exercices</a>
+                        <a href="code.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Playground</a>
+                        <a href="quiz.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Quizzes</a>
+                    </div>
+                </div>
+                <div class="relative group py-4">
+                    <button class="flex items-center gap-1 text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-medium">
+                        Careers
+                        <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                    </button>
+                    <div class="absolute top-[80%] left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-outline-variant/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-2 overflow-hidden">
+                        <a href="assesement.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Assesement</a>
+                        <a href="carrer.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Career</a>
+                        <a href="certifications.html" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-[#eef1f3] dark:hover:bg-slate-700 transition-colors">Certifications</a>
+                    </div>
+                </div>
+                <a class="text-slate-500 dark:text-slate-400 hover:bg-[#eef1f3] px-3 py-1 rounded-lg transition-colors font-bold" href="community.html">Community</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#eef1f3] transition-colors">
+                    <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+                </button>
+                <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+                    <a href="profile.html">
+                        <img alt="User portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9QfpggW4PCYoxv98_vXHeU9Ub5yVEJssOTWCd2qq8QX2y2KoLdoEQdL8HrRlO10bHQXGpRVyPE_D-FMLB998YaSOv7N_QAcAa8yMpq1wJPpDGf7qY8nPaZ6A2mmHFvVJC2JePX-IbespJz0cLoyOaYLYgVT0gMIVsCdIXC-9HHYjCrOIQG44l5zIXE3575lnynz3qooMCzi8GeLNjMkWiszET6TnsVI6UDJKUAXlJm9c03hNXOyHPKq9NB_lqQOcsM5QK9HhO1z7h" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex flex-col md:flex-row gap-12">
+        <!-- NavigationDrawer (Side Navigation) -->
+        <aside class="hidden md:flex flex-col w-72 shrink-0">
+            <div class="bg-surface-container-low rounded-xl p-6 mb-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm">
+                        <img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbPN0dWp6JdwT6VUbdob_k6ZnMT5FjJvQ3Nnb9R2cRGi662vaqbCoKY8Hep8XPKpFofnyZSGPEmn6YpcCoPS6qioBAu9uBjnOxADFzSa4g57AYflDkCoYAGW93TZIkt9_IRAlr2xw0SVTr1QugyhQ9sNsBbXTByYwxod7t9XsrueILLxTCK66jOuOmt7MDdNtWDVvl3-HoTB-oJQMa7mRxlR9i4c99hqmOlDDE9IFUKNg36aeh6UBLTRp_w__t-QiIQBkgR-dHDCwE"/>
+                    </div>
+                    <div>
+                        <p class="font-headline font-semibold text-on-surface">Alex Dev</p>
+                        <p class="text-xs text-secondary font-medium">Pro Member</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:translate-x-1 transition-transform rounded-xl hover:bg-white/50 group" href="courses.html">
+                        <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">school</span>
+                        <span class="text-sm font-medium">Courses</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:translate-x-1 transition-transform rounded-xl hover:bg-white/50 group" href="code.html">
+                        <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">code_blocks</span>
+                        <span class="text-sm font-medium">Playground</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 bg-white text-cyan-600 shadow-sm rounded-xl" href="certifications.html">
+                        <span class="material-symbols-outlined text-xl">verified</span>
+                        <span class="text-sm font-bold">Certifications</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:translate-x-1 transition-transform rounded-xl hover:bg-white/50 group" href="community.html">
+                        <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">group</span>
+                        <span class="text-sm font-medium">Community</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Canvas -->
+        <section class="flex-1 space-y-12 pb-24">
+            <!-- Profile Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">Member Profile</span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-headline tracking-tight text-on-surface">Alex Dev</h2>
+                    <p class="text-secondary max-w-md">Senior Frontend Engineer & Cloud Architect.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="px-6 py-3 bg-surface-container-high text-on-surface rounded-xl font-bold text-sm hover:bg-surface-dim transition-colors active:scale-95">Edit Profile</button>
+                    <button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-bold text-sm kinetic-gradient shadow-md hover:opacity-90 transition-opacity active:scale-95">Share Profile</button>
+                </div>
+            </div>
+
+            <!-- Custom Tabs -->
+            <div class="flex gap-8 border-b border-outline-variant/15 overflow-x-auto pb-px">
+                <button class="pb-4 text-sm font-bold border-b-2 border-primary text-primary transition-all" id="btn_certifications">Certifications</button>
+                <button class="pb-4 text-sm font-medium text-secondary hover:text-on-surface transition-all" id="settings">Settings</button>
+                <button class="pb-4 text-sm font-medium text-secondary hover:text-on-surface transition-all" id="preferences">Preferences</button>
+                <button class="pb-4 text-sm font-medium text-secondary hover:text-on-surface transition-all" id="privicies">Privacy</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Achievements Wall -->
+                <div class="lg:col-span-1 bg-surface-container-low rounded-2xl p-8 space-y-6" id="section_certifications">
+                    <h3 class="text-xl font-bold font-headline">Achievements</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <!-- Badges -->
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-14 h-14 rounded-full bg-white shadow-sm flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+                            </div>
+                            <span class="text-[10px] text-center font-bold text-secondary uppercase">Code Master</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden lg:col-span-3" id="section_settings">
+                    <div class="md:col-span-1 bg-surface-container-low p-6 rounded-xl">
+                        <div class="bg-surface-container-lowest p-8 rounded-lg flex flex-col items-center gap-4 text-center">
+                            <div class="relative group">
+                                <div class="w-32 h-32 rounded-full overflow-hidden ring-4 ring-primary-container">
+                                    <img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8EdZlrbo0o9nwFY0zSmY93I38dVbrqfLBY4GNeDDbVTYlagWtEm0j_dlgoS0_dEdMOG50lA7rN2D1iI7T-s9qGURiSfbEyLBVS8qbgBCfXzvrQVF-MK3ayWZVMo9DeoX5x1MtneM35Wlnc6kKnl1aVlGc6KX8KZU6mMkxPNtaTeiFEHqLk0If17GtgFnsUyYlXYQQTHFyAJIQasvkumG4XcBLFhokB6B1THggxFP968kE34_MJrZjB2ahlUPlTnW0iMyucdqO-WRO"/>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-headline font-bold text-on-surface">Profile Photo</p>
+                                <p class="text-xs text-on-surface-variant mt-1">PNG, JPG up to 10MB</p>
+                            </div>
+                            <button class="w-full py-2 bg-secondary-container text-on-secondary-container rounded-lg font-label text-sm hover:bg-surface-container-high transition-colors">Replace</button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 bg-surface-container-low p-6 rounded-xl space-y-6">
+                        <div class="bg-surface-container-lowest p-6 rounded-lg">
+                            <h3 class="font-headline font-bold text-on-surface mb-6">Personal Information</h3>
+                            <div class="space-y-4">
+                                <input class="w-full border p-3 rounded-xl" type="text" value="Alex Rivera"/>
+                                <input class="w-full border p-3 rounded-xl" type="email" value="alex.rivera@devrak.io"/>
+                            </div>
+                        </div>
+                        <div class="bg-surface-container-lowest p-6 rounded-lg">
+                    <h3 class="font-headline font-bold text-on-surface mb-6">Professional Context</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="font-label text-xs font-semibold text-on-surface-variant px-1">ROLE</label>
+                            <select class="w-full bg-surface-container-lowest border-outline-variant/15 border text-on-surface rounded-xl p-3 focus:border-primary focus:ring-0 transition-all font-body text-sm appearance-none outline-none">
+                            <option>Senior Developer</option>
+                            <option>Product Designer</option>
+                            <option>DevOps Engineer</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-label text-xs font-semibold text-on-surface-variant px-1">LOCATION</label>
+                            <input class="w-full bg-surface-container-lowest border-outline-variant/15 border text-on-surface rounded-xl p-3 focus:border-primary focus:ring-0 transition-all font-body text-sm outline-none" type="text" value="San Francisco, CA"/>
+                        </div>
+                    </div>
+                </div>
+                        <div class="flex items-center justify-end gap-4 pt-4">
+                            <button class="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-bold">Save Changes</button>
+                        </div>
+                    </div>
+                    <!-- Professional Info -->
+                
+              
+                    
+                </div>
+                
+
+                <!-- Preferences Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden lg:col-span-3" id="section_preferences">
+                    <!-- Appearance Section: Bento Large -->
+                    <section class="col-span-1 lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(44,47,49,0.04)]">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-secondary-container">palette</span>
+                            </div>
+                            <h3 class="text-xl font-semibold font-headline">Appearance</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <button class="group relative flex flex-col items-center gap-4 p-4 rounded-xl border-2 border-primary ring-offset-4 ring-primary-container/20 transition-all">
+                                <div class="w-full aspect-[4/3] rounded-lg bg-surface border border-outline-variant/20 overflow-hidden relative shadow-sm">
+                                    <div class="absolute inset-0 p-3 flex flex-col gap-2">
+                                        <div class="h-2 w-2/3 bg-outline-variant/30 rounded-full"></div>
+                                        <div class="h-2 w-full bg-outline-variant/20 rounded-full"></div>
+                                        <div class="mt-auto h-6 w-full bg-white rounded shadow-sm"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    <span class="font-medium text-primary">Light Mode</span>
+                                </div>
+                            </button>
+                            <button class="group relative flex flex-col items-center gap-4 p-4 rounded-xl border-2 border-transparent hover:bg-surface-container-low transition-all">
+                                <div class="w-full aspect-[4/3] rounded-lg bg-[#0b0f10] border border-outline-variant/20 overflow-hidden relative shadow-sm">
+                                    <div class="absolute inset-0 p-3 flex flex-col gap-2">
+                                        <div class="h-2 w-2/3 bg-slate-700 rounded-full"></div>
+                                        <div class="h-2 w-full bg-slate-800 rounded-full"></div>
+                                        <div class="mt-auto h-6 w-full bg-slate-900 rounded shadow-sm"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-on-surface-variant">dark_mode</span>
+                                    <span class="font-medium text-on-surface-variant">Dark Mode</span>
+                                </div>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- Interface Language -->
+                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(44,47,49,0.04)] flex flex-col">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-tertiary-container">language</span>
+                            </div>
+                            <h3 class="text-xl font-semibold font-headline">Language</h3>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <label class="text-xs font-bold uppercase tracking-wider text-outline mb-3">System Language</label>
+                            <div class="relative">
+                                <select class="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 appearance-none focus:ring-2 focus:ring-primary cursor-pointer text-on-surface font-medium">
+                                    <option value="en">English (US)</option>
+                                    <option value="fr">French (Français)</option>
+                                    <option value="es">Spanish (Español)</option>
+                                    <option value="de">German (Deutsch)</option>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">unfold_more</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant mt-4 leading-relaxed">System text, emails, and notifications will be sent in your preferred language.</p>
+                        </div>
+                    </section>
+                    <!-- Learning Path: Multi-grid module -->
+<section class="col-span-1 lg:col-span-3 bg-surface-container-lowest p-10 rounded-xl shadow-[0px_4px_20px_rgba(44,47,49,0.04)] grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="text-xl font-semibold font-headline">Weekly Learning Goal</h3>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<span class="text-3xl font-black font-headline text-primary">12 <span class="text-sm font-medium text-on-surface-variant">hours / week</span></span>
+<span class="text-sm text-on-surface-variant">Optimal Growth</span>
+</div>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" max="40" min="1" type="range" value="12"/>
+<div class="flex justify-between text-xs font-bold text-outline uppercase tracking-widest">
+<span>1h</span>
+<span>20h</span>
+<span>40h+</span>
+</div>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+</div>
+<h3 class="text-xl font-semibold font-headline">Primary Tech Focus</h3>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="px-4 py-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-sm font-semibold flex items-center gap-2">
+<span>TypeScript</span>
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</div>
+<div class="px-4 py-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-sm font-semibold flex items-center gap-2">
+<span>Next.js</span>
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</div>
+<div class="px-4 py-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-sm font-semibold flex items-center gap-2">
+<span>Tailwind CSS</span>
+<span class="material-symbols-outlined text-base" data-icon="close">close</span>
+</div>
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant rounded-full text-sm font-semibold border border-dashed border-outline-variant flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="add">add</span>
+<span>Add Focus</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Privacy Section -->
+<section class="col-span-1 lg:col-span-3 bg-surface-container-low p-10 rounded-xl">
+<div class="flex items-center gap-3 mb-10">
+<div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+</div>
+<h3 class="text-xl font-semibold font-headline">Privacy &amp; Visibility</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="flex items-start justify-between p-6 bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="flex-1 pr-6">
+<h4 class="font-bold text-on-surface mb-1">Public Profile</h4>
+<p class="text-sm text-on-surface-variant">Allow other members to view your projects and certifications.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none">
+<span class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-white transition-transform"></span>
+</button>
+</div>
+<div class="flex items-start justify-between p-6 bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="flex-1 pr-6">
+<h4 class="font-bold text-on-surface mb-1">Show Progress in Community</h4>
+<p class="text-sm text-on-surface-variant">Display your current learning milestones on the global leaderboard.</p>
+</div>
+<button class="relative inline-flex h-6 w-11 items-center rounded-full bg-outline-variant transition-colors focus:outline-none">
+<span class="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-white transition-transform"></span>
+</button>
+</div>
+</div>
+</section>
+</div>
+                </div>
+                <!-- Privacy Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 hidden lg:col-span-3" id="section_privicies">
+                    <section class="bg-surface-container-low p-10 rounded-xl col-span-1 lg:col-span-3">
+                        <header class="mb-12">
+<h1 class="font-headline text-4xl font-bold text-on-surface mb-2">Privacy &amp; Security</h1>
+<p class="text-on-surface-variant max-w-2xl">Manage how your data is handled and secure your Devrak account with enterprise-grade encryption controls.</p>
+</header>
+<!-- Bento Layout for Settings -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Section 1: Data Privacy -->
+<section class="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 shadow-[0px_4px_20px_rgba(44,47,49,0.04)]">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">visibility</span>
+<h2 class="text-xl font-headline font-semibold">Data Privacy</h2>
+</div>
+<div class="space-y-8">
+<div class="flex items-center justify-between group">
+<div class="max-w-md">
+<p class="font-semibold text-on-surface">Public Profile visibility</p>
+<p class="text-sm text-on-surface-variant mt-1">Allow other users to find and view your technical contributions and public repositories.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between group">
+<div class="max-w-md">
+<p class="font-semibold text-on-surface">Search engine indexing</p>
+<p class="text-sm text-on-surface-variant mt-1">Let Google, Bing, and other search engines index your profile and public project pages.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between group">
+<div class="max-w-md">
+<p class="font-semibold text-on-surface">Usage analytics</p>
+<p class="text-sm text-on-surface-variant mt-1">Share anonymized platform usage data to help us improve the Kinetic Lab experience.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 2: Security Side-Panel -->
+<section class="lg:col-span-4 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<h2 class="text-xl font-headline font-semibold">Security</h2>
+</div>
+<div class="space-y-4">
+<button class="w-full text-left p-4 bg-surface-container-lowest rounded-lg group hover:ring-2 hover:ring-primary-container transition-all">
+<div class="flex items-center justify-between">
+<p class="text-sm font-semibold">Change Password</p>
+<span class="material-symbols-outlined text-outline-variant text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</button>
+<button class="w-full text-left p-4 bg-surface-container-lowest rounded-lg group hover:ring-2 hover:ring-primary-container transition-all">
+<div class="flex items-center justify-between mb-2">
+<p class="text-sm font-semibold">Two-Factor Auth</p>
+<span class="px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold rounded-full uppercase tracking-wider">Active</span>
+</div>
+<p class="text-[10px] text-on-surface-variant">Your account is protected with TOTP authentication.</p>
+</button>
+<button class="w-full text-left p-4 bg-surface-container-lowest rounded-lg group hover:ring-2 hover:ring-primary-container transition-all">
+<div class="flex items-center justify-between">
+<p class="text-sm font-semibold">Manage Active Sessions</p>
+<span class="material-symbols-outlined text-outline-variant text-sm">devices</span>
+</div>
+</button>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-outline-variant/15">
+<div class="flex items-center gap-3 text-primary-dim">
+<span class="material-symbols-outlined text-sm">history</span>
+<p class="text-[10px] font-medium uppercase tracking-widest">Last login: 2 hours ago from San Francisco, CA</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Data Management (Wide Footer Section) -->
+<section class="lg:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/10">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline font-semibold text-lg mb-2">Download My Data</h3>
+<p class="text-sm text-on-surface-variant mb-6">Get a copy of all your activity, files, and account metadata in a portable JSON format.</p>
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-xl font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Download Archive
+                            </button>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-5xl text-surface-container-high">database</span>
+</div>
+</div>
+</div>
+<div class="bg-error-container/5 rounded-xl p-8 border border-error/10">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline font-semibold text-lg text-error mb-2">Delete Account</h3>
+<p class="text-sm text-on-surface-variant mb-6">Permanently remove your account and all associated data. This action cannot be undone.</p>
+<button class="px-6 py-2.5 bg-error text-on-error rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-error-dim transition-all">
+<span class="material-symbols-outlined text-sm">delete_forever</span>
+                                Delete Account
+                            </button>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-5xl text-error/20">warning</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Visual Hint -->
+<footer class="mt-16 flex justify-center opacity-30">
+<div class="flex items-center gap-2">
+<div class="w-8 h-1 bg-primary rounded-full"></div>
+<div class="w-1 h-1 bg-primary rounded-full"></div>
+<div class="w-1 h-1 bg-primary rounded-full"></div>
+</div>
+</footer>
+                    </section>
+                </div>
+
+                <!-- Completed Certificates -->
+                <div class="lg:col-span-2 space-y-6" id="section_completed_certificates">
+                    <h3 class="text-xl font-bold font-headline px-2">Completed Certificates</h3>
+                    <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col md:flex-row gap-6 hover:shadow-lg transition-shadow">
+                        <div class="w-full md:w-32 h-24 bg-surface-container rounded-lg overflow-hidden shrink-0">
+                            <img alt="Cert" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL44jEjF2eDVydUx6kXYwwI1yz_WkNvSYlWMEdhqJFLIVnGOR7lvu1U4sArzo8klYIB_LUSBC9JGIq9PptiJx5ys14ljNjOfcVLIIHGCm0lW_Xr58_KvTWMU3WfZ7UzlzLMQS4YktHzu0N0PF3XK7BOELvE6SRaN1V_PTBsLiUWd9cGhwvwT7xFjjzK15kLzZX0Oq8FJTzI_iha9c0xUfqhrkUmKoaJZn70ogXcuSud2C28Nj4vtATCOWr1nmmv2z43f0Gz0VziRz"/>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg font-headline">Advanced React & Component Architecture</h4>
+                            <p class="text-sm text-secondary">Completed Mar 12, 2024</p>
+                            <button class="mt-4 bg-surface-container-low px-4 py-2 rounded-lg text-xs font-bold hover:bg-surface-container-high transition-colors">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stats Module -->
+            <div class="bg-surface-container-lowest rounded-3xl p-10 border border-outline-variant/10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center md:text-left">
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2">Kinetic Score</p>
+                        <p class="text-3xl font-bold font-headline">94 <span class="text-sm font-medium text-primary-dim">/ 100</span></p>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2">Projects Completed</p>
+                        <p class="text-3xl font-bold font-headline">34</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            
+        </section>
+    </div>
+</main>
+
+<script>
+    const btnCert = document.getElementById('btn_certifications');
+    const btnSettings = document.getElementById('settings');
+    const btnPref = document.getElementById('preferences');
+    const btnPriv = document.getElementById('privicies');
+
+    const sectionCert = document.getElementById('section_certifications');
+    const sectionSettings = document.getElementById('section_settings');
+    const sectionPref = document.getElementById('section_preferences');
+    const sectionPriv = document.getElementById('section_privicies');
+    const sectionCompletedCert = document.getElementById('section_completed_certificates');
+
+    const tabs = [btnCert, btnSettings, btnPref, btnPriv];
+    const sections = [sectionCert, sectionSettings, sectionPref, sectionPriv];
+
+    function hideAll() {
+        sections.forEach(s => { if(s) s.classList.add('hidden') });
+        if(sectionCompletedCert) sectionCompletedCert.classList.add('hidden');
+        tabs.forEach(t => {
+            if(t) {
+                t.classList.remove('border-b-2', 'border-primary', 'text-primary', 'font-bold');
+                t.classList.add('text-secondary', 'font-medium');
+            }
+        });
+    }
+
+    if (btnSettings) {
+        btnSettings.addEventListener('click', () => {
+            hideAll();
+            btnSettings.classList.add('border-b-2', 'border-primary', 'text-primary', 'font-bold');
+            btnSettings.classList.remove('text-secondary', 'font-medium');
+            sectionSettings.classList.remove('hidden');
+        });
+    }
+
+    if (btnCert) {
+        btnCert.addEventListener('click', () => {
+            hideAll();
+            btnCert.classList.add('border-b-2', 'border-primary', 'text-primary', 'font-bold');
+            btnCert.classList.remove('text-secondary', 'font-medium');
+            sectionCert.classList.remove('hidden');
+            if(sectionCompletedCert) sectionCompletedCert.classList.remove('hidden');
+        });
+    }
+
+    if (btnPref) {
+        btnPref.addEventListener('click', () => {
+            hideAll();
+            btnPref.classList.add('border-b-2', 'border-primary', 'text-primary', 'font-bold');
+            btnPref.classList.remove('text-secondary', 'font-medium');
+            sectionPref.classList.remove('hidden');
+        });
+    }
+
+    if (btnPriv) {
+        btnPriv.addEventListener('click', () => {
+            hideAll();
+            btnPriv.classList.add('border-b-2', 'border-primary', 'text-primary', 'font-bold');
+            btnPriv.classList.remove('text-secondary', 'font-medium');
+            sectionPriv.classList.remove('hidden');
+        });
+    }
+</script>
+</body></html>

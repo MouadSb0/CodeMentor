@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CodeMentor - Join the Ecosystem</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-dim": "#455064",
+                        "outline": "#747779",
+                        "on-tertiary-fixed": "#001737",
+                        "on-error-container": "#570008",
+                        "on-primary-fixed": "#00363e",
+                        "surface-bright": "#f5f7f9",
+                        "tertiary-fixed-dim": "#6aa3ff",
+                        "on-primary-fixed-variant": "#005561",
+                        "tertiary": "#005ab3",
+                        "secondary": "#515c70",
+                        "outline-variant": "#abadaf",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-secondary": "#eff2ff",
+                        "surface-dim": "#d0d5d8",
+                        "surface-container": "#e5e9eb",
+                        "on-background": "#2c2f31",
+                        "surface-tint": "#006573",
+                        "inverse-primary": "#3adffa",
+                        "error-container": "#fb5151",
+                        "surface-variant": "#d9dde0",
+                        "inverse-surface": "#0b0f10",
+                        "surface-container-high": "#dfe3e6",
+                        "tertiary-fixed": "#84b1ff",
+                        "on-secondary-container": "#475266",
+                        "inverse-on-surface": "#9a9d9f",
+                        "error-dim": "#9f0519",
+                        "on-tertiary-fixed-variant": "#003874",
+                        "on-surface": "#2c2f31",
+                        "on-error": "#ffefee",
+                        "on-secondary-fixed-variant": "#515c70",
+                        "tertiary-container": "#84b1ff",
+                        "primary-fixed": "#3adffa",
+                        "primary-fixed-dim": "#1ad0eb",
+                        "on-tertiary-container": "#003064",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#3adffa",
+                        "primary-dim": "#005865",
+                        "surface-container-low": "#eef1f3",
+                        "tertiary-dim": "#004e9d",
+                        "primary": "#006573",
+                        "on-tertiary": "#eff2ff",
+                        "background": "#f5f7f9",
+                        "on-primary-container": "#004b56",
+                        "secondary-fixed-dim": "#cad5ed",
+                        "on-secondary-fixed": "#354053",
+                        "error": "#b31b25",
+                        "on-primary": "#daf8ff",
+                        "surface": "#f5f7f9",
+                        "on-surface-variant": "#595c5e",
+                        "surface-container-highest": "#d9dde0",
+                        "secondary-container": "#d8e3fb"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7f9;
+            color: #2c2f31;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #006573 0%, #3adffa 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#D0E3E6] selection:bg-primary-container selection:text-on-primary-container">
+<header class="bg-[#D0E3E6] dark:bg-slate-950 fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 mx-auto max-w-7xl">
+<div class="flex items-center gap-2">
+<span class="w-[35%]"><img src="img/logo.png" alt=""></span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-slate-500 text-sm font-medium">Do not have an account yet?</span>
+<a href="register.html" class="text-primary font-semibold hover:text-primary-dim transition-colors text-sm">Sign Up</a>
+</div>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-12 px-6 flex flex-col items-center justify-center">
+<div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<section class="lg:col-span-5 space-y-8">
+<div>
+<h1 class="text-5xl md:text-7xl font-headline font-bold text-on-surface leading-[1.1] tracking-tight">
+                        Welcome Back <br/><span class="text-primary">Genius</span>
+</h1>
+<p class="mt-6 text-body-md text-on-surface-variant max-w-md leading-relaxed">
+                        Scale your development velocity with the next generation of modular architecture. Connect, build, and deploy within the Kinetic Lab.
+                    </p>
+</div>
+
+</section>
+<section class="lg:col-span-7">
+<div class="bg-surface-container-lowest rounded-xl p-8 md:p-12 shadow-[0_10px_40px_rgba(0,101,115,0.06)] border border-outline-variant/15">
+<form class="space-y-6">
+<label class="text-xs font-semibold text-on-surface-variant px-1">Email</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all outline-none text-on-surface placeholder:text-outline-variant" placeholder="exemple@gmail.com" type="text"/>
+
+<div class="space-y-2">
+<label class="text-xs font-semibold text-on-surface-variant px-1">Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/20 transition-all outline-none text-on-surface placeholder:text-outline-variant" placeholder="••••••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline-variant" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+
+<div class="flex items-start gap-3 py-2">
+<div class="flex items-center h-5">
+<input class="w-5 h-5 rounded border-outline-variant/30 text-primary focus:ring-primary/20 bg-surface-container-low cursor-pointer" id="terms" type="checkbox"/>
+</div>
+<label class="text-sm text-on-surface-variant leading-tight cursor-pointer" for="terms">
+                            Keep me Login.
+                            </label>
+</div>
+<button class="w-full kinetic-gradient text-on-primary font-bold py-4 rounded-xl shadow-lg shadow-primary/20 active:scale-[0.98] transition-all hover:brightness-110 flex items-center justify-center gap-2" type="submit">
+<span>Create Account</span>
+<span class="material-symbols-outlined text-xl" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<div class="mt-8 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-4">
+<span class="text-xs font-medium text-outline">Or sign in with</span>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg bg-surface-container border border-outline-variant/10 hover:bg-surface-container-high transition-colors text-sm font-medium">
+<img alt="" class="w-4 h-4" data-alt="Official Google G logo in bright primary colors against a transparent background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJCd8pMytsgukfgrQH_vEAojXI8w3oR9twbPQOTQcekkr2IxsqTNO4vXPjbNJpJkyVAlIfgUjE78xfy9m44jrM48UmuA10nxgoxra-5oaoCRmvZ9zKe3gD8W_ziAG1R00R90yISdi65k-v7XHreIbDSRCuhWrdHqdSXtwsffsDS3rtPtvOOdzmWkTWjg_wsmhlJniguoK7KTICcglKOPDjZi_-xoIqEE2xK58z2_KyFX4uSEpfqAUuacVEOoVGxgWYVVriQbFNzhau"/>
+                                Google
+                            </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2 rounded-lg bg-surface-container border border-outline-variant/10 hover:bg-surface-container-high transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                                GitHub
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<div class="fixed bottom-12 right-12 hidden xl:block">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-outline-variant/10 max-w-xs animate-float">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant font-label">System Status</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-normal">
+                Node groups in <span class="text-primary font-bold">us-east-1</span> are operating at optimal capacity. Ecosystem invites are currently open.
+            </p>
+</div>
+</div>
+<footer class="mt-auto py-8 text-center border-t border-outline-variant/5">
+<p class="text-label-md text-outline">© 2024 CodeMentor ARCHITECTURE SYSTEMS. ALL RIGHTS RESERVED.</p>
+</footer>
+</body></html>

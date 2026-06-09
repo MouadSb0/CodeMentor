@@ -1,0 +1,139 @@
+classDiagram
+    %% Core User Management
+    class User {
+        +int id
+        +string full_name
+        +string password
+        -string role
+        -bool is_admin
+        +string github_account
+        +string email
+        +string specialization
+        +timestamp email_verified_at
+        +bool log_in_status
+        +role()
+    }
+    class Profile {
+        +int id
+        +int user_id
+        +text bio
+        +string avatar
+        +string skill_level
+        +int years_experience
+        +string image
+    }
+    class AccountPreference {
+        +int id
+        +int user_id
+        +string theme
+        +string language
+        +bool profile_is_public
+    }
+    class AccountGoal {
+        +int id
+        +int user_id
+        +int hours
+        +string tech
+    }
+    %% Learning Content
+    class Course {
+        +int id
+        +string title
+        +text description
+        +string type
+        +string level
+        +uuid publisher_id
+        +int duration
+        +string playlist_link
+        +string image
+    }
+    class Module {
+        +int id
+        +int course_id
+        +string title
+        +int subsciption
+    }
+    class Exercice {
+        +int id
+        +int module_id
+        +string status
+        +text submitted_code
+        +text solution_code
+    }
+    class Quiz {
+        +int id
+        +int module_id
+        +string title
+        +json questions
+    
+    }
+    %% Community & Social
+    class Disccussion {
+        +int id
+        +int user_id
+        +string title
+        +text content
+        +bigint views
+    }
+    class Comment {
+        +int id
+        +int user_id
+        +int commentable_id
+        +string commentable_type
+        +text content
+    }
+    class Message {
+        +int id
+        +int sender_id
+        +int receiver_id
+        +text content
+        +datetime sent_at
+        +datetime viewed_at
+    }
+    class Group {
+        +int id
+        +string name
+        +text description
+        +int moderator_id
+        +string cover
+        
+    }
+    %% Outcomes & System
+    class Certification {
+        +int id
+        +int user_id
+        +int course_id
+        +date issue_date
+        +int progression
+    }
+    class Achivement {
+        +int id
+        +int user_id
+        +string badge_type
+        +int points
+    }
+    class Notification {
+        +int id
+        +int user_id
+        +string type
+        +json data
+        +timestamp read_at
+    }
+    %% Relationships
+    User "1" -- "0..1" Profile : has
+    User "1" -- "0..1" AccountPreference : configures
+    User "1" -- "*" Course : teaches
+    User "1" -- "*" Disccussion : starts
+    User "1" -- "*" Comment : writes
+    User "1" -- "*" Message : sends/receives
+    User "1" -- "*" Certification : earns
+    User "1" -- "*" Achivement : unlocks
+    User "1" -- "*" Notification : receives
+    Course "1" -- "*" Module : contains
+    Module "1" -- "*" Exercice : includes
+    Module "1" -- "*" Quiz : includes
+    Course "1" -- "*" Certification : awards
+    Disccussion "1" -- "*" Comment : has
+    Exercice "1" -- "*" Comment : has (polymorphic)
+    Group "1" -- "*" User : contains
+    Profile "1" -- "0..1" AccountGoal : has
