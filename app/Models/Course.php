@@ -80,7 +80,7 @@ class Course extends Model
                 return asset($value);
             }
 
-            return asset('storage/' . $value);
+            return asset('storage/courses' . $value);
         }
 
         // Fallback gradient placeholder via picsum

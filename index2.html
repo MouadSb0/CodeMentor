@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#9a9d9f",
+                    "outline": "#747779",
+                    "surface": "#f5f7f9",
+                    "primary-fixed": "#3adffa",
+                    "primary-dim": "#005865",
+                    "secondary-dim": "#455064",
+                    "on-tertiary-container": "#003064",
+                    "on-surface-variant": "#595c5e",
+                    "primary": "#006573",
+                    "error": "#b31b25",
+                    "primary-container": "#3adffa",
+                    "secondary-fixed-dim": "#cad5ed",
+                    "error-container": "#fb5151",
+                    "on-primary-fixed-variant": "#005561",
+                    "on-primary": "#daf8ff",
+                    "on-background": "#2c2f31",
+                    "on-secondary-fixed-variant": "#515c70",
+                    "on-error-container": "#570008",
+                    "on-secondary": "#eff2ff",
+                    "error-dim": "#9f0519",
+                    "surface-variant": "#d9dde0",
+                    "surface-container-high": "#dfe3e6",
+                    "inverse-surface": "#0b0f10",
+                    "inverse-primary": "#3adffa",
+                    "tertiary-fixed-dim": "#6aa3ff",
+                    "secondary-fixed": "#d8e3fb",
+                    "on-secondary-container": "#475266",
+                    "background": "#f5f7f9",
+                    "tertiary-fixed": "#84b1ff",
+                    "on-primary-container": "#004b56",
+                    "on-primary-fixed": "#00363e",
+                    "outline-variant": "#abadaf",
+                    "surface-container-low": "#eef1f3",
+                    "surface-dim": "#d0d5d8",
+                    "primary-fixed-dim": "#1ad0eb",
+                    "tertiary-container": "#84b1ff",
+                    "secondary-container": "#d8e3fb",
+                    "on-tertiary-fixed-variant": "#003874",
+                    "on-error": "#ffefee",
+                    "surface-tint": "#006573",
+                    "surface-bright": "#f5f7f9",
+                    "tertiary-dim": "#004e9d",
+                    "on-secondary-fixed": "#354053",
+                    "on-tertiary": "#eff2ff",
+                    "secondary": "#515c70",
+                    "tertiary": "#005ab3",
+                    "surface-container-highest": "#d9dde0",
+                    "on-tertiary-fixed": "#001737",
+                    "on-surface": "#2c2f31",
+                    "surface-container": "#e5e9eb",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f5f7f9; color: #2c2f31; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .kinetic-grid {
+            background-image: radial-gradient(#00657315 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #006573 0%, #3adffa 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopAppBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-slate-900">DEVRAK</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-slate-600 hover:text-cyan-500 transition-colors duration-200" href="#">Academy</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-slate-600 hover:text-cyan-500 transition-colors duration-200" href="#">Code Lab</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-slate-600 hover:text-cyan-500 transition-colors duration-200" href="#">Community</a>
+<a class="font-['Space_Grotesk'] font-bold uppercase tracking-tight text-slate-600 hover:text-cyan-500 transition-colors duration-200" href="#">Career</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-slate-600 font-medium hover:text-primary transition-colors">Sign In</button>
+<button class="hero-gradient text-on-primary px-6 py-2 rounded-xl font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative kinetic-grid min-h-[819px] flex items-center overflow-hidden">
+<div class="max-w-7xl mx-auto px-8 w-full grid lg:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<span class="inline-block py-1 px-3 bg-primary-container/30 text-on-primary-container font-label text-sm font-bold tracking-widest uppercase rounded-full mb-6">Plateforme de Nouvelle Génération</span>
+<h1 class="text-6xl md:text-7xl font-headline font-bold leading-[1.1] mb-6 tracking-tight">
+                        Apprenez la <span class="text-primary">programmation</span> autrement...
+                    </h1>
+<p class="text-xl text-on-surface-variant max-w-xl mb-10 leading-relaxed">
+                        Ne vous contentez pas de regarder des vidéos. Construisez des projets réels assistés par IA et rejoignez une élite de développeurs passionnés.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="hero-gradient text-on-primary px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/25 transition-transform hover:-translate-y-1">Commencer l'Aventure</button>
+<button class="bg-surface-container-low text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-high transition-colors">Découvrir le Lab</button>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<div class="aspect-square bg-gradient-to-tr from-primary/10 to-primary-container/20 rounded-full blur-3xl absolute -inset-10"></div>
+<div class="relative bg-surface-container-lowest p-8 rounded-xl shadow-2xl shadow-primary/10 border border-outline-variant/10">
+<img class="rounded-lg w-full object-cover" data-alt="clean coding interface on a laptop screen with elegant ambient lighting and futuristic cyan data visualization overlays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUDWtQYFTlLYbKd_x91kILyGR34GWApZAZqs4AqBXhLENo8ANDJqSaspO50pzJturHxGI3-yXTXIKB_Q-EcXBuHWhYm_AtyylIlMU5wmTAD1JMA6kfvuJQE8DC4MhHzxrIIaQK4KLX-QwfQam7ezqMu6thHIrccXMgV3mr5WO0vz9lyuhT4WvmT-xoc1Td4z-35jaJaDAafjJbfCkUnrRUGtEg7Duod-TK1domra8ShfMpL33_9BsxEAVdIa4qdgfWk8EzKAB3g27h"/>
+<div class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-4 rounded-xl shadow-xl flex items-center gap-4">
+<div class="h-12 w-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<div>
+<p class="text-xs font-label uppercase font-bold tracking-tighter text-outline">Progrès Actuel</p>
+<p class="text-lg font-headline font-bold">React Architecture 85%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4 Pillars Section -->
+<section class="py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-16">
+<h2 class="text-4xl font-headline font-bold mb-4">L'Écosystème Devrak</h2>
+<p class="text-on-surface-variant max-w-2xl">Quatre piliers conçus pour vous propulser d'étudiant à ingénieur logiciel confirmé.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Academy -->
+<div class="bg-surface-container-lowest p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="school">school</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-3 uppercase tracking-tight">ACADEMY</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Parcours structurés, du fondamentaux aux technologies les plus avancées du marché.</p>
+<a class="text-primary font-bold inline-flex items-center gap-2 group" href="#">
+                            Learn More <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- Code Lab -->
+<div class="bg-surface-container-lowest p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-3 uppercase tracking-tight">CODE LAB</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Un bac à sable intelligent pour pratiquer en temps réel avec des retours IA instantanés.</p>
+<a class="text-primary font-bold inline-flex items-center gap-2 group" href="#">
+                            Learn More <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- Community -->
+<div class="bg-surface-container-lowest p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-3 uppercase tracking-tight">COMMUNITY</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Collaborez sur des projets Open Source et apprenez au contact des meilleurs mentors.</p>
+<a class="text-primary font-bold inline-flex items-center gap-2 group" href="#">
+                            Learn More <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<!-- Career -->
+<div class="bg-surface-container-lowest p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="work">work</span>
+</div>
+<h3 class="text-xl font-headline font-bold mb-3 uppercase tracking-tight">CAREER</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Préparation technique et accès direct à notre réseau d'entreprises partenaires.</p>
+<a class="text-primary font-bold inline-flex items-center gap-2 group" href="#">
+                            Learn More <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Solution/Problem Section -->
+<section class="py-32 bg-surface">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col lg:flex-row gap-20 items-center">
+<div class="lg:w-1/2">
+<h2 class="text-4xl md:text-5xl font-headline font-bold leading-tight mb-8">Stop au cauchemar de tout apprenant</h2>
+<div class="space-y-12">
+<div class="flex gap-6">
+<span class="text-primary font-headline text-5xl font-bold opacity-20">01</span>
+<div>
+<h4 class="text-xl font-bold mb-2">Trop de théorie, pas de pratique</h4>
+<p class="text-on-surface-variant">L'apprentissage passif ne mène nulle part. Chez Devrak, vous commencez à coder dès la première minute.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="text-primary font-headline text-5xl font-bold opacity-20">02</span>
+<div>
+<h4 class="text-xl font-bold mb-2">Seul face à l'erreur</h4>
+<p class="text-on-surface-variant">Notre Code Lab IA analyse vos erreurs en temps réel et vous guide sans jamais donner la réponse brute.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<span class="text-primary font-headline text-5xl font-bold opacity-20">03</span>
+<div>
+<h4 class="text-xl font-bold mb-2">Des cours périmés</h4>
+<p class="text-on-surface-variant">Le web change chaque jour. Nos contenus sont mis à jour continuellement pour refléter les standards de 2024.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 grid grid-cols-2 gap-4">
+<div class="space-y-4 pt-12">
+<img class="rounded-xl w-full h-64 object-cover" data-alt="close-up of clean code on a monitor in a modern studio environment with soft blue accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBewqssSuyuvElFolWt62kHv1mtPIXjD4jYU0fWY55xOKaNUYeBrN-1FHUGAyq50Lg3xtTQdaHdJN5FH1ChSbGUdYIKSuyXh0jz17zLHFOFGduZXuHGJAMy9-t5EKspJKDFAxYUxcQ8OQ4CIs9nxsZpuwD1gnmS_1XBj7ssNcy15xmPs0bdMvn3YQDpMgqgCmpNEg59Yn-sbVdQYD5En7MGi3SOY2ybKpxXAAk4VDxLsA4JvznOlpoMIIGPtJoLuODXaDfIibzSMNer"/>
+<div class="bg-primary-container p-6 rounded-xl">
+<p class="text-on-primary-container font-headline font-bold text-2xl">+5000</p>
+<p class="text-on-primary-container text-sm opacity-80">Étudiants Actifs</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-high p-6 rounded-xl">
+<p class="font-headline font-bold text-2xl">94%</p>
+<p class="text-on-surface-variant text-sm">Taux d'embauche</p>
+</div>
+<img class="rounded-xl w-full h-80 object-cover" data-alt="a collaborative team of young developers discussing a software project around a minimal desk in a bright office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9OtKlJnSme1MaDKT50tH8Tsaa1JGhbqxnNuMvGZ2aZBRlMJetTmcFNxVob5FHy9z4eC6FhKuTH9mdgJHH-pRVaHLiYudUwl3EHhKD8f2n_QqKXV6Z4X7r15lU1o-yhD0mb6Mf7WsCfGBTefIFyllvcs4Z9rL_spoz1ec4omJat7y41skcCHubTU0upQA-OSdSMlneTVGL4CmbXfCF34tYvzenfg20CYtB1vU9Ejwoa3hZSQ-PVYuHxEuw2YQYS8h4sA4eZ8ecJ7A_"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Roadmap/Process -->
+<section class="py-24 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8 text-center mb-16">
+<h2 class="text-4xl font-headline font-bold mb-4">Votre voyage vers l'excellence</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Une méthodologie simplifiée pour des résultats concrets.</p>
+</div>
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12 relative">
+<div class="absolute top-1/2 left-0 w-full h-px bg-outline-variant/30 hidden md:block -z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-16 h-16 bg-surface-container-lowest border-4 border-primary rounded-full flex items-center justify-center font-headline font-bold text-xl mb-6 shadow-xl">1</div>
+<h4 class="font-bold text-lg mb-2">Choisissez</h4>
+<p class="text-sm text-on-surface-variant">Définissez votre stack idéale</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-16 h-16 bg-surface-container-lowest border-4 border-primary rounded-full flex items-center justify-center font-headline font-bold text-xl mb-6 shadow-xl">2</div>
+<h4 class="font-bold text-lg mb-2">Apprenez</h4>
+<p class="text-sm text-on-surface-variant">Pratiquez avec le Code Lab</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-16 h-16 bg-surface-container-lowest border-4 border-primary rounded-full flex items-center justify-center font-headline font-bold text-xl mb-6 shadow-xl">3</div>
+<h4 class="font-bold text-lg mb-2">Débloquez</h4>
+<p class="text-sm text-on-surface-variant">Obtenez vos certifications</p>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-16 h-16 bg-surface-container-lowest border-4 border-primary rounded-full flex items-center justify-center font-headline font-bold text-xl mb-6 shadow-xl">4</div>
+<h4 class="font-bold text-lg mb-2">Partagez</h4>
+<p class="text-sm text-on-surface-variant">Intégrez notre réseau pro</p>
+</div>
+</div>
+</section>
+<!-- Code Lab Demo -->
+<section class="py-32 bg-surface kinetic-grid">
+<div class="max-w-5xl mx-auto px-8">
+<div class="bg-inverse-surface rounded-xl overflow-hidden shadow-2xl">
+<div class="bg-on-surface-variant/20 px-6 py-3 flex items-center justify-between border-b border-white/5">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-400"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+<div class="w-3 h-3 rounded-full bg-green-400"></div>
+</div>
+<div class="text-xs font-mono text-white/40">CODE LAB v2.4 - Artificial Intelligence Debugger</div>
+</div>
+<div class="p-8 grid md:grid-cols-2 gap-8">
+<div class="font-mono text-sm leading-relaxed text-blue-300">
+<p class="text-white/40 mb-4">// Debugging your component...</p>
+<span class="text-purple-400">const</span> <span class="text-yellow-200">DevrakApp</span> = () =&gt; {<br/>
+                              <span class="text-purple-400">const</span> [status, setStatus] = <span class="text-yellow-200">useState</span>(<span class="text-green-300">'learning'</span>);<br/><br/>
+                              <span class="text-purple-400">return</span> (<br/>
+                                &lt;<span class="text-pink-400">div</span> <span class="text-blue-200">className</span>=<span class="text-green-300">"kinetic"</span>&gt;<br/>
+                                  &lt;<span class="text-pink-400">h1</span>&gt;Hello World&lt;/<span class="text-pink-400">h1</span>&gt;<br/>
+                                &lt;/<span class="text-pink-400">div</span>&gt;<br/>
+                              );<br/>
+                            }
+                        </div>
+<div class="bg-white/5 rounded-lg p-6 border border-white/10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="smart_toy">smart_toy</span>
+<span class="text-white font-bold">IA Devrak</span>
+</div>
+<p class="text-white/80 text-sm mb-6 leading-relaxed">
+                                "Je remarque que vous utilisez 'useState' sans l'importer de la bibliothèque React. Souhaitez-vous que j'ajoute l'importation au sommet du fichier ?"
+                            </p>
+<button class="w-full py-2 bg-primary-fixed text-on-primary-fixed font-bold rounded-lg text-sm transition-transform active:scale-95">Corriger l'erreur</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof/Stats -->
+<section class="py-24 text-center">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="text-5xl md:text-7xl font-headline font-bold mb-6 leading-tight">
+                    De <span class="text-outline-variant">"Hello World"</span><br/>à votre <span class="text-primary italic">premier job.</span>
+</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto text-lg mb-12">
+                    Plus qu'une formation, un accélérateur de carrière. Nous avons aidé des milliers d'apprenants à transformer leur passion en métier.
+                </p>
+<div class="flex justify-center flex-wrap gap-8">
+<div class="px-8 py-4 bg-surface-container-low rounded-xl">
+<p class="text-3xl font-headline font-bold text-primary">150k+</p>
+<p class="text-xs font-label uppercase tracking-widest text-outline">Lignes de code produites</p>
+</div>
+<div class="px-8 py-4 bg-surface-container-low rounded-xl">
+<p class="text-3xl font-headline font-bold text-primary">12</p>
+<p class="text-xs font-label uppercase tracking-widest text-outline">Pays représentés</p>
+</div>
+<div class="px-8 py-4 bg-surface-container-low rounded-xl">
+<p class="text-3xl font-headline font-bold text-primary">24h</p>
+<p class="text-xs font-label uppercase tracking-widest text-outline">Temps de réponse mentorat</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-24 px-8">
+<div class="max-w-7xl mx-auto hero-gradient rounded-[2.5rem] p-12 md:p-20 text-center text-on-primary overflow-hidden relative">
+<div class="absolute inset-0 bg-white/5 pointer-events-none kinetic-grid"></div>
+<h2 class="text-4xl md:text-6xl font-headline font-bold mb-8 relative z-10">Prêt à transformer votre avenir ?</h2>
+<p class="text-xl opacity-90 mb-12 max-w-xl mx-auto relative z-10">Rejoignez la promotion 2024 et commencez à bâtir dès aujourd'hui.</p>
+<div class="relative z-10 flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-white text-primary px-10 py-5 rounded-xl font-bold text-xl shadow-2xl transition-transform hover:scale-105">S'inscrire Maintenant</button>
+<button class="bg-primary-dim/30 text-white border border-white/20 backdrop-blur-md px-10 py-5 rounded-xl font-bold text-xl">Consulter les Tarifs</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-12 bg-slate-100 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto">
+<div class="mb-8 md:mb-0 text-left">
+<div class="text-xl font-bold text-slate-900 mb-2">DEVRAK</div>
+<p class="text-slate-500 font-['Inter'] text-sm tracking-wide max-w-xs">
+                    L'excellence de la programmation accessible à tous.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-8 mb-8 md:mb-0">
+<a class="text-slate-500 font-['Inter'] text-sm tracking-wide hover:underline hover:text-cyan-400" href="#">Privacy Policy</a>
+<a class="text-slate-500 font-['Inter'] text-sm tracking-wide hover:underline hover:text-cyan-400" href="#">Terms of Service</a>
+<a class="text-slate-500 font-['Inter'] text-sm tracking-wide hover:underline hover:text-cyan-400" href="#">Github</a>
+<a class="text-slate-500 font-['Inter'] text-sm tracking-wide hover:underline hover:text-cyan-400" href="#">Discord</a>
+</div>
+<div class="text-slate-500 font-['Inter'] text-sm tracking-wide text-center md:text-right">
+<p>© 2024 Devrak. All rights reserved.</p>
+<div class="mt-4 flex gap-4 justify-center md:justify-end">
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-cyan-100 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="alternate_email">alternate_email</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center hover:bg-cyan-100 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-sm" data-icon="language">language</span>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
