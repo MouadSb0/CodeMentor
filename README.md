@@ -11,8 +11,9 @@ An interactive learning platform that teaches programming through hands-on cours
 
 **[Live Demo](https://your-demo-link.com)** ·
 
-<img width="1896" height="897" alt="Image" src="https://github.com/user-attachments/assets/3c3ee5ca-e30b-4b19-ae95-c4487f572c9a" />
+
 <img width="1897" height="913" alt="Image" src="https://github.com/user-attachments/assets/ae175578-6482-4ea0-a95d-0d21187511e4" />
+<img width="1896" height="897" alt="Image" src="https://github.com/user-attachments/assets/3c3ee5ca-e30b-4b19-ae95-c4487f572c9a" />
 <img width="1896" height="897" alt="Image" src="https://github.com/user-attachments/assets/7dab28f1-687f-4fee-9485-8fa5f59b5744" />
 <img width="1897" height="902" alt="Image" src="https://github.com/user-attachments/assets/f6673606-86d7-47ec-9d1a-cf3a64a31bb2" />
 ---
