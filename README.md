@@ -1,59 +1,269 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CodeMentor Interactive
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=flat-square&logo=stripe&logoColor=white)
 
-## About Laravel
+An interactive learning platform that teaches programming through hands-on courses, live code exercises, and AI-assisted code generation — all explained pedagogically, not just handed to you.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**[Live Demo](https://your-demo-link.com)** ·
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![CodeMentor Interactive dashboard](./docs/screenshot-dashboard.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+CodeMentor Interactive combines three things that usually live in separate tools:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Structured courses** you work through at your own pace
+- **A real code execution environment** so you run what you write, not just read about it
+- **An AI code generator** that explains its output, so you learn *why* the code works
 
-## Laravel Sponsors
+The goal is to shorten the gap between reading about programming and actually being able to do it. Content adapts to the learner's level, and everything runs in a sandboxed environment — no local setup required.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Built by **DevLearn Solutions**.
 
-### Premium Partners
+## Who it's for
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **Computer science students (18–25)** looking for resources that go beyond lecture slides
+- **Self-taught learners (20–35)** who want to learn at their own pace
+- **Teachers and instructors** who need interactive teaching tools
+- **Junior developers** looking for practical, hands-on exercises
+
+## Why CodeMentor
+
+Most platforms solve one part of the problem. CodeMentor combines the pieces:
+
+| Platform | What it lacks |
+|---|---|
+| W3Schools | Static content, no integrated execution environment, no code generation |
+| Codecademy | Paid, limited personalization, no intelligent code generation |
+| freeCodeCamp | Free but dated interface, no AI integration |
+| LeetCode | Interview-focused, not pedagogical |
+| GitHub Learning Lab | Tied to GitHub, steep for beginners |
+
+CodeMentor's difference: **generated code that's explained**, content that **adapts to the learner's level**, and a **sandboxed execution environment** built in — not bolted on.
+
+## Features
+
+### Learning
+- Interactive courses with live code examples
+- Hands-on exercises executed in a sandboxed environment
+- AI code generation with pedagogical explanations
+- Content adapted to the learner's skill level
+- Smart search by language, difficulty, and concept (variables, loops, functions, ...)
+- Filters for duration, popularity, rating, and prerequisites
+- Personal notes editor attached to each lesson
+
+### Accounts
+- Email and password registration
+- OAuth login via Google and GitHub
+- Profile with skill level, achievement badges, and learning history
+
+### Community
+- Comments and 5-star ratings on every lesson
+- Favorites and direct sharing
+- Themed forums by language and topic
+- Friend referrals with rewards
+
+### Platform
+- Progressive Web App — installable on desktop and mobile
+- Offline access to downloaded courses (code execution disabled offline)
+- Push and email notifications for progress reminders and new content
+- Learning agenda with Google Calendar / Outlook sync
+- Accessibility: colorblind mode, adjustable font size, full keyboard navigation
+
+### Payments
+- Stripe and PayPal
+- Monthly and annual subscriptions
+- Promo codes for school partnerships
+- One-time payment for certifications
+
+## Plans
+
+| | Free | Premium — €9.99/mo |
+|---|---|---|
+| Basic courses | ✅ | ✅ |
+| Simple exercises | ✅ | ✅ |
+| Advanced courses | — | ✅ |
+| Unlimited code generation | — | ✅ |
+| Guided projects | — | ✅ |
+| Certificates | — | ✅ |
+
+Institutional plans available for schools and universities.
+
+## Admin & Roles
+
+### Access levels
+1. **Super Admin** — all accounts, system configuration, global statistics
+2. **Content Admin** — create/edit/delete courses, validate submitted exercises, moderate forums
+3. **Instructor** — build custom learning paths, track students, manually grade exercises
+4. **Support** — user tickets and technical assistance
+
+### Managed entities
+- **Courses** — full CRUD with rich editor
+- **Exercises** — exercise database with solutions
+- **Users** — enable/disable, manual badge assignment, password resets
+- **Payments** — subscription management, transaction history, invoice generation
+- **Analytics** — engagement dashboard, completion rates per course, difficulty hotspots
+
+### Exports
+- User lists as CSV with progress
+- Monthly usage statistics as PDF
+- Personalized certificates as PDF
+- Course content backup as JSON
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React · TypeScript · PWA |
+| Backend | [Node.js / NestJS / FastAPI — see note] |
+| Database | PostgreSQL |
+| Cache | Redis |
+| Code Execution | Judge0 |
+| AI | [OpenAI API / custom model] |
+| Auth | Firebase Auth / Auth0 |
+| Payments | Stripe · PayPal |
+| Email | SendGrid / Mailgun |
+| CDN | Cloudflare |
+| Monitoring | Sentry · Google Analytics |
+| Infra | Docker · CI/CD |
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- [Docker](https://www.docker.com/) (for PostgreSQL and Redis)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/MouadSaber/codementor-interactive.git
+cd codementor-interactive
+npm install
+```
+
+### Environment variables
+
+Create a `.env.local` in the project root:
+
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/codementor
+
+# Redis
+REDIS_URL=redis://localhost:6379
+
+# Auth
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# Third-party services
+JUDGE0_API_KEY=
+OPENAI_API_KEY=
+STRIPE_SECRET_KEY=
+SENDGRID_API_KEY=
+```
+
+### Run the development environment
+
+```bash
+# Start PostgreSQL and Redis
+docker compose up -d
+
+# Run migrations
+npm run db:migrate
+
+# Start the dev server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Build for production
+
+```bash
+npm run build
+npm run start
+```
+
+## Project Structure
+
+```
+codementor-interactive/
+├── src/
+│   ├── components/       # Reusable UI components
+│   ├── pages/            # Route-level views
+│   ├── features/         # Feature modules (courses, exercises, generator)
+│   ├── lib/              # Utilities and service clients
+│   ├── hooks/            # Custom React hooks
+│   └── styles/           # Tailwind config and global styles
+├── server/               # API and background jobs
+├── prisma/               # Database schema and migrations
+├── public/               # Static assets
+└── docker-compose.yml
+```
+
+## Deployment
+
+Three environments, managed with admin access for the team:
+
+| Environment | Purpose |
+|---|---|
+| Development | Local and feature work |
+| Staging | Pre-release testing |
+| Production | Public release |
+
+- **Daily automated database backups**
+- **SSL** via Let's Encrypt or equivalent
+- **Scalability** — serverless or containerized architecture
+- **CI/CD** pipeline for automated builds and deploys
+
+## Design
+
+- **Primary** `#2563EB` — trust, technology
+- **Accent** `#10B981` — learning, growth
+- **Background** `#F3F4F6`
+- **Typography** — Inter (UI), Fira Code / JetBrains Mono (code)
+
+Interface inspired by **VS Code** (professional developer tooling) and **Duolingo** (gamified progression). Deliberately avoiding the cluttered multi-panel layouts common in older LMS platforms.
+
+## Roadmap
+
+### v1.0 — MVP
+- [ ] User accounts and OAuth
+- [ ] Course catalog with search and filters
+- [ ] Sandboxed code execution (Judge0)
+- [ ] AI code generation with explanations
+- [ ] Stripe subscriptions
+- [ ] Admin back office
+
+### Phase 2
+- [ ] Direct messaging between users
+- [ ] Mentorship and virtual pair programming
+- [ ] Instructor-created custom learning paths
+- [ ] Course marketplace
+
+### Phase 3
+- [ ] Native iOS and Android apps
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+[Add contribution guidelines, or delete this section for a solo project.]
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](./LICENSE) — or delete this section if you're not adding a license.
+
+## Contact
+
+**Mouad Saber** — [LinkedIn](https://www.linkedin.com/in/mouad-sbaer-1499a0374/) · [Portfolio](https://mouadsbaer.github.io/portfolio/) · mouadsbaer@gmail.com
